@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones">
+        <item>Clasificacion 1</item>
+        <item>Clasificacion 2</item>
+        <item>Clasificacion 3</item>
+        <item>Clasificacion 4</item>
+    </string-array>
+
+    <string-array name="Raza">
+        <item>Raza 1</item>
+        <item>Raza 2</item>
+        <item>Raza 3</item>
+        <item>Raza 4</item>
+
+    </string-array>
+
+    <string-array name="Proposito">
+        <item>Proposito 1</item>
+        <item>Proposito 2</item>
+        <item>Proposito 3</item>
+        <item>Proposito 4</item>
+    </string-array>
+
+    <string-array name="Genero">
+        <item>Macho</item>
+        <item>Hembra</item>
+    </string-array>
+
+    <string-array name="Finca">
+        <item>Finca 1</item>
+        <item>Finca 2</item>
+        <item>Finca 3</item>
+        <item>Finca 4</item>
+    </string-array>
+</resources>

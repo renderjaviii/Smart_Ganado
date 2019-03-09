@@ -1,13 +1,15 @@
-package com.app.smartganado.smart_ganado;
+package com.app.smartganado.smart_ganado.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.app.smartganado.smart_ganado.R;
+
+public class SigninActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
     }
 }
