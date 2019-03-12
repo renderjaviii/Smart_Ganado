@@ -6,4 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".view.LoginActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="154dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.206"
+        app:srcCompat="@drawable/logo" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="57dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="347dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="282dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="365dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="456dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="544dp" />
+
+    <EditText
+        android:id="@+id/Phone_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Telefono"
+        android:inputType="phone"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline31"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+
+    <EditText
+        android:id="@+id/Contraseña_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+    <Button
+        android:id="@+id/Ingresar_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Ingresar"
+        app:layout_constraintBottom_toTopOf="@+id/guideline33"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
 </android.support.constraint.ConstraintLayout>
