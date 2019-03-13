@@ -33,3 +33,4 @@ public class NewUserActivity extends AppCompatActivity {
 
     }
 }
+
