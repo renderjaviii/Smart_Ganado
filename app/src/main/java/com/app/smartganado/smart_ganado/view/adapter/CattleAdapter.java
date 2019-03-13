@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.app.smartganado.smart_ganado.R;
@@ -26,23 +25,24 @@ public class CattleAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-
         final View vista = inflater.inflate(R.layout.cattle_adapter,null);
+            TextView Codigo = (TextView) vista.findViewById(R.id.InfoCodigo);
+            TextView Finca = (TextView) vista.findViewById(R.id.InfoFinca);
+            TextView Raza = (TextView) vista.findViewById(R.id.InfoRaza);
 
-        TextView Codigo = (TextView) vista.findViewById(R.id.InfoCodigo);
-        TextView Finca = (TextView) vista.findViewById(R.id.InfoFinca);
-        TextView Raza = (TextView) vista.findViewById(R.id.InfoRaza);
+            ImageView imagen = (ImageView) vista.findViewById(R.id.ivImagen);
 
-        ImageView imagen = (ImageView) vista.findViewById(R.id.ivImagen);
-        //RatingBar calificacion = (RatingBar) vista.findViewById(R.id.ratingBarPel);
+            //RatingBar calificacion = (RatingBar) vista.findViewById(R.id.ratingBarPel);
 
-        Codigo.setText(datos[i][0]);
-        Finca.setText(datos[i][1]);
-        Raza.setText(datos[i][2]);
-        imagen.setImageResource(datosImg[i]);
+            Codigo.setText(datos[i][0]);
+            Finca.setText(datos[i][1]);
+            Raza.setText(datos[i][2]);
+            imagen.setImageResource(datosImg[i]);
 
-        return vista;
-    }
+            return vista;
+
+        }
+
     @Override
     public int getCount() {
         return datosImg.length;
