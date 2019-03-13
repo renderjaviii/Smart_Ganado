@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.app.smartganado.smart_ganado.R;
@@ -39,7 +40,6 @@ public class CattleAdapter extends BaseAdapter {
         Finca.setText(datos[i][1]);
         Raza.setText(datos[i][2]);
         imagen.setImageResource(datosImg[i]);
-
 
         return vista;
     }
