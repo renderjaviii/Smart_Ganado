@@ -13,6 +13,7 @@ public class Cattle {
     private String foto;
     private String detalles;
 
+
     public Cattle(int id, String nombre, int id_Lote, int id_Raza, int id_Proposito, int id_Genero, int edad, double peso, String foto, String detalles) {
         this.id = id;
         this.nombre = nombre;

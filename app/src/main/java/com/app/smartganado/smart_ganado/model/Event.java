@@ -12,9 +12,6 @@ public class Event implements Serializable {
     private String detalles;
     private String encargado;
 
-    public Event() {
-    }
-
     public Event(Date fecha, int id_Finca, int id_tipo_evento, String nombre, String detalles, String encargado) {
         this.fecha = fecha;
         this.id_Finca = id_Finca;

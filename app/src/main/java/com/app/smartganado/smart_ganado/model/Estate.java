@@ -16,6 +16,7 @@ public class Estate {
         this.ubicacion = ubicacion;
     }
 
+
     @Override
     public String toString() {
         return "{" + nombre + ", " + id + ", " + area + ", " + foto + "}";

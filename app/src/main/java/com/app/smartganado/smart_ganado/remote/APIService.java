@@ -22,7 +22,6 @@ public interface APIService {
 
 
     //Get entities
-
     @POST("BBDD/")
     Call<List<Breed>> getBreed(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);//Retorna una lista de estates
 
@@ -70,6 +69,7 @@ public interface APIService {
      @Query("username") String username,
      @Query("password") String password
      );
+
 
      @FormUrlEncoded
      @POST("product") Call<SimpleResponse> postNewProduct(

@@ -18,6 +18,7 @@ public class User implements Serializable {
         this.id_Rol = id_rol;
     }
 
+
     public int getTelefono() {
         return telefono;
     }
