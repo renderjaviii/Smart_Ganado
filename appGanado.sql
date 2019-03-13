@@ -73,6 +73,7 @@ create table Usuario(
 	telefono integer,
 	id_Rol integer REFERENCES Rol(id) ON DELETE CASCADE,
 	nombre varchar(255),
+	password varchar(255),
 	correo varchar(255),
 	foto varchar(255),
 	primary key(Telefono)
@@ -115,6 +116,7 @@ create table Tipo_Historia(
 create table Cuaderno_Historias_Ganado(
 	id serial,
 	id_Ganado integer REFERENCES Ganado(id) ON DELETE CASCADE,
+	id_Tipo_Historia REFERENCES Tipo_Historia(id) ON DELETE CASCADE,
 	nombre_Historia varchar(255),
 	fecha date,
 	detalles varchar(255),
