@@ -29,3 +29,4 @@ public class Lot implements Serializable {
         this.nombre = nombre;
     }
 }
+

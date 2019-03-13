@@ -8,8 +8,6 @@ public class Tank implements Serializable {
     private String nombre;
     private Double capacidad;
 
-    public Tank() {
-    }
 
     public Tank(int Id, String nombre, Double Capacidad) {
         this.id = Id;
