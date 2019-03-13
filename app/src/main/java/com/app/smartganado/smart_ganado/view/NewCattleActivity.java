@@ -1,8 +1,8 @@
 package com.app.smartganado.smart_ganado.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -10,10 +10,20 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.Cattle;
+import com.app.smartganado.smart_ganado.remote.APIService;
+import com.app.smartganado.smart_ganado.remote.APIUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewCattleActivity extends AppCompatActivity {
     Spinner opciones, Raza, Proposito, Genero;
-    EditText TXTcodigo,TXTedad, TXTPeso;
+    EditText TXTcodigo, TXTedad, TXTPeso;
+
+    public APIService myApiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,24 +51,43 @@ public class NewCattleActivity extends AppCompatActivity {
         Genero.setAdapter(adapter5);
 
 
-
         //TXT Codigo, edad, Peso
-        TXTcodigo = (EditText)findViewById(R.id.Codigo);
-        TXTedad = (EditText)findViewById(R.id.EdadGanado);
-        TXTPeso = (EditText)findViewById(R.id.Peso);
+        TXTcodigo = (EditText) findViewById(R.id.Codigo);
+        TXTedad = (EditText) findViewById(R.id.EdadGanado);
+        TXTPeso = (EditText) findViewById(R.id.Peso);
+
+
+        Cattle cattle = new Cattle(1, "Vaca leal", 1, 1, 1, 1, 1, 1, "url", "");
+        //insert a new cattle
+        if (myApiService == null)
+            myApiService = APIUtils.getAPIService();
+
+        myApiService.insertCattle("insert", "cattle" , getIntent().getIntExtra("phone", 0), cattle).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful())
+                    Toast.makeText(getApplicationContext(), response.body() ? "Se insertó" : "No se insertó", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     //Metodo para el mensaje del ButtomImage
-    public void MensajePrueba(View view){
-        Toast.makeText(this,"Cambiar imagen", Toast.LENGTH_SHORT).show();
+    public void MensajePrueba(View view) {
+        Toast.makeText(this, "Cambiar imagen", Toast.LENGTH_SHORT).show();
     }
 
     //Metodo para la validacion de los campos
-    public void Registro(View view){
-        if(TXTcodigo.getText().toString().isEmpty() || TXTedad.getText().toString().isEmpty() || TXTPeso.getText().toString().isEmpty()){
-            Toast.makeText( this,"Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this,"Registrado",Toast.LENGTH_SHORT).show();
+    public void Registro(View view) {
+        if (TXTcodigo.getText().toString().isEmpty() || TXTedad.getText().toString().isEmpty() || TXTPeso.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
         }
 
 

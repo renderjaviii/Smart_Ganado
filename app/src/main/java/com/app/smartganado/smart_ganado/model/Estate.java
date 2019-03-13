@@ -1,17 +1,23 @@
-package com.app.smartganado.model;
+package com.app.smartganado.smart_ganado.model;
 
-//Entity class from database
 public class Estate {
 
-    public int Id;
-    public String Nombre;
-    public String Foto;
-    public int Area;
+    private int id;
+    private String nombre;
+    private double area;
+    private String foto;
+    private String ubicacion;
 
-    public Estate(int id, String nombre, String foto, int area) {
-        Id = id;
-        Nombre = nombre;
-        Foto = foto;
-        Area = area;
+    public Estate(int id, String nombre, double area, String foto, String ubicacion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.area = area;
+        this.foto = foto;
+        this.ubicacion = ubicacion;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + nombre + ", " + id + ", " + area + ", " + foto + "}";
     }
 }

@@ -5,6 +5,12 @@
     <string name="title_view_cattles">Ganado</string>
     <string name="title_view_events">Eventos</string>
     <string name="title_view_indicators">Indicadores</string>
+ <string name="title_new_cattle">Nueva cabeza de ganado</string>
+    <string name="title_new_estate">Nueva finca</string>
+
+
+
+
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
