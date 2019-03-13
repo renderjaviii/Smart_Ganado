@@ -32,8 +32,8 @@
         <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.NewUserActivity" />
-        <activity android:name=".view.NewCattleActivity" />
-        <activity android:name=".view.NewEstateActivity" />
+
+
         <activity
             android:name=".view.ViewEstateActivity"
             android:label="@string/title_view_estates"
@@ -45,6 +45,18 @@
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
         <activity
+            android:name=".view.NewEstateActivity"
+            android:label="@string/title_new_estate"
+            android:parentActivityName=".view.ViewEstateActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
+        </activity>
+
+
+        <activity
             android:name=".view.ViewCattleActivity"
             android:label="@string/title_view_cattles"
             android:parentActivityName=".view.HomeActivity"
@@ -54,6 +66,18 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
+        <activity
+            android:name=".view.NewCattleActivity"
+            android:label="@string/title_new_cattle"
+            android:parentActivityName=".view.ViewCattleActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
+        </activity>
+
+
     </application>
 
 </manifest>

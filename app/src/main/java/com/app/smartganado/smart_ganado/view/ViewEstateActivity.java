@@ -13,13 +13,23 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.Estate;
+import com.app.smartganado.smart_ganado.remote.APIService;
+import com.app.smartganado.smart_ganado.remote.APIUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //lee grace 63 liam fraser 60 darragh leahy 55
 public class ViewEstateActivity extends AppCompatActivity {
     ListView finca;
     ArrayAdapter<String> adapter;
+    public APIService myApiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +37,34 @@ public class ViewEstateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_estate);
         finca = (ListView) findViewById(R.id.finca);
 
-        Log.i("Inicio ", "Inicio APP");
-
 
         ArrayList<String> names = new ArrayList<>();
-
         adapter = new ArrayAdapter<String>(ViewEstateActivity.this, android.R.layout.simple_list_item_1, names);
         finca.setAdapter(adapter);
+
+
+        //List of States (esto no tiene que ir en el onCreate())
+        Log.i("server", "Peticion");
+        if (myApiService == null)
+            myApiService = APIUtils.getAPIService();
+
+        myApiService.getEstate("getAll", "estate", getIntent().getIntExtra("phone",0)).enqueue(new Callback<List<Estate>>() {
+            @Override
+            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
+                if (response.isSuccessful()) {
+                    for (Estate estate : response.body())
+                        Log.i("server", estate.toString());
+
+                } else Log.i("server", "error on response");
+            }
+
+            @Override
+            public void onFailure(Call<List<Estate>> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
