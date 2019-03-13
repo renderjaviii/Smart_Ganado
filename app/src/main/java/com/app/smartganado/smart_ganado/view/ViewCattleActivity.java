@@ -1,8 +1,11 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.app.smartganado.smart_ganado.R;
@@ -18,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewCattleActivity extends AppCompatActivity {
+    FloatingActionButton FABAgregar_Ganado;
     ListView ListaGanados;
     String[][] datos = {
             {"1234", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
@@ -33,11 +37,21 @@ public class ViewCattleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_view_cattle);
 
         ListaGanados = (ListView) findViewById(R.id.listaGanado);
 
         ListaGanados.setAdapter(new CattleAdapter(this, datos, datosImg));
+
+        FABAgregar_Ganado = findViewById(R.id.Agregar_Ganado);
+        FABAgregar_Ganado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent miIntent = new Intent(ViewCattleActivity.this, NewCattleActivity.class);
+                startActivity(miIntent);
+            }
+        });
 
         init();
     }
@@ -63,6 +77,6 @@ public class ViewCattleActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 }
