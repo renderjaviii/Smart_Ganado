@@ -25,9 +25,10 @@ import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    public static int phoneUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
@@ -46,13 +47,33 @@ public class HomeActivity extends AppCompatActivity {
         navigationViewHome.setOnNavigationItemSelectedListener(navigationBottonListener);
 
         loadFragment(new TasksFragment());
+
+        //Obtener el telefono del usuario
+        phoneUser = getIntent().getIntExtra("phone" , 0);//0 en caso de que no le llegue nada
     }
 
+    public void openEventsModule(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
+        startActivity(intent);
+    }
 
     public void openIndicatorsModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
         startActivity(intent);
     }
+
+    public void openCattleModule(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
+        intent.putExtra("phone", phoneUser);
+        startActivity(intent);
+    }
+
+    public void openEstatesModule(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewEstateActivity.class);
+        intent.putExtra("phone", phoneUser);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -148,16 +169,6 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    public void openCattleModule(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
-        startActivity(intent);
-    }
-
-    public void openEstatesModule(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewEstateActivity.class);
-        startActivity(intent);
     }
 
 
