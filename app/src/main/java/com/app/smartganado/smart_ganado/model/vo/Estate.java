@@ -1,4 +1,4 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 public class Estate {
 
@@ -15,6 +15,7 @@ public class Estate {
         this.foto = foto;
         this.ubicacion = ubicacion;
     }
+
 
     @Override
     public String toString() {

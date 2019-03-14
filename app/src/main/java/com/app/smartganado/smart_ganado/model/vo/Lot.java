@@ -1,13 +1,13 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
-public class Purpose implements Serializable {
+public class Lot implements Serializable {
 
     private int id;
     private String nombre;
 
-    public Purpose(int id, String nombre) {
+    public Lot(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -28,3 +28,4 @@ public class Purpose implements Serializable {
         this.nombre = nombre;
     }
 }
+

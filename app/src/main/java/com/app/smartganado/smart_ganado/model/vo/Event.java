@@ -1,4 +1,4 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -11,9 +11,6 @@ public class Event implements Serializable {
     private String nombre;
     private String detalles;
     private String encargado;
-
-    public Event() {
-    }
 
     public Event(Date fecha, int id_Finca, int id_tipo_evento, String nombre, String detalles, String encargado) {
         this.fecha = fecha;

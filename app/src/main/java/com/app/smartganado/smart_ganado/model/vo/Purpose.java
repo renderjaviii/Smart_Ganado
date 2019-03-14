@@ -1,14 +1,13 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
-import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 
-public class Lot implements Serializable {
+public class Purpose implements Serializable {
 
     private int id;
     private String nombre;
 
-    public Lot(int id, String nombre) {
+    public Purpose(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -29,3 +28,4 @@ public class Lot implements Serializable {
         this.nombre = nombre;
     }
 }
+

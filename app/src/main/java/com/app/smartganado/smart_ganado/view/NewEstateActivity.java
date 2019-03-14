@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.Estate;
+import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
@@ -55,7 +55,7 @@ public class NewEstateActivity extends AppCompatActivity {
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.insertEstate("insert", "estate", getIntent().getIntExtra("phone", 0), estate).enqueue(new Callback<Boolean>() {
+        myApiService.insertEstate("insert", "estate", 1, estate).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 Toast.makeText(getApplicationContext(), response.body() ? "Se insertó" : "No se insertó", Toast.LENGTH_SHORT).show();

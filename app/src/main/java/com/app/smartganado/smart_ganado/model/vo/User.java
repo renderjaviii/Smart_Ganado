@@ -1,4 +1,4 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
@@ -17,6 +17,7 @@ public class User implements Serializable {
         this.foto = foto;
         this.id_Rol = id_rol;
     }
+
 
     public int getTelefono() {
         return telefono;
