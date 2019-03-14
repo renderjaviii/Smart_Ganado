@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.Cattle;
+import com.app.smartganado.smart_ganado.model.CattleStoryBook;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
@@ -21,12 +22,13 @@ import retrofit2.Response;
 public class NewCattleActivity extends AppCompatActivity {
     Spinner opciones, Raza, Proposito, Genero;
     EditText TXTcodigo, TXTedad, TXTPeso;
-
+    Cattle cattle;
     public APIService myApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cattle = new Cattle();
         setContentView(R.layout.activity_new_cattle);
 
         //Spinner Clasificacion, Raza, Proposito, Genero
@@ -56,6 +58,9 @@ public class NewCattleActivity extends AppCompatActivity {
         TXTedad = (EditText) findViewById(R.id.EdadGanado);
         TXTPeso = (EditText) findViewById(R.id.Peso);
 
+        cattle.setId(Integer.parseInt(TXTcodigo.toString()));
+        cattle.setEdad(Integer.parseInt(TXTedad.toString()));
+        cattle.setEdad(Integer.parseInt(TXTPeso.toString()));
 
         Cattle cattle = new Cattle(1, "Vaca leal", 1, 1, 1, 1, 1, 1, "url", "");
         //insert a new cattle
