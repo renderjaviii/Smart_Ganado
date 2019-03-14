@@ -1,7 +1,5 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
-import com.google.gson.annotations.Expose;
-
 //Raza
 public class Breed {
 
@@ -12,7 +10,6 @@ public class Breed {
         this.id = id;
         this.nombre = nombre;
     }
-
 
     public int getId() {
         return id;

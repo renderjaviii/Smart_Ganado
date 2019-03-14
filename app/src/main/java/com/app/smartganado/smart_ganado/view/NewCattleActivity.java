@@ -68,7 +68,6 @@ public class NewCattleActivity extends AppCompatActivity {
                 if (response.isSuccessful())
                     Toast.makeText(getApplicationContext(), response.body() ? "Se insertó" : "No se insertó", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();

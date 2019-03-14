@@ -15,10 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".view.ViewHistoryBookActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_view_history_book"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:name=".view.History_Book_Activity"
+            android:label="@string/title_activity_history__book_"></activity>
         <activity android:name=".view.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,8 +30,6 @@
         <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.NewUserActivity" />
-
-
         <activity
             android:name=".view.ViewEstateActivity"
             android:label="@string/title_view_estates"
@@ -54,8 +50,6 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
-
-
         <activity
             android:name=".view.ViewCattleActivity"
             android:label="@string/title_view_cattles"
@@ -76,8 +70,6 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
-
-
     </application>
 
 </manifest>

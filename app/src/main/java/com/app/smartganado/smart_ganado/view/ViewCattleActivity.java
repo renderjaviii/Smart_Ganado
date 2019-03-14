@@ -30,10 +30,8 @@ public class ViewCattleActivity extends AppCompatActivity {
             {"4567a", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
     };
 
-    List<Cattle> cattleList;
-
+    private List<Cattle> cattleList;
     int[] datosImg = {R.drawable.vaca1, R.drawable.vaca2, R.drawable.vaca3, R.drawable.vaca4};
-
     private APIService myApiService;
 
     @Override
@@ -54,7 +52,6 @@ public class ViewCattleActivity extends AppCompatActivity {
                 startActivity(miIntent);
             }
         });
-
         init();
     }
 
@@ -69,9 +66,8 @@ public class ViewCattleActivity extends AppCompatActivity {
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
                 if (response.isSuccessful()) //Se valida que la respuesta sea correcta
                     for (Cattle cattle : response.body())
-                        Log.i("server ", cattle.toString());
+                        cattleList.add(cattle);
                 else Log.i("server", "Error on response");
-
             }
 
             @Override

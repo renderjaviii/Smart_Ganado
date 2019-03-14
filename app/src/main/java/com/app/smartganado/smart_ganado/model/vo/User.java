@@ -9,15 +9,27 @@ public class User implements Serializable {
     private String correo;
     private String foto;
     private int id_Rol;
+    public String contraseña;
 
-    public User(int telefono, String nombre, String correo, String foto, int id_rol) {
+    public User(int telefono, String nombre, String correo, String foto, int id_rol, String contraseña) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.correo = correo;
         this.foto = foto;
         this.id_Rol = id_rol;
+        this.contraseña = contraseña;
     }
 
+    public User() {
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
     public int getTelefono() {
         return telefono;
