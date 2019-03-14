@@ -21,6 +21,7 @@ public interface APIService {
 
 
     //Get entities
+
     @POST("BBDD/")
     Call<List<Breed>> getBreed(@Header("action") String actionName, @Header("entity") String entityName);//Retorna una lista de estates
 
@@ -43,7 +44,7 @@ public interface APIService {
     Call<List<Lot>> getLot(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
-    Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityNamer);
+    Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
     Call<List<User>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
@@ -63,13 +64,12 @@ public interface APIService {
      @Field("extension") String extension,
      @Field("user_id") String user_id
      );
-     
+
 
      @GET("login") Call<LoginResponse> getLogin(
      @Query("username") String username,
      @Query("password") String password
      );
-
 
      @FormUrlEncoded
      @POST("product") Call<SimpleResponse> postNewProduct(
