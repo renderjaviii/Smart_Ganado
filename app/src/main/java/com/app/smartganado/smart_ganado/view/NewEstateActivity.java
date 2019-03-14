@@ -24,12 +24,11 @@ public class NewEstateActivity extends AppCompatActivity {
     EditText Nombre_Finca;
     EditText Tamaño_Finca;
     EditText Direccion_Finca;
-    TextView a;
+
     public APIService myApiService;
 
 
-    private static Socket s;
-    String msg = "";
+
 
 
     @Override
@@ -40,15 +39,14 @@ public class NewEstateActivity extends AppCompatActivity {
         Nombre_Finca = (EditText) findViewById(R.id.Nombre_Finca);
         Tamaño_Finca = (EditText) findViewById(R.id.Tamaño_Finca);
         Direccion_Finca = (EditText) findViewById(R.id.Direccion_Finca);
-        a = (TextView) findViewById(R.id.textView16);
+
 
     }
 
     public void onClick(View view) {
-        msg = Nombre_Finca.getText().toString();
-        a.setText(msg);
 
-        Estate estate = new Estate(100,"Finquio",12,"url","");//aqui lee de los componentes
+
+        Estate estate = new Estate(100,Nombre_Finca.toString(),2.0,"url",Direccion_Finca.toString());//aqui lee de los componentes
 
         //insert new estate
         Log.i("server", "Peticion");

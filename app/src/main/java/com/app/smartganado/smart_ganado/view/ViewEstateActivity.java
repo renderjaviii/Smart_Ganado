@@ -29,40 +29,20 @@ public class ViewEstateActivity extends AppCompatActivity {
     ListView finca;
     ArrayAdapter<String> adapter;
     public APIService myApiService;
-
+    private int userPhone;
+    private List<String> names = new ArrayList<>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
         finca = (ListView) findViewById(R.id.finca);
-
-
-        ArrayList<String> names = new ArrayList<>();
+        init();
         adapter = new ArrayAdapter<String>(ViewEstateActivity.this, android.R.layout.simple_list_item_1, names);
         finca.setAdapter(adapter);
 
-
         //List of States (esto no tiene que ir en el onCreate())
-        Log.i("server", "Peticion");
-        if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
 
-        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
-            @Override
-            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
-                if (response.isSuccessful()) {
-                    for (Estate estate : response.body())
-                        Log.i("server", estate.toString());
-
-                } else Log.i("server", "error on response");
-            }
-
-            @Override
-            public void onFailure(Call<List<Estate>> call, Throwable t) {
-                Log.i("server", "error: " + t.getMessage());
-            }
-        });
     }
 
 
@@ -90,5 +70,28 @@ public class ViewEstateActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent miIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
         startActivity(miIntent);
+    }
+    private void init(){
+        Log.i("server", "Peticion");
+        if (myApiService == null)
+            myApiService = APIUtils.getAPIService();
+
+        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
+            @Override
+            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
+                if (response.isSuccessful()) {
+                    for (Estate estate : response.body()) {
+                                names.add(estate.getNombre());
+                        Log.i("server", estate.toString());
+                    }
+                } else Log.i("server", "error on response");
+            }
+
+            @Override
+            public void onFailure(Call<List<Estate>> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+
+        });
     }
 }

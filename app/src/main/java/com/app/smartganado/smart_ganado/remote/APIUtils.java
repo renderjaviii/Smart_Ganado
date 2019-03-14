@@ -5,7 +5,7 @@ public class APIUtils {
     private APIUtils() {
     }
 
-    public static final String BASE_URL = "http://192.168.1.23:8080/AppServer/";
+    public static final String BASE_URL = "http://192.168.1.59:8080/AppServer/";
 
     public static APIService getAPIService() {
 
