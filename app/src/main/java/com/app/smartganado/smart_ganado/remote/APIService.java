@@ -1,14 +1,14 @@
 package com.app.smartganado.smart_ganado.remote;
 
-import com.app.smartganado.smart_ganado.model.Breed;
-import com.app.smartganado.smart_ganado.model.Cattle;
-import com.app.smartganado.smart_ganado.model.CattleStoryBook;
-import com.app.smartganado.smart_ganado.model.Estate;
-import com.app.smartganado.smart_ganado.model.Event;
-import com.app.smartganado.smart_ganado.model.Gender;
-import com.app.smartganado.smart_ganado.model.Lot;
-import com.app.smartganado.smart_ganado.model.Purpose;
-import com.app.smartganado.smart_ganado.model.User;
+import com.app.smartganado.smart_ganado.model.vo.Breed;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
+import com.app.smartganado.smart_ganado.model.vo.CattleStoryBook;
+import com.app.smartganado.smart_ganado.model.vo.Estate;
+import com.app.smartganado.smart_ganado.model.vo.Event;
+import com.app.smartganado.smart_ganado.model.vo.Gender;
+import com.app.smartganado.smart_ganado.model.vo.Lot;
+import com.app.smartganado.smart_ganado.model.vo.Purpose;
+import com.app.smartganado.smart_ganado.model.vo.User;
 
 import java.util.List;
 
@@ -16,14 +16,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Url;
 
 public interface APIService {
 
 
     //Get entities
     @POST("BBDD/")
-    Call<List<Breed>> getBreed(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);//Retorna una lista de estates
+    Call<List<Breed>> getBreed(@Header("action") String actionName, @Header("entity") String entityName);//Retorna una lista de estates
 
     @POST("BBDD/")
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);//Retorna una lista de cattles
@@ -38,13 +37,13 @@ public interface APIService {
     Call<List<Event>> getEvent(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
     @POST("BBDD/")
-    Call<List<Gender>> getGender(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<Gender>> getGender(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
-    Call<List<Lot>> getLot(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<Lot>> getLot(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
-    Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityNamer);
 
     @POST("BBDD/")
     Call<List<User>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);

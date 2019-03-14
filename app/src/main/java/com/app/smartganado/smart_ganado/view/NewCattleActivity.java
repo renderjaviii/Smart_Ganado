@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.Cattle;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
@@ -62,7 +62,7 @@ public class NewCattleActivity extends AppCompatActivity {
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.insertCattle("insert", "cattle" , getIntent().getIntExtra("phone", 0), cattle).enqueue(new Callback<Boolean>() {
+        myApiService.insertCattle("insert", "cattle" , 1, cattle).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful())

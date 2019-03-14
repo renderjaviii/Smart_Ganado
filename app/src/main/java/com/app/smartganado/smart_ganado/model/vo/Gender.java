@@ -1,16 +1,20 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
-public class Purpose implements Serializable {
+
+public class Gender implements Serializable {
 
     private int id;
     private String nombre;
 
-    public Purpose(int id, String nombre) {
+
+
+    public Gender(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
+
 
     public int getId() {
         return id;
@@ -27,5 +31,5 @@ public class Purpose implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-}
 
+}

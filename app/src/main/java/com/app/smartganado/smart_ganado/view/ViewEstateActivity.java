@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.Estate;
+import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
@@ -48,7 +48,7 @@ public class ViewEstateActivity extends AppCompatActivity {
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.getEstate("getAll", "estate", getIntent().getIntExtra("phone",0)).enqueue(new Callback<List<Estate>>() {
+        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful()) {

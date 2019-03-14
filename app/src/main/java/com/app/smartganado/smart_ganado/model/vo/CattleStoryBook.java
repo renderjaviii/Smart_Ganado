@@ -1,4 +1,4 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 

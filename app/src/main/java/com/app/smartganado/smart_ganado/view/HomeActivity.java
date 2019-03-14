@@ -12,15 +12,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.view.fragment.CalendarFragment;
 import com.app.smartganado.smart_ganado.view.fragment.EventsFragment;
 import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
+
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -49,10 +53,19 @@ public class HomeActivity extends AppCompatActivity {
         loadFragment(new TasksFragment());
 
         //Obtener el telefono del usuario
-        phoneUser = getIntent().getIntExtra("phone" , 0);//0 en caso de que no le llegue nada
+        phoneUser = getIntent().getIntExtra("phone", 0);//0 en caso de que no le llegue nada
     }
 
     public void openEventsModule(View view) {
+
+        BreedDAO breedDAO = new BreedDAO();
+        List<Breed> list = breedDAO.getAllBreed();
+        if (list != null)
+            for (Breed breed : list) {
+                Log.i("server", breed.getNombre());
+            }
+        else Log.i("server", "null");
+
         Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
         startActivity(intent);
     }

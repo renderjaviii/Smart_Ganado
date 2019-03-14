@@ -1,19 +1,16 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
-
-//Raza
-public class Breed implements Serializable {
+public class Purpose implements Serializable {
 
     private int id;
     private String nombre;
 
-    public Breed(int id, String nombre) {
+    public Purpose(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-
 
     public int getId() {
         return id;
@@ -30,5 +27,5 @@ public class Breed implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }
+

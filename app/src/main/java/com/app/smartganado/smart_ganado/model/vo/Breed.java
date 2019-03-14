@@ -1,17 +1,18 @@
-package com.app.smartganado.smart_ganado.model;
+package com.app.smartganado.smart_ganado.model.vo;
 
 import com.google.gson.annotations.Expose;
-import java.io.Serializable;
 
-public class Lot implements Serializable {
+//Raza
+public class Breed {
 
     private int id;
     private String nombre;
 
-    public Lot(int id, String nombre) {
+    public Breed(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
+
 
     public int getId() {
         return id;
@@ -28,5 +29,5 @@ public class Lot implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-}
 
+}
