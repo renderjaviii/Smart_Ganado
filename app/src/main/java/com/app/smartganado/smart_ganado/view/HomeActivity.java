@@ -58,14 +58,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void openEventsModule(View view) {
 
-        BreedDAO breedDAO = new BreedDAO();
-        List<Breed> list = breedDAO.getAllBreed();
-        if (list != null)
-            for (Breed breed : list) {
-                Log.i("server", breed.getNombre());
-            }
-        else Log.i("server", "null");
-
         Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
         startActivity(intent);
     }
