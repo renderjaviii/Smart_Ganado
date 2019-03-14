@@ -14,6 +14,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -56,6 +57,13 @@ public interface APIService {
 
     @POST("BBDD/")
     Call<Boolean> insertEstate(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser, @Body Estate estate); //Retorna true si se inserto correctamante
+
+    @POST("BBDD/")
+    Call<Boolean> insertUser(@Header("action") String actionName, @Header("entity") String entityName, @Body User user); //Retorna true si se inserto correctamante
+
+    //Login
+    @POST("BBDD/")
+    Call<User> getSession(@Header("action") String actionName, @Header("entity") String entityName, @Body User user);
 
 
     /** @FormUrlEncoded

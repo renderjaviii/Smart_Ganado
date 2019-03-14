@@ -78,4 +78,9 @@ public class ViewCattleActivity extends AppCompatActivity {
 
     }
 
+    public void onNewCattle(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
+        startActivity(intent);
+    }
+
 }

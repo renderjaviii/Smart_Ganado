@@ -89,7 +89,7 @@
             android:id="@+id/Save_Finca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
+            android:onClick="onLoginUser"
             android:text="GUARDAR" />
 
         <android.support.constraint.ConstraintLayout
