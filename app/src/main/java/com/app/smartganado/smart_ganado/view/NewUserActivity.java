@@ -35,7 +35,8 @@ public class NewUserActivity extends AppCompatActivity {
 
     }
 
-    public void onClick(View view) {
+
+    public void onNewUser(View view) {
         User user = new User();
         user.setNombre(editTNombre.getText().toString());
         user.setTelefono(Integer.parseInt(editTextPhone.getText().toString()));

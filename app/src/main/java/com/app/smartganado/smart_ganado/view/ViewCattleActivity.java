@@ -76,11 +76,12 @@ public class ViewCattleActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
+    //Open insertar finca
     public void onNewCattle(View view) {
         Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
         startActivity(intent);
     }
-
 }

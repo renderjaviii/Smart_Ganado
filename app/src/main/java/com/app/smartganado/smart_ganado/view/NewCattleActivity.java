@@ -89,7 +89,6 @@ public class NewCattleActivity extends AppCompatActivity {
             Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
         }
 
-
         //Entrar a vista ver Ganado
         Intent i = new Intent(this, ViewCattleActivity.class);
         startActivity(i);

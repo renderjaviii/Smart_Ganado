@@ -14,7 +14,6 @@ import android.widget.SearchView;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
-import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
 import java.util.ArrayList;
@@ -26,35 +25,43 @@ import retrofit2.Response;
 
 //lee grace 63 liam fraser 60 darragh leahy 55
 public class ViewEstateActivity extends AppCompatActivity {
-    ListView finca;
-    ArrayAdapter<String> adapter;
-    public APIService myApiService;
+
+    private ArrayList<String> estateNames;
+    private ArrayAdapter<String> adapter;
+    public ListView estateList;
 
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
-        finca = (ListView) findViewById(R.id.finca);
+        estateList = findViewById(R.id.cattleList);
 
+        initActivity();
+    }
 
-        ArrayList<String> names = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(ViewEstateActivity.this, android.R.layout.simple_list_item_1, names);
-        finca.setAdapter(adapter);
+    private void initActivity() {
+        estateNames = new ArrayList<>();
 
-
-        //List of States (esto no tiene que ir en el onCreate())
+        //Lis estates
         Log.i("server", "Peticion");
-        if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
-
-        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
+        APIUtils.getAPIService().getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful()) {
-                    for (Estate estate : response.body())
-                        Log.i("server", estate.toString());
+                    for (Estate estate : response.body()) {
+                        estateNames.add(estate.getNombre());//Cargamos el arreglo nombre de fincas
+                        Log.i("server", "finca: " + estate.getNombre());
+                    }
 
+                    adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, estateNames);
+                    estateList.setAdapter(adapter);//Enviamos los nombres al listView
+
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
                 } else Log.i("server", "error on response");
             }
 
@@ -63,6 +70,7 @@ public class ViewEstateActivity extends AppCompatActivity {
                 Log.i("server", "error: " + t.getMessage());
             }
         });
+
     }
 
 
@@ -70,7 +78,7 @@ public class ViewEstateActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-        MenuItem item = menu.findItem(R.id.finca);
+        MenuItem item = menu.findItem(R.id.cattleList);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -87,8 +95,10 @@ public class ViewEstateActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void onClick(View view) {
-        Intent miIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
-        startActivity(miIntent);
+
+    //Open nueva finca
+    public void onNewEstate(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewEstateActivity.class);
+        startActivity(intent);
     }
 }

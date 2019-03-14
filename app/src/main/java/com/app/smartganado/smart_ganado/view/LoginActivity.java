@@ -39,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-                    Snackbar.make(getCurrentFocus(), "Bienvenido " + response.body().getNombre() + "!", Snackbar.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra("phone", response.body().getTelefono()); //Enviamos telefono del usuario
                     startActivity(intent);
+                    Snackbar.make(getCurrentFocus(), "Bienvenido " + response.body().getNombre() + "!", Snackbar.LENGTH_LONG).show();
                 } else
                     Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
 
@@ -59,5 +59,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onRegistration(View view) {
         Intent intent = new Intent(getApplicationContext(), NewUserActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

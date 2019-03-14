@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/Direccion_Finca"
@@ -89,8 +89,8 @@
             android:id="@+id/Save_Finca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onLoginUser"
-            android:text="GUARDAR" />
+            android:onClick="onInsertEstate"
+            android:text="Guardar" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
