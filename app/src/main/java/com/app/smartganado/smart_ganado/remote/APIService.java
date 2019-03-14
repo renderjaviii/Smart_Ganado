@@ -31,6 +31,7 @@ public interface APIService {
     @POST("BBDD/")
     Call<List<CattleStoryBook>> getCattleStoryBook(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
+    
     @POST("BBDD/")
     Call<List<Estate>> getEstate(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
