@@ -3,19 +3,17 @@ package com.app.smartganado.smart_ganado.model;
 public class Cattle {
 
     private int id;
-    private String nombre;
     private int id_Lote;
     private int id_Raza;
     private int id_Proposito;
     private int id_Genero;
     private int edad;
-    private double peso;
+    private int peso;
     private String foto;
     private String detalles;
 
-    public Cattle(int id, String nombre, int id_Lote, int id_Raza, int id_Proposito, int id_Genero, int edad, double peso, String foto, String detalles ) {
+    public Cattle(int id, int id_Lote, int id_Raza, int id_Proposito, int id_Genero, int edad, int peso, String foto, String detalles ) {
         this.id = id;
-        this.nombre = nombre;
         this.id_Lote = id_Lote;
         this.id_Raza = id_Raza;
         this.id_Proposito = id_Proposito;
@@ -35,14 +33,6 @@ public class Cattle {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getId_Lote() {
@@ -89,7 +79,7 @@ public class Cattle {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(int peso) {
         this.peso = peso;
     }
 
@@ -111,6 +101,16 @@ public class Cattle {
 
     @Override
     public String toString() {
-        return "id: " + String.valueOf(id) + ", nombre: " + nombre;
+        return "Cattle{" +
+                "id=" + id +
+                ", id_Lote=" + id_Lote +
+                ", id_Raza=" + id_Raza +
+                ", id_Proposito=" + id_Proposito +
+                ", id_Genero=" + id_Genero +
+                ", edad=" + edad +
+                ", peso=" + peso +
+                ", foto='" + foto + '\'' +
+                ", detalles='" + detalles + '\'' +
+                '}';
     }
 }
