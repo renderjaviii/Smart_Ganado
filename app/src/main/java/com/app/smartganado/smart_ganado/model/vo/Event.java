@@ -5,68 +5,80 @@ import java.sql.Date;
 
 public class Event implements Serializable {
 
-    private int id_Finca;
-    private Date fecha;
-    private int id_Tipo_Evento;
-    private String nombre;
-    private String detalles;
-    private String encargado;
 
-    public Event(Date fecha, int id_Finca, int id_tipo_evento, String nombre, String detalles, String encargado) {
-        this.fecha = fecha;
-        this.id_Finca = id_Finca;
-        this.id_Tipo_Evento = id_tipo_evento;
-        this.nombre = nombre;
-        this.detalles = detalles;
-        this.encargado = encargado;
+    private Integer idEstate;
+
+    private Date date;
+        private Integer idEventType;
+
+    private String name;
+
+    private String details;
+
+    private String manager;
+
+
+
+    public Event(Integer idEstate, Date date, Integer idEventType, String name, String details, String manager) {
+        this.idEstate = idEstate;
+        this.date = date;
+        this.idEventType = idEventType;
+        this.name = name;
+        this.details = details;
+        this.manager = manager;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Event() {
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public Integer getIdEstate() {
+        return idEstate;
     }
 
-    public int getId_Finca() {
-        return id_Finca;
+    public void setIdEstate(Integer idEstate) {
+        this.idEstate = idEstate;
     }
 
-    public void setId_Finca(int id_Finca) {
-        this.id_Finca = id_Finca;
+    public Date getDate() {
+        return date;
     }
 
-    public int getId_tipo_evento() {
-        return id_Tipo_Evento;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setId_tipo_evento(int id_tipo_evento) {
-        this.id_Tipo_Evento = id_tipo_evento;
+    public Integer getIdEventType() {
+        return idEventType;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setIdEventType(Integer idEventType) {
+        this.idEventType = idEventType;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getName() {
+        return name;
     }
 
-    public String getDetalles() {
-        return detalles;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setDetalles(String detalles) {
-        this.detalles = detalles;
+    public String getDetails() {
+        return details;
     }
 
-    public String getEncargado() {
-        return encargado;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public void setEncargado(String encargado) {
-        this.encargado = encargado;
+    public String getManager() {
+        return manager;
     }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
+
+
 
 }

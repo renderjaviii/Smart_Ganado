@@ -3,40 +3,58 @@ package com.app.smartganado.smart_ganado.model.vo;
 import java.io.Serializable;
 
 public class Tank implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     private int id;
-    private String nombre;
-    private Double capacidad;
+
+    private double capacity;
+
+    private String name;
+
+    private Integer idEstate;
 
 
-    public Tank(int Id, String nombre, Double Capacidad) {
-        this.id = Id;
-        this.nombre = nombre;
-        this.capacidad = Capacidad;
+
+    public Tank(double capacity, String name, Integer idEstate) {
+        this.capacity = capacity;
+        this.name = name;
+        this.idEstate=idEstate;
+    }
+
+    public Integer getIdEstate() {
+        return idEstate;
+    }
+
+    public void setIdEstate(Integer idEstate) {
+        this.idEstate = idEstate;
+    }
+
+    public Tank() {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Double getCapacidad() {
-        return capacidad;
+    public double getCapacity() {
+        return this.capacity;
     }
 
-    public void setId(int Id) {
-        this.id = Id;
+    public void setCapacity(double capacity) {
+        this.capacity = capacity;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getName() {
+        return this.name;
     }
 
-    public void setCapacidad(Double Capacidad) {
-        this.capacidad = Capacidad;
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

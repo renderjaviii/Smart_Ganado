@@ -2,20 +2,20 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
-
-public class Gender implements Serializable {
-
+public class Rol implements Serializable {
 
 
     private Integer id;
 
     private String name;
 
-    public Gender( String name) {
+
+
+    public Rol(String name) {
         this.name = name;
     }
 
-    public Gender() {
+    public Rol() {
     }
 
     public Integer getId() {
@@ -30,8 +30,8 @@ public class Gender implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nombre) {
+        this.name = nombre;
     }
 
 }

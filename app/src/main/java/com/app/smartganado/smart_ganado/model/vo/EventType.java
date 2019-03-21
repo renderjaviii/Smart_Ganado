@@ -2,20 +2,21 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
-
-public class Gender implements Serializable {
-
+public class EventType implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 
     private Integer id;
 
     private String name;
 
-    public Gender( String name) {
+
+
+    public EventType(String name) {
         this.name = name;
     }
 
-    public Gender() {
+    public EventType() {
     }
 
     public Integer getId() {

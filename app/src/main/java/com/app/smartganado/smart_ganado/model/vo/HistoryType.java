@@ -2,27 +2,26 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+public class HistoryType implements Serializable {
 
-public class Gender implements Serializable {
-
-
-
-    private Integer id;
+    private int id;
 
     private String name;
 
-    public Gender( String name) {
+
+
+    public HistoryType(String name) {
         this.name = name;
     }
 
-    public Gender() {
+    public HistoryType() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

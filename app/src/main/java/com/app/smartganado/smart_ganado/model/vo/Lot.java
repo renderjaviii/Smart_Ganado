@@ -3,29 +3,36 @@ package com.app.smartganado.smart_ganado.model.vo;
 import java.io.Serializable;
 
 public class Lot implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String nombre;
+    private Integer id;
 
-    public Lot(int id, String nombre) {
+    private String name;
+
+
+
+    public Lot(String name) {
+        this.name = name;
+    }
+
+    public Lot() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.nombre = nombre;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return this.name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }
 

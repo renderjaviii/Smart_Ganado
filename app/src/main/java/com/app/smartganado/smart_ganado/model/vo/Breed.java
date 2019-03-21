@@ -2,32 +2,42 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 //Raza
-public class Breed {
+public class Breed implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String nombre;
 
-    public Breed(int id, String nombre) {
+    private Integer id;
+
+
+    private String name;
+
+
+
+    public Breed(String name) {
+
+        this.name = name;
+    }
+
+    public Breed() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.nombre = nombre;
     }
 
-
-    public int getId() {
-        return id;
+    public String getName() {
+        return this.name;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

@@ -1,63 +1,86 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
-public class Estate {
 
-    private int id;
-    private String nombre;
+import java.io.Serializable;
+
+public class Estate implements Serializable {
+
+
+    private Integer id;
+
     private double area;
-    private String foto;
-    private String ubicacion;
 
-    public Estate(int id, String nombre, double area, String foto, String ubicacion) {
+    private String location;
+
+    private String name;
+
+    private byte[] photo;
+
+    private Long phoneUser;
+
+
+
+    public Long getPhoneUser() {
+        return phoneUser;
+    }
+
+    public void setPhoneUser(Long phoneUser) {
+        this.phoneUser = phoneUser;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.nombre = nombre;
+    }
+
+    public Estate(double area, String location, String name, byte[] photo, Long phoneUser) {
         this.area = area;
-        this.foto = foto;
-        this.ubicacion = ubicacion;
+        this.location = location;
+        this.name = name;
+        this.photo = photo;
+        this.phoneUser = phoneUser;
+    }
+
+    public Estate() {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public double getArea() {
-        return area;
+        return this.area;
     }
 
     public void setArea(double area) {
         this.area = area;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getLocation() {
+        return this.location;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public String getName() {
+        return this.name;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "{" + nombre + ", " + id + ", " + area + ", " + foto + "}";
+    public byte[] getPhoto() {
+        return this.photo;
     }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
 }
