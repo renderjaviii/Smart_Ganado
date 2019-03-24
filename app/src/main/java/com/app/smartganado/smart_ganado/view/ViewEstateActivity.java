@@ -75,23 +75,23 @@ public class ViewEstateActivity extends AppCompatActivity {
         Log.i("server", "Peticion");
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
-
+ /*
         myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
             @Override
-            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
+           public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful()) {
                     for (Estate estate : response.body()) {
-                                names.add(estate.getNombre());
+                                names.add(estate.getName());
                         Log.i("server", estate.toString());
                     }
                 } else Log.i("server", "error on response");
-            }
+
 
             @Override
             public void onFailure(Call<List<Estate>> call, Throwable t) {
                 Log.i("server", "error: " + t.getMessage());
             }
 
-        });
+        }); }*/
     }
 }

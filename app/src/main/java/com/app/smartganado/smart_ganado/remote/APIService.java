@@ -8,7 +8,6 @@ import com.app.smartganado.smart_ganado.model.vo.Event;
 import com.app.smartganado.smart_ganado.model.vo.Gender;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
-import com.app.smartganado.smart_ganado.model.vo.User;
 
 import java.util.List;
 
