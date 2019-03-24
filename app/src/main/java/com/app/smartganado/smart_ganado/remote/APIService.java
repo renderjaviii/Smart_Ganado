@@ -2,12 +2,13 @@ package com.app.smartganado.smart_ganado.remote;
 
 import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
-import com.app.smartganado.smart_ganado.model.vo.CattleStoryBook;
+import com.app.smartganado.smart_ganado.model.vo.CattleHistoryBook;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Event;
 import com.app.smartganado.smart_ganado.model.vo.Gender;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface APIService {
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);//Retorna una lista de cattles
 
     @POST("BBDD/")
-    Call<List<CattleStoryBook>> getCattleStoryBook(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<CattleHistoryBook>> getCattleStoryBook(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
     
     @POST("BBDD/")
@@ -47,7 +48,7 @@ public interface APIService {
     Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
-    Call<List<User>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<UserApp>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
 
     //Insert entities
