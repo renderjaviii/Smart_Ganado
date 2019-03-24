@@ -26,8 +26,8 @@ public class CattleAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         final View vista = inflater.inflate(R.layout.cattle_adapter,null);
-            TextView Codigo = (TextView) vista.findViewById(R.id.InfoCodigo);
-            TextView Finca = (TextView) vista.findViewById(R.id.InfoFinca);
+            TextView Codigo = (TextView) vista.findViewById(R.id.textViewNameEstate);
+            TextView Finca = (TextView) vista.findViewById(R.id.textViewLocation);
             TextView Raza = (TextView) vista.findViewById(R.id.InfoRaza);
 
             ImageView imagen = (ImageView) vista.findViewById(R.id.ivImagen);

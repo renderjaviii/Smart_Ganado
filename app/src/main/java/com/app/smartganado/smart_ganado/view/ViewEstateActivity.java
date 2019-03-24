@@ -16,6 +16,7 @@ import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
+import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +27,20 @@ import retrofit2.Response;
 
 //lee grace 63 liam fraser 60 darragh leahy 55
 public class ViewEstateActivity extends AppCompatActivity {
+
+    ArrayList<Estate> a;
     ListView finca;
-    ArrayAdapter<String> adapter;
-    public APIService myApiService;
     private int userPhone;
     private List<String> names = new ArrayList<>();;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
         finca = (ListView) findViewById(R.id.finca);
-        init();
-        adapter = new ArrayAdapter<String>(ViewEstateActivity.this, android.R.layout.simple_list_item_1, names);
-        finca.setAdapter(adapter);
+        a= new ArrayList<>();
+        a.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
+        a.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
+        finca.setAdapter(new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,a));
 
         //List of States (esto no tiene que ir en el onCreate())
 
@@ -60,7 +61,13 @@ public class ViewEstateActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+                ArrayList<Estate> result = new ArrayList<>();
+                for (Estate x : a) {
+                    if (x.getName().toLowerCase().contains(s.toLowerCase())) {
+                        result.add(x);
+                    }
+                }
+                ((EstateAdapter) finca.getAdapter()).update(result);
                 return false;
             }
         });
@@ -71,10 +78,20 @@ public class ViewEstateActivity extends AppCompatActivity {
         Intent miIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
         startActivity(miIntent);
     }
+
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.action_settings){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
     private void init(){
-        Log.i("server", "Peticion");
-        if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
  /*
         myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
             @Override

@@ -46,7 +46,7 @@ public class NewEstateActivity extends AppCompatActivity {
     public void onClick(View view) {
 
 
-        Estate estate = new Estate(100,Nombre_Finca.toString(),2.0,"url",Direccion_Finca.toString());//aqui lee de los componentes
+        /*   Estate estate = new Estate(100,Nombre_Finca.toString(),2.0,"url",Direccion_Finca.toString());//aqui lee de los componentes
 
         //insert new estate
         Log.i("server", "Peticion");
@@ -64,7 +64,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();
 
             }
-        });
+        });*/
     }
 
 

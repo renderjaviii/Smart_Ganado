@@ -57,12 +57,12 @@ public class NewCattleActivity extends AppCompatActivity {
         TXTPeso = (EditText) findViewById(R.id.Peso);
 
 
-        Cattle cattle = new Cattle(1, "Vaca leal", 1, 1, 1, 1, 1, 1, "url", "");
+        // Cattle cattle = new Cattle(1, "Vaca leal", 1, 1, 1, 1, 1, 1, "url", "");
         //insert a new cattle
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.insertCattle("insert", "cattle" , 1, cattle).enqueue(new Callback<Boolean>() {
+        /* myApiService.insertCattle("insert", "cattle" , 1, cattle).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful())
@@ -74,7 +74,7 @@ public class NewCattleActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();
             }
         });
-
+*/
     }
 
     //Metodo para el mensaje del ButtomImage
