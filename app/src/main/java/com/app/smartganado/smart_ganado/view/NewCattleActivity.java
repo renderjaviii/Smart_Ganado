@@ -1,33 +1,68 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.PersistableBundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.Breed;
 import com.app.smartganado.smart_ganado.model.Cattle;
-import com.app.smartganado.smart_ganado.model.CattleStoryBook;
 import com.app.smartganado.smart_ganado.model.Estate;
 import com.app.smartganado.smart_ganado.model.Gender;
 import com.app.smartganado.smart_ganado.model.Purpose;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+
 public class NewCattleActivity extends AppCompatActivity {
+
+    ImageView img;
     ArrayList<Estate> InfoFincas  = new ArrayList<Estate>();
     ArrayList<Gender> InfoGeneros = new ArrayList<Gender>();
     ArrayList<Breed> InfoRazas = new ArrayList<Breed>();
@@ -37,14 +72,15 @@ public class NewCattleActivity extends AppCompatActivity {
     FloatingActionButton editar;
     Button registrar;
     Cattle cattle;
+    ImageButton button;
+
     public APIService myApiService;
     private int invisible;
-
 
     public ArrayList ListaFincas(){
         ArrayList datos = new ArrayList();
         Estate finca;
-        for (int i=0; i<=5; i++){
+        for (int i=0; i<=4; i++){
             finca = new Estate();
             finca.setId(i);
             finca.setNombre("Finca: "+i);
@@ -57,7 +93,7 @@ public class NewCattleActivity extends AppCompatActivity {
     public ArrayList ListaGeneros(){
         ArrayList datos = new ArrayList();
         Gender genero;
-        for (int i=0; i<=5; i++){
+        for (int i=0; i<=4; i++){
             genero = new Gender();
             genero.setId(i);
             genero.setNombre("generos: "+i);
@@ -68,7 +104,7 @@ public class NewCattleActivity extends AppCompatActivity {
     public ArrayList ListaRazas(){
         ArrayList datos = new ArrayList();
         Breed raza;
-        for (int i=0; i<=5; i++){
+        for (int i=0; i<=4; i++){
             raza = new Breed();
             raza.setId(i);
             raza.setNombre("Raza: "+i);
@@ -79,7 +115,7 @@ public class NewCattleActivity extends AppCompatActivity {
     public ArrayList ListaPropositos(){
         ArrayList datos = new ArrayList();
         Purpose proposito;
-        for (int i=0; i<=5; i++){
+        for (int i=0; i<=4; i++){
             proposito = new Purpose();
             proposito.setId(i);
             proposito.setNombre("proposito: "+i);
@@ -87,6 +123,17 @@ public class NewCattleActivity extends AppCompatActivity {
         }
         return datos;
     }
+
+    /*public ArrayList ListaImagenes(){
+        ArrayList listaImagenes = new ArrayList();
+        ImageView imagen=null;
+        for (int i=0; i<=4; i++){
+            String nombre="vaca"+i;
+            imagen.setImageResource(R.drawable.vaca1);
+            listaImagenes.add(imagen);
+        }
+        return listaImagenes;
+    }*/
 
     public ArrayList NombreFincas(ArrayList<Estate> lista){
         ArrayList<String> listaNombres = new ArrayList<String>();
@@ -133,7 +180,8 @@ public class NewCattleActivity extends AppCompatActivity {
         TXTPeso = (EditText)findViewById(R.id.Peso);
         editar = (FloatingActionButton)findViewById(R.id.FABEditar);
         registrar = (Button)findViewById(R.id.Registrar);
-
+        img = (ImageView)findViewById(R.id.imageView);
+        button = (ImageButton) findViewById(R.id.imageButton);
         InfoFincas=ListaFincas();
         InfoGeneros=ListaGeneros();
         InfoPropositos=ListaPropositos();
@@ -151,14 +199,13 @@ public class NewCattleActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item,NombreFincas(InfoFincas));
         Finca.setAdapter(adapter5);
 
-
-
+        if (ContextCompat.checkSelfPermission(NewCattleActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(NewCattleActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(NewCattleActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
+        }
 
         if(getIntent().getSerializableExtra("Info")==null){
             cattle = new Cattle();
             editar.setVisibility(View.GONE);
-
-
         }else{
             Cattle item = (Cattle) getIntent().getSerializableExtra("Info");
             TXTcodigo.setText(item.getId()+"");
@@ -175,6 +222,7 @@ public class NewCattleActivity extends AppCompatActivity {
             Proposito.setEnabled(false);
             Genero.setEnabled(false);
             Finca.setEnabled(false);
+            button.setEnabled(false);
             registrar.setVisibility(View.GONE);
         }
 
@@ -198,6 +246,62 @@ public class NewCattleActivity extends AppCompatActivity {
         });
 
     }
+    private final int SELECT_PICTURE = 10;
+    public void menu(View view){
+        final CharSequence[] options = {"Tomar foto", "Elegir de galeria", "Cancelar"};
+        final AlertDialog.Builder builder= new AlertDialog.Builder(NewCattleActivity.this);
+        builder.setTitle("Elige una opcion");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int seleccion) {
+                if(options[seleccion] == "Tomar foto"){
+                    tomarFoto();
+                }else if (options[seleccion] == "Elegir de galeria"){
+                    Intent intent = new Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/");
+                    startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"),SELECT_PICTURE);
+                }else if(options[seleccion] == "Cancelar"){
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+    String mCurrentPhotoPath;
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "Backup_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg",storageDir);
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 1;
+    public void tomarFoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,"com.example.android.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI.toString());
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
 
     //Metodo para la validacion de los campos
     public void Registro(View view) {
@@ -212,8 +316,38 @@ public class NewCattleActivity extends AppCompatActivity {
         }
     }
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode){
+                case REQUEST_TAKE_PHOTO:
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    img.setImageBitmap(imageBitmap);
+                    break;
+                case SELECT_PICTURE:
+                    Uri path = data.getData();
+                    InputStream inputStream;
+                    try {
+                        inputStream = getContentResolver().openInputStream(path);
+
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        img.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this,"Unale to open image", Toast.LENGTH_LONG).show();
+                    }
+                    img.setImageURI(path);
+                    break;
+            }
+        }
+    }
+
     public void Editar(View view) {
         registrar = (Button)findViewById(R.id.Registrar);
+        FloatingActionButton editar = (FloatingActionButton)findViewById(R.id.FABEditar);
+        editar.setVisibility(View.GONE);
         registrar.setVisibility(View.VISIBLE);
         TXTcodigo.setEnabled(true);
         TXTedad.setEnabled(true);
@@ -222,6 +356,7 @@ public class NewCattleActivity extends AppCompatActivity {
         Proposito.setEnabled(true);
         Genero.setEnabled(true);
         Finca.setEnabled(true);
+        button.setEnabled(true);
     }
 
 
@@ -233,7 +368,9 @@ public class NewCattleActivity extends AppCompatActivity {
         nuevo.setId_Genero(R.id.Genero);
         nuevo.setEdad(R.id.EdadGanado);
         nuevo.setPeso(R.id.Peso);
-        System.out.println(nuevo.toString());
+        ImageView imagen =(ImageView)findViewById(R.id.ivImagen);
+        //Bitmap hola= Utilities.ImageViewtoByte(imagen);
+        //nuevo.setFoto(Utilities.ImageViewtoByte(imagen));
         return nuevo;
     }
 
@@ -293,5 +430,4 @@ public class NewCattleActivity extends AppCompatActivity {
         }
         return datos;
     }
-
 }
