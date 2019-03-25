@@ -25,7 +25,6 @@ import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public static int phoneUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +48,11 @@ public class HomeActivity extends AppCompatActivity {
         loadFragment(new TasksFragment());
 
         //Obtener el telefono del usuario
-        phoneUser = getIntent().getIntExtra("phone" , 0);//0 en caso de que no le llegue nada
+        //getIntent().getIntExtra("phone", 0);//0 en caso de que no le llegue nada
     }
 
     public void openEventsModule(View view) {
+
         Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
         startActivity(intent);
     }
@@ -64,13 +64,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public void openCattleModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
-        intent.putExtra("phone", phoneUser);
         startActivity(intent);
     }
 
     public void openEstatesModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewEstateActivity.class);
-        intent.putExtra("phone", phoneUser);
         startActivity(intent);
     }
 
@@ -81,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            // super.onBackPressed();
         }
     }
 

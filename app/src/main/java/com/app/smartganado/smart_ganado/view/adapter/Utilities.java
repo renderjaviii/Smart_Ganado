@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
 import java.nio.ByteBuffer;
-import java.security.MessageDigest;
 
 public class Utilities {
     public byte[] ImageViewtoByte(ImageView imagen) {
