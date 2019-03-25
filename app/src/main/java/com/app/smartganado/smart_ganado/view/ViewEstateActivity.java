@@ -26,51 +26,52 @@ import retrofit2.Response;
 //lee grace 63 liam fraser 60 darragh leahy 55
 public class ViewEstateActivity extends AppCompatActivity {
 
-    private ArrayList<String> estateNames;
+    private ArrayList<String> estateNames = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     public ListView estateList;
 
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
         estateList = findViewById(R.id.cattleList);
 
-        initActivity();
+
+       // initActivity();
     }
 
     private void initActivity() {
-        estateNames = new ArrayList<>();
 
-        //Lis estates
-        Log.i("server", "Peticion");
-        APIUtils.getAPIService().getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
-            @Override
-            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
-                if (response.isSuccessful()) {
-                    for (Estate estate : response.body()) {
-                        estateNames.add(estate.getNombre());//Cargamos el arreglo nombre de fincas
-                        Log.i("server", "finca: " + estate.getNombre());
-                    }
+      /*  if (estateNames.isEmpty()) {
+            //Lis estates
+            Log.i("server", "Peticion");
+            APIUtils.getAPIService().getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
+                @Override
+                public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
+                    if (response.isSuccessful()) {
+                        for (Estate estate : response.body()) {
+                            estateNames.add(estate.getNombre());//Cargamos el arreglo nombre de fincas
+                            Log.i("server", "finca: " + estate.getNombre());
+                        }
 
-                    adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, estateNames);
-                    estateList.setAdapter(adapter);//Enviamos los nombres al listView
+                        adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, estateNames);
+                        estateList.setAdapter(adapter);//Enviamos los nombres al listView
+                       overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
+                    } else Log.i("server", "error on response");
+                }
 
-                    finish();
-                    overridePendingTransition(0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition(0, 0);
-                } else Log.i("server", "error on response");
-            }
+                @Override
+                public void onFailure(Call<List<Estate>> call, Throwable t) {
+                    Log.i("server", "error: " + t.getMessage());
+                }
+            });
+        } else Log.i("sever", "dont");
 
-            @Override
-            public void onFailure(Call<List<Estate>> call, Throwable t) {
-                Log.i("server", "error: " + t.getMessage());
-            }
-        });
-
+        adapter.clear();
+        adapter.notifyDataSetChanged();*/
     }
 
 

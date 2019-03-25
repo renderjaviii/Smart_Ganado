@@ -2,30 +2,37 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
+/**
+ * The persistent class for the purpose database table.
+ * 
+ */
+
 public class Purpose implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 
-    private int id;
-    private String nombre;
+	private Integer id;
 
-    public Purpose(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+	private String name;
 
-    public int getId() {
-        return id;
-    }
+	public Purpose() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
-

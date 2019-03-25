@@ -52,7 +52,7 @@ public class ViewCattleActivity extends AppCompatActivity {
                 startActivity(miIntent);
             }
         });
-        init();
+      //  init();
     }
 
     private void init() {

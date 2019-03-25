@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.vo.User;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
 import retrofit2.Call;
@@ -33,17 +33,19 @@ public class NewUserActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.Telefono_Registro);
         editTNombre = findViewById(R.id.editTName);
 
+
     }
 
-
     public void onNewUser(View view) {
-        User user = new User();
-        user.setNombre(editTNombre.getText().toString());
-        user.setTelefono(Integer.parseInt(editTextPhone.getText().toString()));
-        user.setCorreo(editTextCorreo.getText().toString());
-        user.setContraseña(editTextPassword.getText().toString());
+        UserApp user = new UserApp();
 
-        APIUtils.getAPIService().insertUser("insert", "user", user).enqueue(new Callback<Boolean>() {
+        Log.i("server" , "peticion");
+       user.setName(editTNombre.getText().toString());
+        user.setPhone(Long.parseLong(editTextPhone.getText().toString()));
+        user.setEmail(editTextCorreo.getText().toString());
+        user.setPassword(editTextPassword.getText().toString());
+
+        APIUtils.getAPIService().insertUser("insert", user).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful())
