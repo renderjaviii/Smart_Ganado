@@ -1,84 +1,88 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+
+/**
+ * The persistent class for the event database table.
+ * 
+ */
 public class Event implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 
-    private Integer idEstate;
+	private Integer id;
 
-    private Date date;
-        private Integer idEventType;
+	private Date date;
 
-    private String name;
+	private String details;
 
-    private String details;
+	private Integer idEstate;
 
-    private String manager;
+	private Integer idEventType;
 
+	private String manager;
 
+	private String name;
 
-    public Event(Integer idEstate, Date date, Integer idEventType, String name, String details, String manager) {
-        this.idEstate = idEstate;
-        this.date = date;
-        this.idEventType = idEventType;
-        this.name = name;
-        this.details = details;
-        this.manager = manager;
-    }
+	public Event() {
+	}
 
-    public Event() {
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public Integer getIdEstate() {
-        return idEstate;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setIdEstate(Integer idEstate) {
-        this.idEstate = idEstate;
-    }
+	public Date getDate() {
+		return this.date;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public String getDetails() {
+		return this.details;
+	}
 
-    public Integer getIdEventType() {
-        return idEventType;
-    }
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
-    public void setIdEventType(Integer idEventType) {
-        this.idEventType = idEventType;
-    }
+	public Integer getIdEstate() {
+		return this.idEstate;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setIdEstate(Integer idEstate) {
+		this.idEstate = idEstate;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Integer getIdEventType() {
+		return this.idEventType;
+	}
 
-    public String getDetails() {
-        return details;
-    }
+	public void setIdEventType(Integer idEventType) {
+		this.idEventType = idEventType;
+	}
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
+	public String getManager() {
+		return this.manager;
+	}
 
-    public String getManager() {
-        return manager;
-    }
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
 
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }
