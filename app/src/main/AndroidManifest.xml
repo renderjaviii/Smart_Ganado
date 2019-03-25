@@ -14,26 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name=".view.ViewHistoryBookActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_view_history_book"
-            android:theme="@style/FullscreenTheme"></activity>
-        <activity android:name=".view.HomeActivity">
+        <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.SigninActivity" />
+        <activity android:name=".view.HistoryBookActivity"></activity>
         <activity android:name=".view.ViewEventActivity" />
         <activity android:name=".view.ViewIndicatorsActivity" />
         <activity android:name=".view.ViewProfileActivity" />
-        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
-
-
         <activity
             android:name=".view.ViewEstateActivity"
             android:label="@string/title_view_estates"
@@ -54,8 +47,6 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
-
-
         <activity
             android:name=".view.ViewCattleActivity"
             android:label="@string/title_view_cattles"
@@ -76,8 +67,6 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
-
-
     </application>
 
 </manifest>

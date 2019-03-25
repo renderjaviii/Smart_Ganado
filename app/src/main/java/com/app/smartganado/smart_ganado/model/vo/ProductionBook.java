@@ -1,52 +1,58 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+
+/**
+ * The persistent class for the production_book database table.
+ * 
+ */
 public class ProductionBook implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 
-    private Integer idTank;
+	private Integer id;
 
-    private Date date;
+	private Date date;
 
-    private double production;
+	private Integer idTank;
+	
+	private double production;
 
+	public ProductionBook() {
+	}
 
+	public Integer getId() {
+		return this.id;
+	}
 
-    public ProductionBook(Integer idTank, Date date, double production) {
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-        this.idTank = idTank;
-        this.date = date;
-        this.production = production;
-    }
+	public Date getDate() {
+		return this.date;
+	}
 
-    public ProductionBook() {
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public Integer getIdTank() {
-        return this.idTank;
-    }
+	public Integer getIdTank() {
+		return this.idTank;
+	}
 
-    public void setIdTank(Integer idTank) {
-        this.idTank = idTank;
-    }
+	public void setIdTank(Integer idTank) {
+		this.idTank = idTank;
+	}
 
-    public Date getDate() {
-        return this.date;
-    }
+	public double getProduction() {
+		return this.production;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public double getProduction() {
-        return this.production;
-    }
-
-    public void setProduction(double production) {
-        this.production = production;
-    }
+	public void setProduction(double production) {
+		this.production = production;
+	}
 
 }

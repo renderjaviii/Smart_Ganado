@@ -2,35 +2,47 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
+/**
+ * The persistent class for the history_type database table.
+ * 
+ */
+
 public class HistoryType implements Serializable {
-
-    private int id;
-
-    private String name;
+	private static final long serialVersionUID = 1L;
 
 
+	private Integer id;
 
-    public HistoryType(String name) {
-        this.name = name;
-    }
+	private String name;
 
-    public HistoryType() {
-    }
+	private Integer phoneUser;
 
-    public int getId() {
-        return this.id;
-    }
+	public HistoryType() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPhoneUser() {
+		return this.phoneUser;
+	}
+
+	public void setPhoneUser(Integer phoneUser) {
+		this.phoneUser = phoneUser;
+	}
 
 }

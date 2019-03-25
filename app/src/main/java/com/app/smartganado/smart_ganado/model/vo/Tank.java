@@ -2,59 +2,54 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
+/**
+ * The persistent class for the tank database table.
+ * 
+ */
+
 public class Tank implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 
-    private int id;
+	private Integer id;
+	private Double capacity;
+	private Integer idEstate;
+	private String name;
 
-    private double capacity;
+	public Tank() {
+	}
 
-    private String name;
+	public Integer getId() {
+		return this.id;
+	}
 
-    private Integer idEstate;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
+	public Double getCapacity() {
+		return this.capacity;
+	}
 
+	public void setCapacity(Double capacity) {
+		this.capacity = capacity;
+	}
 
-    public Tank(double capacity, String name, Integer idEstate) {
-        this.capacity = capacity;
-        this.name = name;
-        this.idEstate=idEstate;
-    }
+	public Integer getIdEstate() {
+		return this.idEstate;
+	}
 
-    public Integer getIdEstate() {
-        return idEstate;
-    }
+	public void setIdEstate(Integer idEstate) {
+		this.idEstate = idEstate;
+	}
 
-    public void setIdEstate(Integer idEstate) {
-        this.idEstate = idEstate;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public Tank() {
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public double getCapacity() {
-        return this.capacity;
-    }
-
-    public void setCapacity(double capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

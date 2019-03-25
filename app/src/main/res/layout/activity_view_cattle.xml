@@ -30,15 +30,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/Buscador_Text"
-        android:layout_width="195dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

@@ -1,82 +1,78 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 
+/**
+ * The persistent class for the cattle_history_book database table.
+ * 
+ */
 public class CattleHistoryBook implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 
-    private Integer id;
+	private Integer id;
 
-    private Date date;
+	private Date date;
 
-    private String details;
-    private Integer idCattle;
+	private String details;
 
-    private Integer idHistoryType;
+	private Integer idCattle;
 
-    private String namehistory;
+	private Integer idHistoryType;
 
-    public CattleHistoryBook(Date date, String details, Integer idCattle, Integer idHistoryType, String namehistory) {
-        this.date = date;
-        this.details = details;
-        this.idCattle = idCattle;
-        this.idHistoryType = idHistoryType;
-        this.namehistory = namehistory;
-    }
+	private String namehistory;
 
-    public CattleHistoryBook() {
-    }
+	public CattleHistoryBook() {
+	}
 
+	public Integer getId() {
+		return this.id;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Date getDate() {
+		return this.date;
+	}
 
-    public Date getDate() {
-        return this.date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public String getDetails() {
+		return this.details;
+	}
 
-    public String getDetails() {
-        return this.details;
-    }
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
+	public Integer getIdCattle() {
+		return this.idCattle;
+	}
 
-    public Integer getIdCattle() {
-        return this.idCattle;
-    }
+	public void setIdCattle(Integer idCattle) {
+		this.idCattle = idCattle;
+	}
 
-    public void setIdCattle(Integer idCattle) {
-        this.idCattle = idCattle;
-    }
+	public Integer getIdHistoryType() {
+		return this.idHistoryType;
+	}
 
-    public Integer getIdHistoryType() {
-        return this.idHistoryType;
-    }
+	public void setIdHistoryType(Integer idHistoryType) {
+		this.idHistoryType = idHistoryType;
+	}
 
-    public void setIdHistoryType(Integer idHistoryType) {
-        this.idHistoryType = idHistoryType;
-    }
+	public String getNamehistory() {
+		return this.namehistory;
+	}
 
-    public String getNamehistory() {
-        return this.namehistory;
-    }
+	public void setNamehistory(String namehistory) {
+		this.namehistory = namehistory;
+	}
 
-    public void setNamehistory(String namehistory) {
-        this.namehistory = namehistory;
-    }
 }
-

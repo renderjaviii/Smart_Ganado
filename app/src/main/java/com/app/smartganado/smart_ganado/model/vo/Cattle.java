@@ -2,66 +2,51 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
+/**
+ * The persistent class for the cattle database table.
+ */
 public class Cattle implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private Integer id;
 
     private Integer age;
 
+    private Integer code;
     private String details;
-
     private Integer idBreed;
-
+    private Integer idEstate;
     private Integer idGender;
-
     private Integer idLot;
-
     private Integer idPurpose;
-
     private String name;
-
-    private Integer id_estate;
-
-    private byte[] photo;
-
-    private double weight;
-
-
-
-    public Integer getId_estate() {
-        return id_estate;
-    }
-
-    public void setId_estate(Integer id_estate) {
-        this.id_estate = id_estate;
-    }
+    private Byte[] photo;
+    private Double weight;
 
     public Cattle() {
     }
 
-    public Cattle(Integer age, String details, Integer idBreed, Integer idGender, Integer idLot, Integer idPurpose,
-                  String name, byte[] photo, double weight, Integer id_estate) {
-
+    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, Byte[] photo, Double weight) {
+        this.id = id;
         this.age = age;
+        this.code = code;
         this.details = details;
         this.idBreed = idBreed;
+        this.idEstate = idEstate;
         this.idGender = idGender;
         this.idLot = idLot;
         this.idPurpose = idPurpose;
         this.name = name;
         this.photo = photo;
         this.weight = weight;
-        this.id_estate=id_estate;
     }
 
-
-
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,6 +56,14 @@ public class Cattle implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getCode() {
+        return this.code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public String getDetails() {
@@ -87,6 +80,14 @@ public class Cattle implements Serializable {
 
     public void setIdBreed(Integer idBreed) {
         this.idBreed = idBreed;
+    }
+
+    public Integer getIdEstate() {
+        return this.idEstate;
+    }
+
+    public void setIdEstate(Integer idEstate) {
+        this.idEstate = idEstate;
     }
 
     public Integer getIdGender() {
@@ -121,19 +122,19 @@ public class Cattle implements Serializable {
         this.name = name;
     }
 
-    public byte[] getPhoto() {
+    public Byte[] getPhoto() {
         return this.photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(Byte[] photo) {
         this.photo = photo;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return this.weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
