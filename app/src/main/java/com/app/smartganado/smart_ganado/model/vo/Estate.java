@@ -25,6 +25,14 @@ public class Estate implements Serializable {
 	public Estate() {
 	}
 
+	public Estate(Double area, String location, String name, Byte[] photo, Long phoneUser) {
+		this.area = area;
+		this.location = location;
+		this.name = name;
+		this.phoneUser = phoneUser;
+		this.photo = photo;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

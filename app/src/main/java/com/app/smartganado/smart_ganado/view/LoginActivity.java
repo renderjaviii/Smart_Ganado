@@ -31,11 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginUser(View view) {
-        UserApp user = new UserApp();
+      /*  UserApp user = new UserApp();
         user.setPhone(Long.parseLong(phone.getText().toString()));
-        user.setPassword(password.getText().toString());
-
-        APIUtils.getAPIService().getLogin(user).enqueue(new Callback<UserApp>() {
+        user.setPassword(password.getText().toString());*/
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+     /*   APIUtils.getAPIService().getLogin(user).enqueue(new Callback<UserApp>() {
             @Override
             public void onResponse(Call<UserApp> call, Response<UserApp> response) {
                 if (response.isSuccessful()) {
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<UserApp> call, Throwable t) {
                 Log.i("server", "error: " + t.getMessage());
             }
-        });
+        });*/
 
     }
 

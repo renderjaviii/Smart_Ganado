@@ -20,7 +20,9 @@ public class VOmanager  {
     private UserApp userApp=null;
 
     public static Backup getBackup(Date date, Integer phoneUser) {
-        return backup==null ? new Backup(date,phoneUser) : backup;
+      //  return backup==null ? new Backup(date,phoneUser) : backup;
+
+        return null;
     }
 
 

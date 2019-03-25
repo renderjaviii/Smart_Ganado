@@ -31,7 +31,6 @@ public class ViewEstateActivity extends AppCompatActivity {
     ArrayList<Estate> a;
     ListView finca;
     private int userPhone;
-    private List<String> names = new ArrayList<>();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
