@@ -38,14 +38,17 @@ public class NewEstateActivity extends AppCompatActivity {
     }
 
     public void onInsertEstate(View view) {
-        Estate estate = new Estate(editTNombre.getText().toString(), Double.parseDouble(editTArea.getText().toString()), "url", editTUbic.getText().toString());//aqui lee de los componentes
+        Estate estate = new Estate();//aqui lee de los componentes
+
+        estate.setName("Finquilla");
+        estate.setPhoneUser(1234l);
 
         //insert new estate
         Log.i("server", "Peticion");
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.insertEstate("insert", "estate", 1, estate).enqueue(new Callback<Boolean>() {
+        myApiService.insertEstate("insert", estate).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 Snackbar.make(getCurrentFocus(), response.body() ? "Se insertó" : "No se insertó", Snackbar.LENGTH_LONG).show();

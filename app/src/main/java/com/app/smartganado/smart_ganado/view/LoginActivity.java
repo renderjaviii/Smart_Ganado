@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.vo.User;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 
 import retrofit2.Call;
@@ -31,25 +31,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginUser(View view) {
-        User user = new User();
-        user.setTelefono(Integer.parseInt(phone.getText().toString()));
-        user.setContraseña(password.getText().toString());
+        UserApp user = new UserApp();
+        user.setPhone(Long.parseLong(phone.getText().toString()));
+        user.setPassword(password.getText().toString());
 
-        APIUtils.getAPIService().getSession("login", "user", user).enqueue(new Callback<User>() {
+        APIUtils.getAPIService().getLogin(user).enqueue(new Callback<UserApp>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserApp> call, Response<UserApp> response) {
                 if (response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    intent.putExtra("phone", response.body().getTelefono()); //Enviamos telefono del usuario
-                    startActivity(intent);
-                    Snackbar.make(getCurrentFocus(), "Bienvenido " + response.body().getNombre() + "!", Snackbar.LENGTH_LONG).show();
+                    if (response.body() != null) {
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra("phone", response.body().getPhone()); //Enviamos telefono del usuario
+                        Snackbar.make(getCurrentFocus(), "Bienvenido " + response.body().getName() + "!", Snackbar.LENGTH_LONG).show();
+                        startActivity(intent);
+                    } else
+                        Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserApp> call, Throwable t) {
                 Log.i("server", "error: " + t.getMessage());
             }
         });
@@ -65,4 +67,5 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
 }

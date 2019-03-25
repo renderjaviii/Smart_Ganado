@@ -1,72 +1,88 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+
+/**
+ * The persistent class for the event database table.
+ * 
+ */
 public class Event implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private int id_Finca;
-    private Date fecha;
-    private int id_Tipo_Evento;
-    private String nombre;
-    private String detalles;
-    private String encargado;
 
-    public Event(Date fecha, int id_Finca, int id_tipo_evento, String nombre, String detalles, String encargado) {
-        this.fecha = fecha;
-        this.id_Finca = id_Finca;
-        this.id_Tipo_Evento = id_tipo_evento;
-        this.nombre = nombre;
-        this.detalles = detalles;
-        this.encargado = encargado;
-    }
+	private Integer id;
 
-    public Date getFecha() {
-        return fecha;
-    }
+	private Date date;
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	private String details;
 
-    public int getId_Finca() {
-        return id_Finca;
-    }
+	private Integer idEstate;
 
-    public void setId_Finca(int id_Finca) {
-        this.id_Finca = id_Finca;
-    }
+	private Integer idEventType;
 
-    public int getId_tipo_evento() {
-        return id_Tipo_Evento;
-    }
+	private String manager;
 
-    public void setId_tipo_evento(int id_tipo_evento) {
-        this.id_Tipo_Evento = id_tipo_evento;
-    }
+	private String name;
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Event() {
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getDetalles() {
-        return detalles;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setDetalles(String detalles) {
-        this.detalles = detalles;
-    }
+	public Date getDate() {
+		return this.date;
+	}
 
-    public String getEncargado() {
-        return encargado;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public void setEncargado(String encargado) {
-        this.encargado = encargado;
-    }
+	public String getDetails() {
+		return this.details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public Integer getIdEstate() {
+		return this.idEstate;
+	}
+
+	public void setIdEstate(Integer idEstate) {
+		this.idEstate = idEstate;
+	}
+
+	public Integer getIdEventType() {
+		return this.idEventType;
+	}
+
+	public void setIdEventType(Integer idEventType) {
+		this.idEventType = idEventType;
+	}
+
+	public String getManager() {
+		return this.manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

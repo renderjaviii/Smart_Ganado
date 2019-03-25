@@ -2,19 +2,15 @@ package com.app.smartganado.smart_ganado.remote;
 
 import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
-import com.app.smartganado.smart_ganado.model.vo.CattleStoryBook;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Event;
-import com.app.smartganado.smart_ganado.model.vo.Gender;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
-import com.app.smartganado.smart_ganado.model.vo.Purpose;
-import com.app.smartganado.smart_ganado.model.vo.User;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -29,8 +25,6 @@ public interface APIService {
     @POST("BBDD/")
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);//Retorna una lista de cattles
 
-    @POST("BBDD/")
-    Call<List<CattleStoryBook>> getCattleStoryBook(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
     @POST("BBDD/")
     Call<List<Estate>> getEstate(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
@@ -39,31 +33,33 @@ public interface APIService {
     Call<List<Event>> getEvent(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
     @POST("BBDD/")
-    Call<List<Gender>> getGender(@Header("action") String actionName, @Header("entity") String entityName);
-
-    @POST("BBDD/")
     Call<List<Lot>> getLot(@Header("action") String actionName, @Header("entity") String entityName);
 
     @POST("BBDD/")
-    Call<List<Purpose>> getPurpose(@Header("action") String actionName, @Header("entity") String entityName);
-
-    @POST("BBDD/")
-    Call<List<User>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
+    Call<List<UserApp>> getUser(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser);
 
 
     //Insert entities
-    @POST("BBDD/")
-    Call<Boolean> insertCattle(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser, @Body Cattle cattle); //Retorna true si se inserto correctamante
 
-    @POST("BBDD/")
-    Call<Boolean> insertEstate(@Header("action") String actionName, @Header("entity") String entityName, @Header("phone") Integer phoneUser, @Body Estate estate); //Retorna true si se inserto correctamante
 
-    @POST("BBDD/")
-    Call<Boolean> insertUser(@Header("action") String actionName, @Header("entity") String entityName, @Body User user); //Retorna true si se inserto correctamante
+    //UserApp
+    @POST("login")
+    Call<UserApp> getLogin(@Body UserApp user);
 
-    //Login
-    @POST("BBDD/")
-    Call<User> getSession(@Header("action") String actionName, @Header("entity") String entityName, @Body User user);
+    @POST("userApp")
+    Call<Boolean> insertUser(@Header("action") String actionName, @Body UserApp user); //action = insert -> Return true if the insertion is successful
+
+
+
+    //Estate
+    @POST("estate")
+    Call<Boolean> insertEstate(@Header("action") String actionName, @Body Estate estate); //action = insert
+
+
+
+    //Cattle
+    @POST("cattle")
+    Call<Boolean> insertCattle(@Header("action") String actionName, @Body Cattle cattle); //action = insert
 
 
     /** @FormUrlEncoded

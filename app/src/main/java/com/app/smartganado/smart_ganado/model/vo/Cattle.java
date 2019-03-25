@@ -1,34 +1,141 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
-public class Cattle {
-
-    private int id;
-    private String nombre;
-    private int id_Lote;
-    private int id_Raza;
-    private int id_Proposito;
-    private int id_Genero;
-    private int edad;
-    private double peso;
-    private String foto;
-    private String detalles;
+import java.io.Serializable;
 
 
-    public Cattle(int id, String nombre, int id_Lote, int id_Raza, int id_Proposito, int id_Genero, int edad, double peso, String foto, String detalles) {
+/**
+ * The persistent class for the cattle database table.
+ */
+public class Cattle implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private Integer id;
+
+    private Integer age;
+
+    private Integer code;
+    private String details;
+    private Integer idBreed;
+    private Integer idEstate;
+    private Integer idGender;
+    private Integer idLot;
+    private Integer idPurpose;
+    private String name;
+    private Byte[] photo;
+    private Double weight;
+
+    public Cattle() {
+    }
+
+    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, Byte[] photo, Double weight) {
         this.id = id;
-        this.nombre = nombre;
-        this.id_Lote = id_Lote;
-        this.id_Raza = id_Raza;
-        this.id_Proposito = id_Proposito;
-        this.id_Genero = id_Genero;
-        this.edad = edad;
-        this.peso = peso;
-        this.foto = foto;
-        this.detalles = detalles;
+        this.age = age;
+        this.code = code;
+        this.details = details;
+        this.idBreed = idBreed;
+        this.idEstate = idEstate;
+        this.idGender = idGender;
+        this.idLot = idLot;
+        this.idPurpose = idPurpose;
+        this.name = name;
+        this.photo = photo;
+        this.weight = weight;
     }
 
-    @Override
-    public String toString() {
-        return "id: " + String.valueOf(id) + ", nombre: " + nombre;
+    public Integer getId() {
+        return this.id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getAge() {
+        return this.age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getCode() {
+        return this.code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getDetails() {
+        return this.details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Integer getIdBreed() {
+        return this.idBreed;
+    }
+
+    public void setIdBreed(Integer idBreed) {
+        this.idBreed = idBreed;
+    }
+
+    public Integer getIdEstate() {
+        return this.idEstate;
+    }
+
+    public void setIdEstate(Integer idEstate) {
+        this.idEstate = idEstate;
+    }
+
+    public Integer getIdGender() {
+        return this.idGender;
+    }
+
+    public void setIdGender(Integer idGender) {
+        this.idGender = idGender;
+    }
+
+    public Integer getIdLot() {
+        return this.idLot;
+    }
+
+    public void setIdLot(Integer idLot) {
+        this.idLot = idLot;
+    }
+
+    public Integer getIdPurpose() {
+        return this.idPurpose;
+    }
+
+    public void setIdPurpose(Integer idPurpose) {
+        this.idPurpose = idPurpose;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Byte[] getPhoto() {
+        return this.photo;
+    }
+
+    public void setPhoto(Byte[] photo) {
+        this.photo = photo;
+    }
+
+    public Double getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
 }

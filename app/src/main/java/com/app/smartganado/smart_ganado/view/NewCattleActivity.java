@@ -57,17 +57,22 @@ public class NewCattleActivity extends AppCompatActivity {
         TXTPeso = (EditText) findViewById(R.id.Peso);
 
 
-        Cattle cattle = new Cattle(1, "Vaca leal", 1, 1, 1, 1, 1, 1, "url", "");
+        Cattle cattle = new Cattle();
+        cattle.setCode(10);
+        cattle.setIdEstate(1);
+        cattle.setName("Javi");
+
         //insert a new cattle
         if (myApiService == null)
             myApiService = APIUtils.getAPIService();
 
-        myApiService.insertCattle("insert", "cattle" , 1, cattle).enqueue(new Callback<Boolean>() {
+        myApiService.insertCattle("insert", cattle).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful())
                     Toast.makeText(getApplicationContext(), response.body() ? "Se insertó" : "No se insertó", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();

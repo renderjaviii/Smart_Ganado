@@ -1,62 +1,76 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
-public class Estate {
+import java.io.Serializable;
 
-    private int id;
-    private String nombre;
-    private double area;
-    private String foto;
-    private String ubicacion;
 
-    public Estate(String nombre, double area, String foto, String ubicacion) {
-        this.nombre = nombre;
-        this.area = area;
-        this.foto = foto;
-        this.ubicacion = ubicacion;
-    }
+/**
+ * The persistent class for the estate database table.
+ * 
+ */
+public class Estate implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    public int getId() {
-        return id;
-    }
+	private Integer id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	private Double area;
 
-    public String getNombre() {
-        return nombre;
-    }
+	private String location;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	private String name;
 
-    public double getArea() {
-        return area;
-    }
+	private Long phoneUser;
 
-    public void setArea(double area) {
-        this.area = area;
-    }
+	private Byte[] photo;
 
-    public String getFoto() {
-        return foto;
-    }
+	public Estate() {
+	}
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+	public double getArea() {
+		return this.area;
+	}
 
-    @Override
-    public String toString() {
-        return "{" + nombre + ", " + id + ", " + area + ", " + foto + "}";
-    }
+	public void setArea(double area) {
+		this.area = area;
+	}
+
+	public String getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Long getPhoneUser() {
+		return this.phoneUser;
+	}
+
+	public void setPhoneUser(Long phoneUser) {
+		this.phoneUser = phoneUser;
+	}
+
+	public Byte[] getPhoto() {
+		return this.photo;
+	}
+
+	public void setPhoto(Byte[] photo) {
+		this.photo = photo;
+	}
+
 }
