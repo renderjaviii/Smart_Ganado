@@ -2,30 +2,36 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
+/**
+ * The persistent class for the lot database table.
+ * 
+ */
 public class Lot implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String nombre;
 
-    public Lot(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+	private Integer id;
 
-    public int getId() {
-        return id;
-    }
+	private String name;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Lot() {
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
-

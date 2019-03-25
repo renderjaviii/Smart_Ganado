@@ -1,8 +1,11 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.app.smartganado.smart_ganado.R;
@@ -18,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewCattleActivity extends AppCompatActivity {
+    FloatingActionButton FABAgregar_Ganado;
     ListView ListaGanados;
     String[][] datos = {
             {"1234", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
@@ -26,22 +30,29 @@ public class ViewCattleActivity extends AppCompatActivity {
             {"4567a", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
     };
 
-    List<Cattle> cattleList;
-
+    private List<Cattle> cattleList;
     int[] datosImg = {R.drawable.vaca1, R.drawable.vaca2, R.drawable.vaca3, R.drawable.vaca4};
-
     private APIService myApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_view_cattle);
 
         ListaGanados = (ListView) findViewById(R.id.listaGanado);
 
         ListaGanados.setAdapter(new CattleAdapter(this, datos, datosImg));
 
-        init();
+        FABAgregar_Ganado = findViewById(R.id.Agregar_Ganado);
+        FABAgregar_Ganado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent miIntent = new Intent(ViewCattleActivity.this, NewCattleActivity.class);
+                startActivity(miIntent);
+            }
+        });
+      //  init();
     }
 
     private void init() {
@@ -55,9 +66,8 @@ public class ViewCattleActivity extends AppCompatActivity {
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
                 if (response.isSuccessful()) //Se valida que la respuesta sea correcta
                     for (Cattle cattle : response.body())
-                        Log.i("server ", cattle.toString());
+                        cattleList.add(cattle);
                 else Log.i("server", "Error on response");
-
             }
 
             @Override
@@ -67,5 +77,11 @@ public class ViewCattleActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    //Open insertar finca
+    public void onNewCattle(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
+        startActivity(intent);
     }
 }

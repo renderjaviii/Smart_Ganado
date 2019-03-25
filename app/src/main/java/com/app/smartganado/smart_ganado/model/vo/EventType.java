@@ -2,18 +2,22 @@ package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
 
+
 /**
- * The persistent class for the breed database table.
+ * The persistent class for the event_type database table.
  * 
  */
-public class Breed implements Serializable {
+
+public class EventType implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 
 	private Integer id;
 
+
 	private String name;
 
-	public Breed() {
+	public EventType() {
 	}
 
 	public Integer getId() {

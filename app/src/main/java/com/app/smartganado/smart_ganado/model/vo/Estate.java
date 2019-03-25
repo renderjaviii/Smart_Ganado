@@ -1,24 +1,76 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
-public class Estate {
-
-    private int id;
-    private String nombre;
-    private double area;
-    private String foto;
-    private String ubicacion;
-
-    public Estate(int id, String nombre, double area, String foto, String ubicacion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.area = area;
-        this.foto = foto;
-        this.ubicacion = ubicacion;
-    }
+import java.io.Serializable;
 
 
-    @Override
-    public String toString() {
-        return "{" + nombre + ", " + id + ", " + area + ", " + foto + "}";
-    }
+/**
+ * The persistent class for the estate database table.
+ * 
+ */
+public class Estate implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+
+	private Double area;
+
+	private String location;
+
+	private String name;
+
+	private Long phoneUser;
+
+	private Byte[] photo;
+
+	public Estate() {
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public double getArea() {
+		return this.area;
+	}
+
+	public void setArea(double area) {
+		this.area = area;
+	}
+
+	public String getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Long getPhoneUser() {
+		return this.phoneUser;
+	}
+
+	public void setPhoneUser(Long phoneUser) {
+		this.phoneUser = phoneUser;
+	}
+
+	public Byte[] getPhoto() {
+		return this.photo;
+	}
+
+	public void setPhoto(Byte[] photo) {
+		this.photo = photo;
+	}
+
 }
