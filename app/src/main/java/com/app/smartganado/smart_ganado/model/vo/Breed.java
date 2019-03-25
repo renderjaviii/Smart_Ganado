@@ -32,4 +32,11 @@ public class Breed implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Breed{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

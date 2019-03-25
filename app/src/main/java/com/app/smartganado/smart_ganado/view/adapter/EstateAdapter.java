@@ -69,7 +69,7 @@ public class EstateAdapter extends ArrayAdapter  {
         }else{
             viewHolder=(viewHolder) row.getTag();
         }
-        viewHolder.imageView.setImageResource(R.drawable.farmdef);
+        // viewHolder.imageView.setImageResource(R.drawable.farmdef); //Revisar
         viewHolder.textViewName.setText(items.get(position).getName());
         viewHolder.textViewLocation.setText(items.get(position).getLocation());
 

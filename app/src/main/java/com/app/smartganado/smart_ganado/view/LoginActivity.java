@@ -10,8 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.Breed;
+import com.app.smartganado.smart_ganado.model.vo.Lot;
+import com.app.smartganado.smart_ganado.model.vo.Purpose;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +33,61 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         phone = (EditText) findViewById(R.id.Phone_Login);
         password = (EditText) findViewById(R.id.Password_Login);
+
+        //Test db
+        APIUtils.getAPIService().getLot().enqueue(new Callback<List<Lot>>() {
+            @Override
+            public void onResponse(Call<List<Lot>> call, Response<List<Lot>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        for (Lot lot : response.body())
+                            Log.i("server", lot.toString());}
+                    else Log.i("server", "reponse no sucessful");
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Lot>> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
+
+        //Test db
+        APIUtils.getAPIService().getPurpose().enqueue(new Callback<List<Purpose>>() {
+            @Override
+            public void onResponse(Call<List<Purpose>> call, Response<List<Purpose>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        for (Purpose purpose : response.body())
+                            Log.i("server", purpose.toString());}
+                    else Log.i("server", "reponse no sucessful");
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Purpose>> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
+
+
+        //Test db
+        APIUtils.getAPIService().getBreed().enqueue(new Callback<List<Breed>>() {
+            @Override
+            public void onResponse(Call<List<Breed>> call, Response<List<Breed>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        for (Breed breed : response.body())
+                            Log.i("server", breed.toString());
+                    else Log.i("server", "reponse no sucessful");}
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Breed>> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
     }
 
     public void onLoginUser(View view) {

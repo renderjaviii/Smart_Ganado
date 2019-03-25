@@ -36,10 +36,10 @@ public class ViewEstateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
-        finca = (ListView) findViewById(R.id.finca);
+       // finca = (ListView) findViewById(R.id.finca);
         a= new ArrayList<>();
-        a.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
-        a.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
+        //a.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
+        //a.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
         finca.setAdapter(new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,a));
 
         //List of States (esto no tiene que ir en el onCreate())
@@ -51,8 +51,8 @@ public class ViewEstateActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-        MenuItem item = menu.findItem(R.id.finca);
-        SearchView searchView = (SearchView) item.getActionView();
+       MenuItem item = null; ///menu.findItem(R.id.finca); Revisar
+      SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

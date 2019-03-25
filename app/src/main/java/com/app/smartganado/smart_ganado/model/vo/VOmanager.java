@@ -19,9 +19,9 @@ public class VOmanager  {
     private Tank tank=null;
     private UserApp userApp=null;
 
-    public static Backup getBackup(Date date, Integer phoneUser) {
+ /*  public static Backup getBackup(Date date, Integer phoneUser) {
         return backup==null ? new Backup(date,phoneUser) : backup;
-    }
+    }*/
 
 
     public static Cattle getCattle() {

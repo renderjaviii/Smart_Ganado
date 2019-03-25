@@ -61,7 +61,7 @@ public class ViewCattleActivity extends AppCompatActivity {
             myApiService = APIUtils.getAPIService();
 
 
-        myApiService.getCattle("getAll", "cattle", 1).enqueue(new Callback<List<Cattle>>() {
+        myApiService.getCattle("getAll", 1234l).enqueue(new Callback<List<Cattle>>() {
             @Override
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
                 if (response.isSuccessful()) //Se valida que la respuesta sea correcta

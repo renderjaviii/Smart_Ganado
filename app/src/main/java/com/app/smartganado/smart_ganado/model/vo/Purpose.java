@@ -35,4 +35,11 @@ public class Purpose implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Purpose{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }
