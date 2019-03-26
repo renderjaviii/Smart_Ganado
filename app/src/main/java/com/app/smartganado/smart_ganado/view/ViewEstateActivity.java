@@ -38,6 +38,11 @@ public class ViewEstateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_estate);
         finca = (ListView) findViewById(R.id.finca);
 
+
+
+
+
+
         a = new ArrayList<>();
         Estate estate = new Estate();
         estate.setName("Fincota");
