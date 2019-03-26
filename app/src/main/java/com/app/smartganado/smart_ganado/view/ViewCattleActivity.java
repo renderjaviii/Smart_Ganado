@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
@@ -23,26 +24,25 @@ import retrofit2.Response;
 public class ViewCattleActivity extends AppCompatActivity {
     FloatingActionButton FABAgregar_Ganado;
     ListView ListaGanados;
-    String[][] datos = {
-            {"1234", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"4321", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"2468", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"4567a", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-    };
+    String[][] datos;
 
     private List<Cattle> cattleList;
     int[] datosImg = {R.drawable.vaca1, R.drawable.vaca2, R.drawable.vaca3, R.drawable.vaca4};
     private APIService myApiService;
+
+    private CattleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_view_cattle);
-
         ListaGanados = (ListView) findViewById(R.id.listaGanado);
 
-        ListaGanados.setAdapter(new CattleAdapter(this, datos, datosImg));
+
+        datos = new String[4][4];
+        adapter = new CattleAdapter(this, datos, datosImg);
+        ListaGanados.setAdapter(adapter);
 
         FABAgregar_Ganado = findViewById(R.id.Agregar_Ganado);
         FABAgregar_Ganado.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +56,24 @@ public class ViewCattleActivity extends AppCompatActivity {
     }
 
     private void init() {
-        APIUtils.getAPIService().getCattle("getAll", 1234l).enqueue(new Callback<List<Cattle>>() {
+        UserApp user = new UserApp();
+        user.setPhone(1234l);
+        Log.i("server", "peticion cattle");
+
+        APIUtils.getAPIService().getCattle("getAll", user.getPhone()).enqueue(new Callback<List<Cattle>>() {
             @Override
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
-                if (response.isSuccessful()) //Se valida que la respuesta sea correcta
-                    for (Cattle cattle : response.body())
-                        cattleList.add(cattle);
-                else Log.i("server", "Error on response");
+                if (response.isSuccessful()) { //Se valida que la respuesta sea correcta
+                    int pos = 1;
+                    for (Cattle cattle : response.body()) {
+                        datos[pos++][0] = cattle.getName();
+                        Log.i("server", cattle.toString()
+                        );
+                    }
+                    adapter.notifyDataSetChanged();
+
+
+                } else Log.i("server", "Error on response");
             }
 
             @Override

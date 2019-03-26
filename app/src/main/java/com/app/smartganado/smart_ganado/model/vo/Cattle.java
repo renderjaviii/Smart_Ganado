@@ -1,6 +1,7 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 
 /**
@@ -138,4 +139,21 @@ public class Cattle implements Serializable {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return "Cattle{" +
+                "id=" + id +
+                ", age=" + age +
+                ", code=" + code +
+                ", details='" + details + '\'' +
+                ", idBreed=" + idBreed +
+                ", idEstate=" + idEstate +
+                ", idGender=" + idGender +
+                ", idLot=" + idLot +
+                ", idPurpose=" + idPurpose +
+                ", name='" + name + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                ", weight=" + weight +
+                '}';
+    }
 }

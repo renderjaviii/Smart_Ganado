@@ -3,7 +3,6 @@ package com.app.smartganado.smart_ganado.remote;
 import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
-import com.app.smartganado.smart_ganado.model.vo.Event;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
@@ -27,14 +26,12 @@ public interface APIService {
     Call<Boolean> insertUser(@Header("action") String actionName, @Body UserApp user); //action = insert -> Return true if the insertion is successful
 
 
-
     //Estate
     @POST("estate")
     Call<Boolean> insertEstate(@Header("action") String actionName, @Body Estate estate); //action = insert
 
-    @POST("estate")
-    Call<List<Estate>> getEstate(@Header("action") String actionName, @Body UserApp user);
-
+    @GET("estate")
+    Call<List<Estate>> getEstate(@Header("action") String actionName, @Header("phone") Long phone);
 
 
     //Cattle
@@ -42,8 +39,7 @@ public interface APIService {
     Call<Boolean> insertCattle(@Header("action") String actionName, @Body Cattle cattle); //action = insert
 
     @GET("cattle")
-    Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("phone") Long phoneUser);//action == getAll
-
+    Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
 
     //Lot

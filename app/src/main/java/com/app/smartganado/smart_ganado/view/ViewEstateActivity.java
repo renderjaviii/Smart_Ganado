@@ -30,7 +30,6 @@ public class ViewEstateActivity extends AppCompatActivity {
     ArrayList<Estate> a;
     ListView finca;
     private int userPhone;
-    private List<String> names = new ArrayList<>();
     private EstateAdapter adapter;
 
     @Override
@@ -46,12 +45,13 @@ public class ViewEstateActivity extends AppCompatActivity {
         a.add(estate);
 
         adapter = new EstateAdapter(ViewEstateActivity.this, R.layout.estate_adapter, a);
+        finca.setAdapter(adapter);
 
         init();
     }
 
 
-  /*  @Override
+  /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
@@ -98,15 +98,15 @@ public class ViewEstateActivity extends AppCompatActivity {
 
         UserApp user = new UserApp();
         user.setPhone(1234l);
-        Log.i("server" , "peticion");
+        Log.i("server" , "peticion estate");
 
 
-        APIUtils.getAPIService().getEstate("getAll", user).enqueue(new Callback<List<Estate>>() {
+        APIUtils.getAPIService().getEstate("getAll", user.getPhone()).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful()) {
                     for (Estate estate : response.body()) {
-                        adapter.add(estate.getName());
+                        a.add(estate);
                         Log.i("server", estate.toString());
                     }
                     adapter.notifyDataSetChanged();
