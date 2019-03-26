@@ -32,8 +32,8 @@ public interface APIService {
     @POST("estate")
     Call<Boolean> insertEstate(@Header("action") String actionName, @Body Estate estate); //action = insert
 
-    @POST("BBDD/")
-    Call<List<Estate>> getEstate(@Header("action") String actionName, @Header("phone") Long phoneUser);
+    @POST("estate")
+    Call<List<Estate>> getEstate(@Header("action") String actionName, @Body UserApp user);
 
 
 

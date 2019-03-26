@@ -1,6 +1,7 @@
 package com.app.smartganado.smart_ganado.model.vo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 
 /**
@@ -73,4 +74,15 @@ public class Estate implements Serializable {
 		this.photo = photo;
 	}
 
+	@Override
+	public String toString() {
+		return "Estate{" +
+				"id=" + id +
+				", area=" + area +
+				", location='" + location + '\'' +
+				", name='" + name + '\'' +
+				", phoneUser=" + phoneUser +
+				", photo=" + Arrays.toString(photo) +
+				'}';
+	}
 }

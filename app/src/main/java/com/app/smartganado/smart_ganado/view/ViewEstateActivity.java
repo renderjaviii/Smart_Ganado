@@ -8,13 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
-import com.app.smartganado.smart_ganado.remote.APIService;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 
@@ -31,28 +30,33 @@ public class ViewEstateActivity extends AppCompatActivity {
     ArrayList<Estate> a;
     ListView finca;
     private int userPhone;
-    private List<String> names = new ArrayList<>();;
+    private List<String> names = new ArrayList<>();
+    private EstateAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_estate);
-       // finca = (ListView) findViewById(R.id.finca);
-        a= new ArrayList<>();
-        //a.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
-        //a.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
-        finca.setAdapter(new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,a));
+        finca = (ListView) findViewById(R.id.finca);
 
-        //List of States (esto no tiene que ir en el onCreate())
+        a = new ArrayList<>();
+        Estate estate = new Estate();
+        estate.setName("Fincota");
+        estate.setPhoneUser(1234l);
+        a.add(estate);
 
+        adapter = new EstateAdapter(ViewEstateActivity.this, R.layout.estate_adapter, a);
+
+        init();
     }
 
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-       MenuItem item = null; ///menu.findItem(R.id.finca); Revisar
-      SearchView searchView = (SearchView) item.getActionView();
+        MenuItem item = menu.findItem(R.id.finca);
+        SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -72,7 +76,7 @@ public class ViewEstateActivity extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
     public void onClick(View view) {
         Intent miIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
@@ -80,10 +84,9 @@ public class ViewEstateActivity extends AppCompatActivity {
     }
 
 
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        if(id==R.id.action_settings){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -91,24 +94,30 @@ public class ViewEstateActivity extends AppCompatActivity {
     }
 
 
-    private void init(){
- /*
-        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
+    private void init() {
+
+        UserApp user = new UserApp();
+        user.setPhone(1234l);
+        Log.i("server" , "peticion");
+
+
+        APIUtils.getAPIService().getEstate("getAll", user).enqueue(new Callback<List<Estate>>() {
             @Override
-           public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
+            public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful()) {
                     for (Estate estate : response.body()) {
-                                names.add(estate.getName());
+                        adapter.add(estate.getName());
                         Log.i("server", estate.toString());
                     }
-                } else Log.i("server", "error on response");
+                    adapter.notifyDataSetChanged();
 
+                } else Log.i("server", "error on response");
+            }
 
             @Override
             public void onFailure(Call<List<Estate>> call, Throwable t) {
-                Log.i("server", "error: " + t.getMessage());
+                Log.i("server", t.getMessage());
             }
-
-        }); }*/
+        });
     }
 }

@@ -52,16 +52,11 @@ public class ViewCattleActivity extends AppCompatActivity {
                 startActivity(miIntent);
             }
         });
-      //  init();
+        init();
     }
 
     private void init() {
-        //Cattle list obtain of the server (quita esto del metodo onCreate)
-        if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
-
-
-        myApiService.getCattle("getAll", 1234l).enqueue(new Callback<List<Cattle>>() {
+        APIUtils.getAPIService().getCattle("getAll", 1234l).enqueue(new Callback<List<Cattle>>() {
             @Override
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
                 if (response.isSuccessful()) //Se valida que la respuesta sea correcta

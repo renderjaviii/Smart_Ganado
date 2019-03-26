@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body() != null)
                         for (Lot lot : response.body())
-                            Log.i("server", lot.toString());}
-                    else Log.i("server", "reponse no sucessful");
+                            Log.i("server", lot.toString());
+                } else Log.i("server", "reponse no sucessful");
 
             }
 
@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body() != null)
                         for (Purpose purpose : response.body())
-                            Log.i("server", purpose.toString());}
-                    else Log.i("server", "reponse no sucessful");
+                            Log.i("server", purpose.toString());
+                } else Log.i("server", "reponse no sucessful");
 
             }
 
@@ -79,7 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.body() != null)
                         for (Breed breed : response.body())
                             Log.i("server", breed.toString());
-                    else Log.i("server", "reponse no sucessful");}
+                } else Log.i("server", "reponse no sucessful");
+
 
             }
 

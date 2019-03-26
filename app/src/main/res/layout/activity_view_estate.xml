@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ListView
-            android:id="@+id/cattleList"
+            android:id="@+id/finca"
             android:layout_width="wrap_content"
             android:layout_height="929dp"
             android:layout_weight="1"
@@ -37,10 +37,11 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:onClick="onNewEstate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@tools:sample/avatars"
+        android:onClick="onClick"
+
         />
 
 </android.support.constraint.ConstraintLayout>
