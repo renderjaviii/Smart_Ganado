@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,10 +24,10 @@ import retrofit2.Response;
 public class NewEstateActivity extends AppCompatActivity {
 
     EditText editTNombre, editTArea, editTUbic;
-    Button estateButton;
+    Button estateButton,estateimgButton;
     TextView a;
     String jsonEstate;
-
+    Integer choose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,8 @@ public class NewEstateActivity extends AppCompatActivity {
         Bundle estateBundle= getIntent().getExtras();
 
         if (estateBundle!=null) {
-            menu(Integer.valueOf(estateBundle.getString("choose")), estateBundle);
+            choose=Integer.valueOf(estateBundle.getString("choose"));
+            menu(choose, estateBundle);
 
         }
 
@@ -50,13 +52,24 @@ public class NewEstateActivity extends AppCompatActivity {
     public void onInsertEstate(View view) {
         Estate estate = new Estate();//aqui lee de los componentes
         estate.setName(editTNombre.getText().toString());
-        finish();
+        switch (choose){
+            case 1:
+                //Mandar la solicitud al servidor de actualizar
+                break;
+            case 2:
+                Intent newEstateIntent =new Intent(this, ViewCattleActivity.class);
+                this.startActivity(newEstateIntent);
+                break;
+            case 3:
+                //Manda la solicitud al servidor de agregar
+        }
     }
     private void menu(Integer choose, Bundle estateBundle){
         jsonEstate = estateBundle.getString("Estate");
         Estate newEstate= new Gson().fromJson(jsonEstate,Estate.class);
         switch (choose){
             case 1:
+
                 editTNombre.setText(newEstate.getName());
                 editTArea.setText(String.valueOf(newEstate.getArea()));
                 editTUbic.setText(newEstate.getLocation());
@@ -68,8 +81,12 @@ public class NewEstateActivity extends AppCompatActivity {
                 editTArea.setEnabled(false);
                 editTUbic.setText(newEstate.getLocation());
                 editTUbic.setEnabled(false);
-                Button estateButton= (Button)  findViewById(R.id.Save_Finca);
+                estateButton= (Button)  findViewById(R.id.Save_Finca);
+                estateimgButton= (Button) findViewById(R.id.imgButton);
+                estateimgButton.setVisibility(View.INVISIBLE);
                 estateButton.setText("Ver ganado");
+
+
                 break;
             case 3:
 

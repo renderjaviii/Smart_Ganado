@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
@@ -27,9 +27,19 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="334dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/farmdef"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <Button
+            android:id="@+id/imgButton"
+            android:layout_width="362dp"
+            android:layout_height="37dp"
+            android:text="Seleccionar imagen" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,15 +104,16 @@
 
             </LinearLayout>
 
-      </LinearLayout>
-            <Button
-                android:id="@+id/Save_Finca"
-                android:layout_width="363dp"
-                android:layout_height="wrap_content"
-                android:onClick="onInsertEstate"
-                android:text="GUARDAR"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="8dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Save_Finca"
+            android:layout_width="363dp"
+            android:layout_height="wrap_content"
+            android:onClick="onInsertEstate"
+            android:text="GUARDAR"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="8dp" />
 
 
     </LinearLayout>
