@@ -3,6 +3,7 @@ package com.app.smartganado.smart_ganado.view.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AlertDialogLayout;
@@ -24,6 +25,7 @@ import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.view.NewEstateActivity;
 import com.app.smartganado.smart_ganado.view.ViewEstateActivity;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -80,14 +82,20 @@ public class EstateAdapter extends ArrayAdapter  {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Intent newEstateIntent =new Intent(getContext(), NewEstateActivity.class);
+
                         switch (item.getItemId()){
+
                             case R.id.item1:
-                               /* Intent miIntent = new Intent(getContext(), EditEstateActivity.class);
-                                getContext().startActivity(miIntent); */
+                               newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("choose", "1");
+                                getContext().startActivity(newEstateIntent);
+
                                 return  true;
                             case R.id.item2:
-                             /*  miIntent = new Intent(getContext(), ViewEstateInfo.class);
-                                getContext().startActivity(miIntent);*/
+                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("choose", "2");
+                                getContext().startActivity(newEstateIntent);
                                 return  true;
                             case R.id.item3:
                                 // Petición al server de eliminar

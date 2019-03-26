@@ -14,7 +14,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textView14"
@@ -22,6 +24,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="REGISTRO DE FINCA" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/Direccion_Finca"
@@ -86,23 +94,16 @@
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="218dp">
-
+      </LinearLayout>
             <Button
                 android:id="@+id/Save_Finca"
                 android:layout_width="363dp"
                 android:layout_height="wrap_content"
-                android:onClick="onClick"
+                android:onClick="onInsertEstate"
                 android:text="GUARDAR"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="8dp" />
-        </android.support.constraint.ConstraintLayout>
+
 
     </LinearLayout>
 

@@ -31,7 +31,7 @@ public class NewUserActivity extends AppCompatActivity {
         editTextCorreo = findViewById(R.id.Correo_Registro);
         editTextPassword = findViewById(R.id.Contraseña_Registro);
         editTextPhone = findViewById(R.id.Telefono_Registro);
-        editTNombre = findViewById(R.id.editTName);
+    //    editTNombre = findViewById(R.id.editTName);
 
 
     }
