@@ -6,22 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".view.NewCattleActivity">
 
-    <Spinner
-        android:id="@+id/Clasificacion"
-        android:layout_width="168dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:dropDownWidth="match_parent"
-        android:scrollbarSize="67dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintHorizontal_bias="0.809"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.47" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="614dp" />
 
     <Spinner
         android:id="@+id/RazaTexto"
@@ -87,43 +78,45 @@
         android:id="@+id/Registrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="88dp"
         android:onClick="Registro"
         android:text="@string/Buttom_Registro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Detalles" />
+        app:layout_constraintTop_toTopOf="@+id/guideline17" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="148dp"
+        android:layout_width="141dp"
         android:layout_height="138dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:layout_constraintVertical_bias="0.812"
-        app:srcCompat="@drawable/vaca1" />
+        android:layout_alignTop="@+id/EdadGanado"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="120dp"
+        android:contentDescription="@string/app_name"
+        android:onClick="menu"
+        app:layout_constraintStart_toEndOf="@+id/Finca"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vaca1"
+        tools:srcCompat="@drawable/previo" />
 
     <EditText
         android:id="@+id/EdadGanado"
-        android:layout_width="167dp"
+        android:layout_width="151dp"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/Edad"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
         tools:targetApi="o" />
 
     <EditText
@@ -131,7 +124,7 @@
         android:layout_width="168dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:ems="10"
@@ -142,22 +135,6 @@
         app:layout_constraintHorizontal_bias="0.809"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
-        tools:targetApi="o" />
-
-    <EditText
-        android:id="@+id/Detalles"
-        android:layout_width="274dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="36dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/Detalles"
-        android:inputType="textMultiLine"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EdadGanado"
         tools:targetApi="o" />
 
     <android.support.constraint.Guideline
@@ -223,5 +200,50 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="352dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/FABEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        android:onClick="Editar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline35"
+        app:layout_constraintVertical_bias="0.823"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="menu"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.626"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <Button
+        android:id="@+id/Eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="376dp"
+        android:text="Eliminar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

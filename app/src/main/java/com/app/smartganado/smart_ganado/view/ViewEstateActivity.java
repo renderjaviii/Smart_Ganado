@@ -45,7 +45,7 @@ public class ViewEstateActivity extends AppCompatActivity {
 
     }
 
-
+        //Buscador de finca
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

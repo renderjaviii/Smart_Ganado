@@ -18,15 +18,8 @@
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="REGISTRO DE FINCA" />
-
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/estateImageView"
             android:layout_width="334dp"
             android:layout_height="71dp"
             android:layout_marginStart="4dp"
@@ -39,6 +32,7 @@
             android:id="@+id/imgButton"
             android:layout_width="362dp"
             android:layout_height="37dp"
+            android:onClick="menu"
             android:text="Seleccionar imagen" />
 
         <LinearLayout

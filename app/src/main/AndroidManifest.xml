@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.smartganado.smart_ganado">
-
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -67,6 +69,11 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
+        <provider android:name="android.support.v4.content.FileProvider" android:grantUriPermissions="true" android:exported="false" android:authorities="com.example.android.fileprovider">
+
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"> </meta-data>
+
+        </provider>
     </application>
 
 </manifest>
