@@ -38,17 +38,23 @@ public class ViewEstateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle homeBundle= getIntent().getExtras();
+        if (homeBundle!=null) {
+        userPhone=getUserPhone(homeBundle);
+        }
+
         setContentView(R.layout.activity_view_estate);
         estateListView = (ListView) findViewById(R.id.estateListView);
         estateArrayList= new ArrayList<>();
-        estateArrayList.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
-        estateArrayList.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
-
+        estateArrayList.add(new Estate(1.0,"El sur","La milagrosa",null,userPhone));
+        estateArrayList.add(new Estate(12.0,"El sur","El peñon",null,userPhone));
         estateAdapter=new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,estateArrayList);
+
 
         estateListView.setAdapter(estateAdapter);
 
-        //List of States (esto no tiene que ir en el onCreate())
+
 
     }
 
@@ -98,25 +104,16 @@ public class ViewEstateActivity extends AppCompatActivity {
 
     }
 
+    public Long getUserPhone(Bundle homeBundle){
+        return homeBundle.getLong("userPhone");
+    }
 
-    private void init(){
+
+    private List<Estate> getEstates(){
  /*
-        myApiService.getEstate("getAll", "estate", 1).enqueue(new Callback<List<Estate>>() {
-            @Override
-           public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
-                if (response.isSuccessful()) {
-                    for (Estate estate : response.body()) {
-                                names.add(estate.getName());
-                        Log.i("server", estate.toString());
-                    }
-                } else Log.i("server", "error on response");
+        Llamar al dao desde acá para obtener todas las fincas !
 
-
-            @Override
-            public void onFailure(Call<List<Estate>> call, Throwable t) {
-                Log.i("server", "error: " + t.getMessage());
-            }
-
-        }); }*/
+        */
+ return null;
     }
 }

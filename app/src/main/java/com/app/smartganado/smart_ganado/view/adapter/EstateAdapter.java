@@ -101,7 +101,6 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
         viewHolder.imageView.setImageBitmap(utilities.Bytetobmap(items.get(position).getPhoto()));}
         viewHolder.textViewName.setText(items.get(position).getName());
         viewHolder.textViewLocation.setText(items.get(position).getLocation());
-
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,13 +114,11 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
 
                             case R.id.item1:
                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
-                                newEstateIntent.putExtra("Adapter",new Gson().toJson(this));
                                 newEstateIntent.putExtra("choose", "1");
                                 getContext().startActivity(newEstateIntent);
                                 return  true;
                             case R.id.item2:
                                 newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
-                                newEstateIntent.putExtra("Adapter",new Gson().toJson(this));
                                 newEstateIntent.putExtra("choose", "2");
                                 getContext().startActivity(newEstateIntent);
                                 return  true;
