@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
@@ -50,6 +53,7 @@ public class NewEstateActivity extends AppCompatActivity {
     String jsonEstate;
     Integer choose;
     ImageView img;
+    Utilities utilities = new Utilities();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,36 +84,69 @@ public class NewEstateActivity extends AppCompatActivity {
 
         switch (choose){
             case 1:
-                estate = new Estate();
-                estate.setName(editTNombre.getText().toString());
-                estate.setArea(Double.valueOf(editTArea.getText().toString()));
-                estate.setLocation(editTUbic.getText().toString());
+                if (editTUbic.getText().toString()!=null && editTNombre.getText().toString()!=null && editTUbic.getText().toString()!=null) {
+                    estate = new Estate();
+                    estate.setName(editTNombre.getText().toString());
+                    estate.setArea(Double.valueOf(editTArea.getText().toString()));
+                    estate.setLocation(editTUbic.getText().toString());
+                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) img.getDrawable());
+                    Bitmap bitmap = bitmapDrawable .getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] imageInByte = stream.toByteArray();
 
-                //Mandar la solicitud al servidor de actualizar
+                    estate.setPhoto(imageInByte);
+                    //Mandar la solicitud al servidor de actualizar
+                    //Si la respuesta del cliente es favorable >
+                    Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
+                }
+
                 break;
             case 2:
                 Intent newEstateIntent =new Intent(this, ViewCattleActivity.class);
                 this.startActivity(newEstateIntent);
                 break;
             case 3:
-                estate = new Estate();
-                estate.setName(editTNombre.getText().toString());
-                estate.setArea(Double.valueOf(editTArea.getText().toString()));
-                estate.setLocation(editTUbic.getText().toString());
-                //Manda la solicitud al servidor de agregar
+
+
+                if (!editTUbic.getText().toString().isEmpty() && !editTNombre.getText().toString().isEmpty() && !editTUbic.getText().toString().isEmpty() && !img.getDrawable().equals(R.drawable.farmdef)) {
+                    estate = new Estate();
+                    estate.setName(editTNombre.getText().toString());
+                    estate.setArea(Double.valueOf(editTArea.getText().toString()));
+                    estate.setLocation(editTUbic.getText().toString());
+                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) img.getDrawable());
+                    Bitmap bitmap = bitmapDrawable .getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] imageInByte = stream.toByteArray();
+
+                estate.setPhoto(imageInByte);
+                    //Manda la solicitud al servidor de agregar
+                    //Si la respuesta del cliente es favorable >
+                    Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
+                }
+
         }
     }
     private void menu(Integer choose, Bundle estateBundle){
-        jsonEstate = estateBundle.getString("Estate");
-        Estate newEstate= new Gson().fromJson(jsonEstate,Estate.class);
+
         switch (choose){
             case 1:
-
+                jsonEstate = estateBundle.getString("Estate");
+                Estate newEstate= new Gson().fromJson(jsonEstate,Estate.class);
                 editTNombre.setText(newEstate.getName());
                 editTArea.setText(String.valueOf(newEstate.getArea()));
                 editTUbic.setText(newEstate.getLocation());
                 break;
             case 2:
+                jsonEstate = estateBundle.getString("Estate");
+               newEstate= new Gson().fromJson(jsonEstate,Estate.class);
                 editTNombre.setText(newEstate.getName());
                 editTNombre.setEnabled(false);
                 editTArea.setText(String.valueOf(newEstate.getArea()));

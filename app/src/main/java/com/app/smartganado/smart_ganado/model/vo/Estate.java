@@ -20,12 +20,12 @@ public class Estate implements Serializable {
 
 	private Long phoneUser;
 
-	private Byte[] photo;
+	private byte[] photo;
 
 	public Estate() {
 	}
 
-	public Estate(Double area, String location, String name, Byte[] photo, Long phoneUser) {
+	public Estate(Double area, String location, String name, byte[] photo, Long phoneUser) {
 		this.area = area;
 		this.location = location;
 		this.name = name;
@@ -73,11 +73,11 @@ public class Estate implements Serializable {
 		this.phoneUser = phoneUser;
 	}
 
-	public Byte[] getPhoto() {
+	public byte[] getPhoto() {
 		return this.photo;
 	}
 
-	public void setPhoto(Byte[] photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 

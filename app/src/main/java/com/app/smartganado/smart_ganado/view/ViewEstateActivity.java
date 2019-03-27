@@ -75,6 +75,7 @@ public class ViewEstateActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         Intent miIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
+        miIntent.putExtra("choose", "3");
         startActivity(miIntent);
     }
 
