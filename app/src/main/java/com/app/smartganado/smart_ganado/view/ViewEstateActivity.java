@@ -18,6 +18,8 @@ import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class ViewEstateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_estate);
         finca = (ListView) findViewById(R.id.finca);
         a= new ArrayList<>();
+
+
         a.add(new Estate(1.0,"El sur","La milagrosa",null,Long.valueOf(123)));
         a.add(new Estate(12.0,"El sur","El peñon",null,Long.valueOf(123)));
         finca.setAdapter(new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,a));

@@ -94,7 +94,6 @@ public class NewEstateActivity extends AppCompatActivity {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] imageInByte = stream.toByteArray();
-
                     estate.setPhoto(imageInByte);
                     //Mandar la solicitud al servidor de actualizar
                     //Si la respuesta del cliente es favorable >

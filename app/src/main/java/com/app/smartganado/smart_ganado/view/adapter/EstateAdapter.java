@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +72,11 @@ public class EstateAdapter extends ArrayAdapter  {
         }else{
             viewHolder=(viewHolder) row.getTag();
         }
+        Utilities utilities = new Utilities();
+        if (items.get(position).getPhoto()==null) {
         viewHolder.imageView.setImageResource(R.drawable.farmdef);
+        }else{
+        viewHolder.imageView.setImageBitmap(utilities.Bytetobmap(items.get(position).getPhoto()));}
         viewHolder.textViewName.setText(items.get(position).getName());
         viewHolder.textViewLocation.setText(items.get(position).getLocation());
 
