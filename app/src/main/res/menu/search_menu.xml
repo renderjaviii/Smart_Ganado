@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/finca"
-        android:title="Buscador fincas"
+    <item
+        android:id="@+id/estateListView"
         android:icon="@android:drawable/ic_menu_search"
+        android:title="Buscador fincas"
         app:actionViewClass="android.widget.SearchView"
 
-        app:showAsAction="always"
-        >
+        app:showAsAction="always">
 
     </item>
 </menu>

@@ -30,12 +30,19 @@ import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstateAdapter extends ArrayAdapter  {
+public class EstateAdapter extends ArrayAdapter implements Serializable {
 
-    private ArrayList<Estate> items;
+
+
+   public static ArrayList<Estate> items;
+
+    public ArrayList<Estate> getItems() {
+        return items;
+    }
 
     public EstateAdapter(Context context, int layaout, ArrayList<Estate> items) {
     super(context,layaout);
@@ -52,11 +59,26 @@ public class EstateAdapter extends ArrayAdapter  {
     public  int getCount(){
         return items.size();
     }
+
+    public  void add (Estate estate){
+        items.add(estate);
+        update(items);
+    }
+    public void replace (Estate estate){
+        for (int i=0; i<items.size(); i++){
+            if (items.get(i).getName().equals(estate.getName())){
+                items.remove(items.get(i));
+                items.add(estate);
+            //    update(items);
+            }
+        }
+            }
      public void update(ArrayList<Estate> result){
         items= new ArrayList<>();
         items.addAll(result);
         notifyDataSetChanged();
       }
+
     public View getView(final int position, @Nullable View  convertView, @NonNull ViewGroup parent){
         View row;
         row=convertView;
@@ -93,17 +115,26 @@ public class EstateAdapter extends ArrayAdapter  {
 
                             case R.id.item1:
                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("Adapter",new Gson().toJson(this));
                                 newEstateIntent.putExtra("choose", "1");
                                 getContext().startActivity(newEstateIntent);
-
                                 return  true;
                             case R.id.item2:
                                 newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("Adapter",new Gson().toJson(this));
                                 newEstateIntent.putExtra("choose", "2");
                                 getContext().startActivity(newEstateIntent);
                                 return  true;
                             case R.id.item3:
                                 // Petición al server de eliminar
+                                //If es favorable
+                               if (items.remove(items.get(position))) {
+                                   update(items);
+                                   Toast.makeText(getContext(), "Se elimino correctamente", Toast.LENGTH_LONG).show();
+                               }
+                                else {
+                                   Toast.makeText(getContext(), "Hubo un problema eliminando, intentelo más tarde", Toast.LENGTH_LONG).show();
+                               }
                                 return  true;
                                 default: return false;
 

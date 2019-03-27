@@ -31,6 +31,7 @@ import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIService;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
+import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 import com.app.smartganado.smart_ganado.view.adapter.Utilities;
 import com.google.gson.Gson;
 
@@ -40,36 +41,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewEstateActivity extends AppCompatActivity {
 
-    EditText editTNombre, editTArea, editTUbic;
-    Button estateButton,estateimgButton;
-    TextView a;
+    EditText nameEstateEditText, areaEstateEditText, locacionEstateEditText;
+    Button estateButton,estateImgButton;
     String jsonEstate;
     Integer choose;
-    ImageView img;
-    Utilities utilities = new Utilities();
+    ImageView photoEstateImageView;
+    Utilities utilities;
+    Estate newEstate;
+    Long userPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        utilities = new Utilities();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_estate);
-
-        editTNombre = (EditText) findViewById(R.id.Nombre_Finca);
-        editTArea = (EditText) findViewById(R.id.Tamaño_Finca);
-        editTUbic = (EditText) findViewById(R.id.Direccion_Finca);
-        img =(ImageView) findViewById(R.id.estateImageView);
+        nameEstateEditText = (EditText) findViewById(R.id.nameEstateEditText);
+        areaEstateEditText = (EditText) findViewById(R.id.areaEstateEditText);
+        locacionEstateEditText = (EditText) findViewById(R.id.locationEstateEditText);
+        photoEstateImageView =(ImageView) findViewById(R.id.estateImageView);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
-
         Bundle estateBundle= getIntent().getExtras();
-
         if (estateBundle!=null) {
             choose=Integer.valueOf(estateBundle.getString("choose"));
             menu(choose, estateBundle);
@@ -80,24 +79,30 @@ public class NewEstateActivity extends AppCompatActivity {
     }
 
     public void onInsertEstate(View view) {
-        Estate estate;//aqui lee de los componentes
-
+//aqui lee de los componentes
         switch (choose){
             case 1:
-                if (editTUbic.getText().toString()!=null && editTNombre.getText().toString()!=null && editTUbic.getText().toString()!=null) {
-                    estate = new Estate();
-                    estate.setName(editTNombre.getText().toString());
-                    estate.setArea(Double.valueOf(editTArea.getText().toString()));
-                    estate.setLocation(editTUbic.getText().toString());
-                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) img.getDrawable());
+                if (locacionEstateEditText.getText().toString()!=null && nameEstateEditText.getText().toString()!=null && locacionEstateEditText.getText().toString()!=null) {
+                    newEstate.setName(nameEstateEditText.getText().toString());
+                    newEstate.setArea(Double.valueOf(areaEstateEditText.getText().toString()));
+                    newEstate.setLocation(locacionEstateEditText.getText().toString());
+
+                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) photoEstateImageView.getDrawable());
                     Bitmap bitmap = bitmapDrawable .getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] imageInByte = stream.toByteArray();
-                    estate.setPhoto(imageInByte);
+
+                    newEstate.setPhoto(imageInByte);
+                    newEstate.setId(getEstateId(newEstate));
+
+
                     //Mandar la solicitud al servidor de actualizar
                     //Si la respuesta del cliente es favorable >
+                    //If es favorable
                     Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                    //Si no
+                   // Toast.makeText(this, "Hubo un problema insertando, intentelo más tarde", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
@@ -105,27 +110,32 @@ public class NewEstateActivity extends AppCompatActivity {
 
                 break;
             case 2:
-                Intent newEstateIntent =new Intent(this, ViewCattleActivity.class);
-                this.startActivity(newEstateIntent);
+                newEstate.setId(getEstateId(newEstate));
+                Intent newCattleIntent =new Intent(this, ViewCattleActivity.class);
+                newCattleIntent.putExtra("userPhone", newEstate.getPhoneUser());
+                newCattleIntent.putExtra("idEstate",newEstate.getId());
+                this.startActivity(newCattleIntent);
                 break;
             case 3:
 
+                if (!locacionEstateEditText.getText().toString().isEmpty() && !nameEstateEditText.getText().toString().isEmpty() && !locacionEstateEditText.getText().toString().isEmpty() && !photoEstateImageView.getDrawable().equals(R.drawable.farmdef)) {
+                    newEstate.setName(nameEstateEditText.getText().toString());
+                    newEstate.setArea(Double.valueOf(areaEstateEditText.getText().toString()));
+                    newEstate.setLocation(locacionEstateEditText.getText().toString());
 
-                if (!editTUbic.getText().toString().isEmpty() && !editTNombre.getText().toString().isEmpty() && !editTUbic.getText().toString().isEmpty() && !img.getDrawable().equals(R.drawable.farmdef)) {
-                    estate = new Estate();
-                    estate.setName(editTNombre.getText().toString());
-                    estate.setArea(Double.valueOf(editTArea.getText().toString()));
-                    estate.setLocation(editTUbic.getText().toString());
-                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) img.getDrawable());
+                    BitmapDrawable bitmapDrawable = ((BitmapDrawable) photoEstateImageView.getDrawable());
                     Bitmap bitmap = bitmapDrawable .getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] imageInByte = stream.toByteArray();
 
-                estate.setPhoto(imageInByte);
+                    newEstate.setPhoto(imageInByte);
+                    newEstate.setPhoneUser(userPhone);
                     //Manda la solicitud al servidor de agregar
-                    //Si la respuesta del cliente es favorable >
+                    //If es favorable
                     Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                    //Si no
+                    // Toast.makeText(this, "Hubo un problema insertando, intentelo más tarde", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
@@ -138,32 +148,43 @@ public class NewEstateActivity extends AppCompatActivity {
         switch (choose){
             case 1:
                 jsonEstate = estateBundle.getString("Estate");
-                Estate newEstate= new Gson().fromJson(jsonEstate,Estate.class);
-                editTNombre.setText(newEstate.getName());
-                editTArea.setText(String.valueOf(newEstate.getArea()));
-                editTUbic.setText(newEstate.getLocation());
+                newEstate= new Gson().fromJson(jsonEstate,Estate.class);
+                nameEstateEditText.setText(newEstate.getName());
+                areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
+                locacionEstateEditText.setText(newEstate.getLocation());
                 break;
             case 2:
                 jsonEstate = estateBundle.getString("Estate");
-               newEstate= new Gson().fromJson(jsonEstate,Estate.class);
-                editTNombre.setText(newEstate.getName());
-                editTNombre.setEnabled(false);
-                editTArea.setText(String.valueOf(newEstate.getArea()));
-                editTArea.setEnabled(false);
-                editTUbic.setText(newEstate.getLocation());
-                editTUbic.setEnabled(false);
+                newEstate= new Gson().fromJson(jsonEstate,Estate.class);
+                nameEstateEditText.setText(newEstate.getName());
+                nameEstateEditText.setEnabled(false);
+                areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
+                areaEstateEditText.setEnabled(false);
+                locacionEstateEditText.setText(newEstate.getLocation());
+                locacionEstateEditText.setEnabled(false);
                 estateButton= (Button)  findViewById(R.id.Save_Finca);
-                estateimgButton= (Button) findViewById(R.id.imgButton);
-                estateimgButton.setVisibility(View.INVISIBLE);
+                estateImgButton= (Button) findViewById(R.id.imgButton);
+                estateImgButton.setVisibility(View.INVISIBLE);
                 estateButton.setText("Ver ganado");
-
-
                 break;
+            case 3:
+                newEstate = new Estate();
+              //  jsonAdapter=estateBundle.getString("Adapter");
 
-
+                userPhone=estateBundle.getLong("userPhone");
         }
 
     }
+
+        private Integer getEstateId(Estate estate){
+        //Acá debe ir el metodo que se conecte con el servidor para obtener la id de la finca
+            //Integer idFinca=consulta con el server
+           //Return idFinca;
+            return null;
+        }
+
+
+
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Override
@@ -175,7 +196,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 //    case REQUEST_TAKE_PHOTO:
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                img.setImageBitmap(imageBitmap);
+                photoEstateImageView.setImageBitmap(imageBitmap);
                 //       break;
             }else{
                 //    case SELECT_PICTURE:
@@ -184,13 +205,13 @@ public class NewEstateActivity extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(path);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    img.setImageBitmap(bitmap);
+                    photoEstateImageView.setImageBitmap(bitmap);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(this,"Unale to open image", Toast.LENGTH_LONG).show();
                 }
-                img.setImageURI(path);
+                photoEstateImageView.setImageURI(path);
                 //  break;
             }
         }

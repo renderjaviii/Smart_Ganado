@@ -48,21 +48,21 @@
                 tools:layout_marginTop="8dp">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/nameEstateTextView"
                     android:layout_width="179dp"
                     android:layout_height="36dp"
                     android:gravity="fill_vertical"
                     android:text="Nombre de la finca" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/areaEstateTextView"
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
                     android:gravity="fill_vertical"
                     android:text="Tamaño de la finca" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/locationEstateTextView"
                     android:layout_width="185dp"
                     android:layout_height="42dp"
                     android:gravity="fill_vertical"
@@ -76,21 +76,21 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/Nombre_Finca"
+                    android:id="@+id/nameEstateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/Tamaño_Finca"
+                    android:id="@+id/areaEstateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="numberDecimal" />
 
                 <EditText
-                    android:id="@+id/Direccion_Finca"
+                    android:id="@+id/locationEstateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
