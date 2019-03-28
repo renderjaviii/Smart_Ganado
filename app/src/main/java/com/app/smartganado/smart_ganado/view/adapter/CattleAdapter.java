@@ -7,56 +7,56 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
+import com.app.smartganado.smart_ganado.utilities.Utilities;
+
+import java.util.List;
 
 public class CattleAdapter extends BaseAdapter {
-    private static LayoutInflater inflater = null;
-    Context contexto;
-    String [][] datos;
-    int[] datosImg;
+    private static LayoutInflater inflater;
+    private List<Cattle> data;
+    private Context context;
 
-    public CattleAdapter(Context conexto, String[][] datos, int[] imagenes) {
-        this.contexto = conexto;
-        this.datos = datos;
-        this.datosImg = imagenes;
-        inflater = (LayoutInflater)conexto.getSystemService(conexto.LAYOUT_INFLATER_SERVICE);
+
+    public CattleAdapter(Context context, List<Cattle> data) {
+        this.context = context;
+        this.data = data;
+        inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public CattleAdapter() {
     }
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        final View vista = inflater.inflate(R.layout.cattle_adapter,null);
-            TextView Codigo = (TextView) vista.findViewById(R.id.textViewNameEstate);
-            TextView Finca = (TextView) vista.findViewById(R.id.textViewLocation);
-            TextView Raza = (TextView) vista.findViewById(R.id.InfoRaza);
+        final View view = inflater.inflate(R.layout.cattle_adapter, null);
+        TextView code = view.findViewById(R.id.InfoCodigo);
+        TextView gender = view.findViewById(R.id.InfoFinca);
+        TextView weight = view.findViewById(R.id.InfoRaza);
+        ImageView image = view.findViewById(R.id.ivImagen);
 
-            ImageView imagen = (ImageView) vista.findViewById(R.id.ivImagen);
+        code.setText((data.get(i)).getCode());
+        gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
+        weight.setText(String.valueOf(data.get(i).getWeight()));
+        image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));
 
-            //RatingBar calificacion = (RatingBar) vista.findViewById(R.id.ratingBarPel);
-
-            Codigo.setText(datos[i][0]);
-            Finca.setText(datos[i][1]);
-            Raza.setText(datos[i][2]);
-            imagen.setImageResource(datosImg[i]);
-
-            return vista;
-
-        }
+        return view;
+    }
 
     @Override
     public int getCount() {
-        return datosImg.length;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return data.get(position).getId();
     }
-
 
 }

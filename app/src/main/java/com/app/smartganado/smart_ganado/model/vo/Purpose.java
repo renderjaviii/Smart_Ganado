@@ -5,41 +5,51 @@ import java.io.Serializable;
 
 /**
  * The persistent class for the purpose database table.
- * 
  */
 
 public class Purpose implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+    private static final long serialVersionUID = 1L;
 
-	private Integer id;
 
-	private String name;
+    private Integer id;
 
-	public Purpose() {
-	}
+    private String name;
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Purpose() {
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Purpose(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return "Purpose{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				'}';
-	}
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String print() {
+        return "Purpose{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+
 }

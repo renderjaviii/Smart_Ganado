@@ -6,83 +6,90 @@ import java.util.Arrays;
 
 /**
  * The persistent class for the estate database table.
- * 
  */
 public class Estate implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Integer id;
+    private Integer id;
 
-	private Double area;
+    private Double area;
 
-	private String location;
+    private String location;
 
-	private String name;
+    private String name;
 
-	private Long phoneUser;
+    private Long phoneUser;
 
-	private Byte[] photo;
+    private byte[] photo;
 
-	public Estate() {
-	}
+    public Estate() {
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public double getArea() {
-		return this.area;
-	}
+    public double getArea() {
+        return this.area;
+    }
 
-	public void setArea(double area) {
-		this.area = area;
-	}
+    public void setArea(double area) {
+        this.area = area;
+    }
 
-	public String getLocation() {
-		return this.location;
-	}
+    public String getLocation() {
+        return this.location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Long getPhoneUser() {
-		return this.phoneUser;
-	}
+    public Long getPhoneUser() {
+        return this.phoneUser;
+    }
 
-	public void setPhoneUser(Long phoneUser) {
-		this.phoneUser = phoneUser;
-	}
+    public void setPhoneUser(Long phoneUser) {
+        this.phoneUser = phoneUser;
+    }
 
-	public Byte[] getPhoto() {
-		return this.photo;
-	}
+    public void setArea(Double area) {
+        this.area = area;
+    }
 
-	public void setPhoto(Byte[] photo) {
-		this.photo = photo;
-	}
+    public byte[] getPhoto() {
+        return photo;
+    }
 
-	@Override
-	public String toString() {
-		return "Estate{" +
-				"id=" + id +
-				", area=" + area +
-				", location='" + location + '\'' +
-				", name='" + name + '\'' +
-				", phoneUser=" + phoneUser +
-				", photo=" + Arrays.toString(photo) +
-				'}';
-	}
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public String print() {
+        return "Estate{" +
+                "id=" + id +
+                ", area=" + area +
+                ", location='" + location + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneUser=" + phoneUser +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

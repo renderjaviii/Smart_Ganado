@@ -33,11 +33,15 @@ public class Lot implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
+    public String print() {
         return "Lot{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

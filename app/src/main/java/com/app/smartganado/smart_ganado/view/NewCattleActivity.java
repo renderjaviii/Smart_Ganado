@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.view;
 
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,131 +28,52 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.BreedDAO;
+import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
+import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
+import com.app.smartganado.smart_ganado.model.dao.GenderDAO;
+import com.app.smartganado.smart_ganado.model.dao.LotDAO;
+import com.app.smartganado.smart_ganado.model.dao.PurposeDAO;
 import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Gender;
+import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
-import com.app.smartganado.smart_ganado.remote.APIService;
+import com.app.smartganado.smart_ganado.utilities.Utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-
+@SuppressWarnings("all")
 public class NewCattleActivity extends AppCompatActivity {
 
-    ImageView img;
-    ArrayList<Estate> InfoFincas = new ArrayList<Estate>();
-    ArrayList<Gender> InfoGeneros = new ArrayList<Gender>();
-    ArrayList<Breed> InfoRazas = new ArrayList<Breed>();
-    ArrayList<Purpose> InfoPropositos = new ArrayList<Purpose>();
-    Spinner Finca, Lote, Raza, Proposito, Genero;
+    ImageView imageCattle; //imagen vaca
+
+    Cattle cattle;
+    Spinner estateSpinner, lotSpinner, breedSpinner, purposeSpinner, genderSpinner;
+
+
     EditText TXTcodigo, TXTedad, TXTPeso;
     FloatingActionButton editar;
     Button registrar;
-    Cattle cattle;
+    Button Eliminar;
     ImageButton button;
 
-    public APIService myApiService;
-    private int invisible;
 
-    public ArrayList ListaFincas() {
-        ArrayList datos = new ArrayList();
-        Estate finca;
-        for (int i = 0; i <= 4; i++) {
-            finca = new Estate();
-            finca.setId(i);
-            finca.setName("Finca: " + i);
-            finca.setArea(2000 * i);
-            finca.setLocation("ubicacion " + i);
-            datos.add(finca);
-        }
-        return datos;
-    }
+    private final int SELECT_PICTURE = 10;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    String mCurrentPhotoPath;
 
-    public ArrayList ListaGeneros() {
-        ArrayList datos = new ArrayList();
-        Gender genero;
-        for (int i = 0; i <= 4; i++) {
-            genero = new Gender();
-            genero.setId(i);
-            genero.setName("generos: " + i);
-            datos.add(genero);
-        }
-        return datos;
-    }
-
-    public ArrayList ListaRazas() {
-        ArrayList datos = new ArrayList();
-        Breed raza;
-        for (int i = 0; i <= 4; i++) {
-            raza = new Breed();
-            raza.setId(i);
-            raza.setName("Raza: " + i);
-            datos.add(raza);
-        }
-        return datos;
-    }
-
-    public ArrayList ListaPropositos() {
-        ArrayList datos = new ArrayList();
-        Purpose proposito;
-        for (int i = 0; i <= 4; i++) {
-            proposito = new Purpose();
-            proposito.setId(i);
-            proposito.setName("proposito: " + i);
-            datos.add(proposito);
-        }
-        return datos;
-    }
-
-    /*public ArrayList ListaImagenes(){
-        ArrayList listaImagenes = new ArrayList();
-        ImageView imagen=null;
-        for (int i=0; i<=4; i++){
-            String nombre="vaca"+i;
-            imagen.setImageResource(R.drawable.vaca1);
-            listaImagenes.add(imagen);
-        }
-        return listaImagenes;
-    }*/
-
-    public ArrayList NombreFincas(ArrayList<Estate> lista) {
-        ArrayList<String> listaNombres = new ArrayList<String>();
-        for (int i = 0; i < lista.size(); i++) {
-            listaNombres.add(((Estate) (lista.get(i))).getName());
-        }
-        return listaNombres;
-    }
-
-    public ArrayList NombreGeneros(ArrayList<Gender> lista) {
-        ArrayList<String> listaNombres = new ArrayList<String>();
-        for (int i = 0; i < lista.size(); i++) {
-            listaNombres.add(((Gender) (lista.get(i))).getName());
-        }
-        return listaNombres;
-    }
-
-    public ArrayList NombreRazas(ArrayList<Breed> lista) {
-        ArrayList<String> listaNombres = new ArrayList<String>();
-        for (int i = 0; i < lista.size(); i++) {
-            listaNombres.add(((Breed) (lista.get(i))).getName());
-        }
-        return listaNombres;
-    }
-
-    public ArrayList NombrePropositos(ArrayList<Purpose> lista) {
-        ArrayList<String> listaNombres = new ArrayList<String>();
-        for (int i = 0; i < lista.size(); i++) {
-            listaNombres.add(((Purpose) (lista.get(i))).getName());
-        }
-        return listaNombres;
-    }
+    private ArrayAdapter<Purpose> purposeAdapter;
+    private ArrayAdapter<Estate> estateAdapter;
+    private ArrayAdapter<Gender> genderAdapter;
+    private ArrayAdapter<Breed> breedAdapter;
+    private ArrayAdapter<Lot> lotAdapter;
 
 
     @Override
@@ -158,97 +81,142 @@ public class NewCattleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cattle);
 
-        //Spinner Finca,Clasificacion, Raza, Proposito, Genero
-        Raza = (Spinner) findViewById(R.id.RazaTexto);
-        Proposito = (Spinner) findViewById(R.id.Proposito);
-        Genero = (Spinner) findViewById(R.id.Genero);
-        Finca = (Spinner) findViewById(R.id.Finca);
-        TXTcodigo = (EditText) findViewById(R.id.Codigo);
-        TXTedad = (EditText) findViewById(R.id.EdadGanado);
-        TXTPeso = (EditText) findViewById(R.id.Peso);
-        //editar = (FloatingActionButton) findViewById(R.id.FABEditar); /No encuentra el componente
-        registrar = (Button) findViewById(R.id.Registrar);
-        img = (ImageView) findViewById(R.id.imageView);
-        //button = (ImageButton) findViewById(R.id.imageButton); //No encuentra el componente
-        InfoFincas = ListaFincas();
-        InfoGeneros = ListaGeneros();
-        InfoPropositos = ListaPropositos();
-        InfoRazas = ListaRazas();
+        breedSpinner = findViewById(R.id.RazaTexto);
+        purposeSpinner = findViewById(R.id.Proposito);
+        genderSpinner = findViewById(R.id.Genero);
+        estateSpinner = findViewById(R.id.Finca);
+        lotSpinner = findViewById(R.id.lotSpinner);
 
-        ArrayAdapter<CharSequence> adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, NombreRazas(InfoRazas));
-        Raza.setAdapter(adapter2);
+        TXTcodigo = findViewById(R.id.Codigo);
+        TXTedad = findViewById(R.id.EdadGanado);
+        TXTPeso = findViewById(R.id.Peso);
+        editar = findViewById(R.id.FABEditar);
+        registrar = findViewById(R.id.Registrar);
+        Eliminar = findViewById(R.id.Eliminar);
+        imageCattle = findViewById(R.id.imageView);
+        button = findViewById(R.id.imageButton);
 
-        ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, NombrePropositos(InfoPropositos));
-        Proposito.setAdapter(adapter3);
-
-        ArrayAdapter<CharSequence> adapter4 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, NombreGeneros(InfoGeneros));
-        Genero.setAdapter(adapter4);
-
-        ArrayAdapter<CharSequence> adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, NombreFincas(InfoFincas));
-        Finca.setAdapter(adapter5);
+        initUI();
 
         if (ContextCompat.checkSelfPermission(NewCattleActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(NewCattleActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(NewCattleActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
 
+        Log.i("server", "llego: " + getIntent().getSerializableExtra("Info"));
+
+
         if (getIntent().getSerializableExtra("Info") == null) {
-            cattle = new Cattle();
-            //editar.setVisibility(View.GONE); revise, muestra error
+            Log.i("server", "Crear");
+            editar.setVisibility(View.GONE);
+            Eliminar.setVisibility(View.GONE);
         } else {
-            Cattle item = (Cattle) getIntent().getSerializableExtra("Info");
-            TXTcodigo.setText(item.getId() + "");
-            TXTedad.setText(item.getAge() + "");
-            TXTPeso.setText(item.getWeight() + "");
-            Raza.setSelection(obtenerPosicionItem(Raza, NombreRaza(ListaRazas(), item.getIdBreed())));
-            Proposito.setSelection(obtenerPosicionItem(Proposito, NombreProposito(ListaPropositos(), item.getIdPurpose())));
-            Genero.setSelection(obtenerPosicionItem(Genero, NombreGenero(ListaGeneros(), item.getIdGender())));
-            Finca.setSelection(obtenerPosicionItem(Finca, NombreFinca(ListaFincas(), item.getIdLot())));
+
+            Log.i("server", "Editando");
+            cattle = (Cattle) getIntent().getSerializableExtra("Info");
+            try {
+
+                Thread.sleep(5000);
+                TXTcodigo.setText(String.valueOf(cattle.getId()));
+                TXTedad.setText(String.valueOf(cattle.getAge()));
+                TXTPeso.setText(String.valueOf(cattle.getWeight()));
+
+
+                breedSpinner.setSelection(2);
+                genderSpinner.setSelection(cattle.getIdGender());
+                lotSpinner.setSelection(3, false);
+                purposeSpinner.setSelection(cattle.getIdPurpose());
+                estateSpinner.setSelection(EstateDAO.getPositionID(estateSpinner, cattle.getIdEstate()));
+                lotSpinner.refreshDrawableState();
+
+            } catch (InterruptedException e) {
+                Log.i("server", e.getMessage());
+            }
+
+
             TXTcodigo.setEnabled(false);
             TXTedad.setEnabled(false);
             TXTPeso.setEnabled(false);
-            Raza.setEnabled(false);
-            Proposito.setEnabled(false);
-            Genero.setEnabled(false);
-            Finca.setEnabled(false);
+            breedSpinner.setEnabled(false);
+            purposeSpinner.setEnabled(false);
+            genderSpinner.setEnabled(false);
+            estateSpinner.setEnabled(false);
+            lotSpinner.setEnabled(false);
             button.setEnabled(false);
             registrar.setVisibility(View.GONE);
         }
-
-
-        //insert a new cattle
-      /*  if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
-
-        myApiService.insertCattle("insert", "cattle" , getIntent().getIntExtra("phone", 0), cattle).enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.isSuccessful())
-                    Toast.makeText(getApplicationContext(), response.body() ? "Se insertó" : "No se insertó", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error insertando", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
     }
 
-    private final int SELECT_PICTURE = 10;
+    private void initUI() {
+
+        PurposeDAO purposeDAO = new PurposeDAO();
+        purposeAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, purposeDAO.getPurposeList());
+        purposeSpinner.setAdapter(purposeAdapter);
+        purposeDAO.getPurposeList(purposeAdapter);
+
+        BreedDAO breedDAO = new BreedDAO();
+        breedAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, breedDAO.getBreedList());
+        breedSpinner.setAdapter(breedAdapter);
+        breedDAO.getBreeds(breedAdapter);
+
+        EstateDAO estateDAO = new EstateDAO();
+        estateAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, estateDAO.getEstateList());
+        estateSpinner.setAdapter(estateAdapter);
+        estateDAO.getEstates(1234l, estateAdapter);
+
+        GenderDAO genderDAO = new GenderDAO();
+        genderAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, genderDAO.getGenderList());
+        genderSpinner.setAdapter(genderAdapter);
+        genderDAO.getGenderList(genderAdapter);
+
+        LotDAO lotDAO = new LotDAO();
+        lotAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, lotDAO.getLotList());
+        lotSpinner.setAdapter(lotAdapter);
+        lotDAO.getLotList(lotAdapter);
+    }
+
+    public void createCattleAction(View view) {
+        if (TXTcodigo.getText().toString().isEmpty() || TXTedad.getText().toString().isEmpty() || TXTPeso.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
+        } else {
+
+            Cattle newCattle = new Cattle();
+            newCattle.setCode(Integer.parseInt(TXTcodigo.getText().toString()));
+            newCattle.setAge(Integer.parseInt(TXTedad.getText().toString()));
+            newCattle.setWeight(Double.parseDouble(TXTPeso.getText().toString()));
+
+
+            newCattle.setIdPurpose(((Purpose) purposeSpinner.getSelectedItem()).getId());
+            newCattle.setIdGender(((Gender) genderSpinner.getSelectedItem()).getId());
+            newCattle.setIdEstate(((Estate) estateSpinner.getSelectedItem()).getId());
+            newCattle.setIdBreed(((Breed) breedSpinner.getSelectedItem()).getId());
+            newCattle.setIdLot(((Lot) lotSpinner.getSelectedItem()).getId());
+
+
+            newCattle.setPhoto(Utilities.imageViewToByte(imageCattle));
+
+            Log.i("server: ", "new cattle -> " + newCattle.toString());
+
+            CattleDAO.insertCattle(getApplicationContext(), newCattle);//Insert a new cattle
+
+            //Go to View Cattle
+            Intent i = new Intent(getApplicationContext(), ViewCattleActivity.class);
+            startActivity(i);
+        }
+    }
 
     public void menu(View view) {
         final CharSequence[] options = {"Tomar foto", "Elegir de galeria", "Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(NewCattleActivity.this);
-        builder.setTitle("Elige una opcion");
+        builder.setTitle("Elige una opción");
         builder.setItems(options, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int seleccion) {
+
                 if (options[seleccion] == "Tomar foto") {
                     tomarFoto();
                 } else if (options[seleccion] == "Elegir de galeria") {
-                    Intent intent = new Intent(Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/");
                     startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
                 } else if (options[seleccion] == "Cancelar") {
@@ -256,10 +224,9 @@ public class NewCattleActivity extends AppCompatActivity {
                 }
             }
         });
+
         builder.show();
     }
-
-    String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -272,8 +239,6 @@ public class NewCattleActivity extends AppCompatActivity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
-    static final int REQUEST_TAKE_PHOTO = 1;
 
     public void tomarFoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -295,134 +260,51 @@ public class NewCattleActivity extends AppCompatActivity {
         }
     }
 
-    //Metodo para la validacion de los campos
-    public void Registro(View view) {
-        if (TXTcodigo.getText().toString().isEmpty() || TXTedad.getText().toString().isEmpty() || TXTPeso.getText().toString().isEmpty() == true) {
-            Toast.makeText(this, "Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
-            Extraccion();
-            //Entrar a vista ver Ganado
-            Intent i = new Intent(this, ViewCattleActivity.class);
-            startActivity(i);
-        }
-    }
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_TAKE_PHOTO:
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    img.setImageBitmap(imageBitmap);
-                    break;
-                case SELECT_PICTURE:
-                    Uri path = data.getData();
-                    InputStream inputStream;
-                    try {
-                        inputStream = getContentResolver().openInputStream(path);
+            if (requestCode == REQUEST_TAKE_PHOTO) {
+                //Switch (requestCode)
+                //Case REQUEST_TAKE_PHOTO:
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageCattle.setImageBitmap(imageBitmap);
 
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        img.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Unale to open image", Toast.LENGTH_LONG).show();
-                    }
-                    img.setImageURI(path);
-                    break;
+            } else {
+                //Case SELECT_PICTURE:
+                Uri path = data.getData();
+                InputStream inputStream;
+                try {
+                    inputStream = getContentResolver().openInputStream(path);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageCattle.setImageBitmap(bitmap);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "No se pudo abrir la imagen", Toast.LENGTH_LONG).show();
+                }
+                imageCattle.setImageURI(path);
             }
         }
     }
 
     public void Editar(View view) {
-        registrar = (Button) findViewById(R.id.Registrar);
-       // FloatingActionButton editar = (FloatingActionButton) findViewById(R.id.FABEditar); //Revisar
-        //editar.setVisibility(View.GONE);
+        registrar = findViewById(R.id.Registrar);
+        FloatingActionButton floatBtEdit = findViewById(R.id.FABEditar);
+        floatBtEdit.setVisibility(View.GONE);
         registrar.setVisibility(View.VISIBLE);
         TXTcodigo.setEnabled(true);
         TXTedad.setEnabled(true);
         TXTPeso.setEnabled(true);
-        Raza.setEnabled(true);
-        Proposito.setEnabled(true);
-        Genero.setEnabled(true);
-        Finca.setEnabled(true);
+        breedSpinner.setEnabled(true);
+        purposeSpinner.setEnabled(true);
+        genderSpinner.setEnabled(true);
+        estateSpinner.setEnabled(true);
         button.setEnabled(true);
+        Eliminar.setVisibility(View.INVISIBLE);
     }
 
-
-    public Cattle Extraccion() {
-        Cattle nuevo = new Cattle();
-        nuevo.setAge(R.id.EdadGanado);
-        nuevo.setIdBreed(R.id.RazaTexto);
-        nuevo.setIdPurpose(R.id.Proposito);
-        nuevo.setIdGender(R.id.Genero);
-        nuevo.setWeight(Double.valueOf(R.id.Peso));
-        ImageView imagen = (ImageView) findViewById(R.id.ivImagen);
-        //Bitmap hola= Utilities.ImageViewtoByte(imagen);
-        //nuevo.setFoto(Utilities.ImageViewtoByte(imagen));
-        return nuevo;
-    }
-
-    public static int obtenerPosicionItem(Spinner spinner, String validacion) {
-        //Creamos la variable posicion y lo inicializamos en 0
-        int posicion = 0;
-        //Recorre el spinner en busca del ítem que coincida con el parametro `String fruta`
-        //que lo pasaremos posteriormente
-        for (int i = 0; i < spinner.getCount(); i++) {
-            //Almacena la posición del ítem que coincida con la búsqueda
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(validacion)) {
-                posicion = i;
-            }
-        }
-        //Devuelve un valor entero (si encontro una coincidencia devuelve la
-        // posición 0 o N, de lo contrario devuelve 0 = posición inicial)
-        return posicion;
-    }
-
-    public String NombreRaza(ArrayList InfoRazas, int id) {
-        String datos = null;
-        for (int i = 0; i < InfoRazas.size(); i++) {
-            if (((Breed) InfoRazas.get(i)).getId() == id) {
-                datos = ((Breed) InfoRazas.get(i)).getName();
-                return datos;
-            }
-        }
-        return datos;
-    }
-
-    public String NombreProposito(ArrayList InfoProposito, int id) {
-        String datos = null;
-        for (int i = 0; i < InfoProposito.size(); i++) {
-            if (((Purpose) InfoProposito.get(i)).getId() == id) {
-                datos = ((Purpose) InfoProposito.get(i)).getName();
-                return datos;
-            }
-        }
-        return datos;
-    }
-
-    public String NombreGenero(ArrayList InfoGenero, int id) {
-        String datos = null;
-        for (int i = 0; i < InfoGenero.size(); i++) {
-            if (((Gender) InfoGenero.get(i)).getId() == id) {
-                datos = ((Gender) InfoGenero.get(i)).getName();
-                return datos;
-            }
-        }
-        return datos;
-    }
-
-    public String NombreFinca(ArrayList InfoFinca, int id) {
-        String datos = null;
-        for (int i = 0; i < InfoFinca.size(); i++) {
-            if (((Estate) InfoFinca.get(i)).getId() == id) {
-                datos = ((Estate) InfoFinca.get(i)).getName();
-                return datos;
-            }
-        }
-        return datos;
+    public void Eliminar(View view) {
+        Toast.makeText(this, "Eliminar", Toast.LENGTH_LONG).show();
     }
 }

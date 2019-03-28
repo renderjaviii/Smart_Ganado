@@ -91,7 +91,7 @@
         app:srcCompat="@drawable/registro1" />
 
     <EditText
-        android:id="@+id/Telefono_Registro"
+        android:id="@+id/editTPhone"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginTop="8dp"
@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTName" />
 
     <EditText
-        android:id="@+id/Contraseña_Registro"
+        android:id="@+id/editTPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -118,10 +118,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Correo_Registro" />
+        app:layout_constraintTop_toBottomOf="@+id/editTEmail" />
 
     <EditText
-        android:id="@+id/Correo_Registro"
+        android:id="@+id/editTEmail"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
         android:layout_marginTop="24dp"
@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Telefono_Registro" />
+        app:layout_constraintTop_toBottomOf="@+id/editTPhone" />
 
     <CheckBox
         android:id="@+id/Check_Administrador"

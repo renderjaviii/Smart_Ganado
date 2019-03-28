@@ -59,28 +59,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="98dp" />
+        app:layout_constraintGuide_begin="144dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="194dp" />
-
-    <ImageView
-        android:id="@+id/ivImagen"
-        android:layout_width="74dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.533"
-        app:srcCompat="@drawable/vaca3" />
+        app:layout_constraintGuide_begin="257dp" />
 
     <TextView
         android:id="@+id/CodigoTexto"
@@ -90,25 +76,28 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/CODIGO"
+        android:text="@string/Code"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
-        android:id="@+id/textViewLocationF"
+        android:id="@+id/FincaTexto"
         android:layout_width="64dp"
         android:layout_height="17dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/FINCA"
+        android:text="@string/GENERO"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.428" />
 
     <TextView
         android:id="@+id/RazaTexto"
@@ -118,16 +107,16 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/TGANADO"
+        android:text="@string/PESO"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocationF"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintTop_toBottomOf="@+id/FincaTexto"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
-        android:id="@+id/textViewNameEstate"
+        android:id="@+id/InfoCodigo"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -136,11 +125,13 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.571" />
 
     <TextView
-        android:id="@+id/textViewLocation"
+        android:id="@+id/InfoFinca"
         android:layout_width="84dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -149,9 +140,9 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.962"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNameEstate"
+        app:layout_constraintTop_toBottomOf="@+id/InfoCodigo"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -164,7 +155,22 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/InfoFinca"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <ImageView
+        android:id="@+id/ivImagen"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/vaca3" />
 
 </android.support.constraint.ConstraintLayout>

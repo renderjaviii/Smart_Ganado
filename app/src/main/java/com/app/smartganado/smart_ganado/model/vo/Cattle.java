@@ -11,9 +11,7 @@ public class Cattle implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-
     private Integer age;
-
     private Integer code;
     private String details;
     private Integer idBreed;
@@ -22,13 +20,13 @@ public class Cattle implements Serializable {
     private Integer idLot;
     private Integer idPurpose;
     private String name;
-    private Byte[] photo;
+    private byte[] photo;
     private Double weight;
 
     public Cattle() {
     }
 
-    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, Byte[] photo, Double weight) {
+    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, byte[] photo, Double weight) {
         this.id = id;
         this.age = age;
         this.code = code;
@@ -123,11 +121,11 @@ public class Cattle implements Serializable {
         this.name = name;
     }
 
-    public Byte[] getPhoto() {
+    public byte[] getPhoto() {
         return this.photo;
     }
 
-    public void setPhoto(Byte[] photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 

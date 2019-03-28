@@ -7,6 +7,13 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.LoginActivity">
+        <activity android:name=".view.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +32,7 @@
         <activity android:name=".view.ViewEventActivity" />
         <activity android:name=".view.ViewIndicatorsActivity" />
         <activity android:name=".view.ViewProfileActivity" />
-        <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.NewUserActivity" />
         <activity
             android:name=".view.ViewEstateActivity"
@@ -67,6 +74,18 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
-    </application>
 
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+
+    </application>
 </manifest>
