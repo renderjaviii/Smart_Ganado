@@ -33,12 +33,14 @@ import org.w3c.dom.Text;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class EstateAdapter extends ArrayAdapter implements Serializable {
+public class EstateAdapter extends ArrayAdapter{
 
 
 
-   public static ArrayList<Estate> items;
+   public  ArrayList<Estate> items;
 
     public ArrayList<Estate> getItems() {
         return items;
@@ -62,17 +64,14 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
 
     public  void add (Estate estate){
         items.add(estate);
-        update(items);
+      notifyDataSetChanged();
     }
-    public void replace (Estate estate){
-        for (int i=0; i<items.size(); i++){
-            if (items.get(i).getName().equals(estate.getName())){
-                items.remove(items.get(i));
-                items.add(estate);
-            //    update(items);
-            }
-        }
-            }
+    public void remove (int index){
+       items.remove(index);
+       notifyDataSetChanged();
+    }
+
+
      public void update(ArrayList<Estate> result){
         items= new ArrayList<>();
         items.addAll(result);
@@ -80,6 +79,7 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
       }
 
     public View getView(final int position, @Nullable View  convertView, @NonNull ViewGroup parent){
+
         View row;
         row=convertView;
         viewHolder viewHolder;
@@ -104,18 +104,21 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 PopupMenu popupMenu= new PopupMenu(getContext(), v);
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
                         Intent newEstateIntent =new Intent(getContext(), NewEstateActivity.class);
-
                         switch (item.getItemId()){
-
                             case R.id.item1:
                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
                                 newEstateIntent.putExtra("choose", "1");
-                                getContext().startActivity(newEstateIntent);
+                                newEstateIntent.putExtra("position",position);
+                                ( (ViewEstateActivity)getContext()).startActivityForResult(newEstateIntent,2);
                                 return  true;
                             case R.id.item2:
                                 newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
@@ -126,7 +129,7 @@ public class EstateAdapter extends ArrayAdapter implements Serializable {
                                 // Petición al server de eliminar
                                 //If es favorable
                                if (items.remove(items.get(position))) {
-                                   update(items);
+                                  notifyDataSetChanged();
                                    Toast.makeText(getContext(), "Se elimino correctamente", Toast.LENGTH_LONG).show();
                                }
                                 else {

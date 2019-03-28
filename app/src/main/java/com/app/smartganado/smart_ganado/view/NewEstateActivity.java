@@ -45,12 +45,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewEstateActivity extends AppCompatActivity {
+public class NewEstateActivity extends AppCompatActivity{
 
     EditText nameEstateEditText, areaEstateEditText, locacionEstateEditText;
     Button estateButton,estateImgButton;
     String jsonEstate;
-    Integer choose;
+    Integer choose,position;
     ImageView photoEstateImageView;
     Utilities utilities;
     Estate newEstate;
@@ -68,11 +68,11 @@ public class NewEstateActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
+
         Bundle estateBundle= getIntent().getExtras();
         if (estateBundle!=null) {
             choose=Integer.valueOf(estateBundle.getString("choose"));
             menu(choose, estateBundle);
-
         }
 
 
@@ -90,13 +90,19 @@ public class NewEstateActivity extends AppCompatActivity {
                     BitmapDrawable bitmapDrawable = ((BitmapDrawable) photoEstateImageView.getDrawable());
                     Bitmap bitmap = bitmapDrawable .getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 2, stream);
                     byte[] imageInByte = stream.toByteArray();
 
                     newEstate.setPhoto(imageInByte);
                     newEstate.setId(getEstateId(newEstate));
+                    Intent newEstateIntent =new Intent();
+                    Bundle estateAdd= new Bundle();
+                    estateAdd.putSerializable("estate",newEstate);
 
-
+                    estateAdd.putInt("position", position);
+                    newEstateIntent.putExtras(estateAdd);
+                    setResult(RESULT_OK, newEstateIntent);
+                    this.finish();
                     //Mandar la solicitud al servidor de actualizar
                     //Si la respuesta del cliente es favorable >
                     //If es favorable
@@ -126,7 +132,7 @@ public class NewEstateActivity extends AppCompatActivity {
                     BitmapDrawable bitmapDrawable = ((BitmapDrawable) photoEstateImageView.getDrawable());
                     Bitmap bitmap = bitmapDrawable .getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 2, stream);
                     byte[] imageInByte = stream.toByteArray();
 
                     newEstate.setPhoto(imageInByte);
@@ -136,22 +142,34 @@ public class NewEstateActivity extends AppCompatActivity {
                     Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
                     //Si no
                     // Toast.makeText(this, "Hubo un problema insertando, intentelo más tarde", Toast.LENGTH_LONG).show();
+
+                    Intent newEstateIntent =new Intent();
+                    Bundle estateAdd= new Bundle();
+                    estateAdd.putSerializable("estate",newEstate);
+                    estateAdd.putInt("chooseEstate", 1);
+                    newEstateIntent.putExtras(estateAdd);
+                    setResult(RESULT_OK, newEstateIntent);
+                    this.finish();
                 }
                 else{
                     Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
                 }
 
+
         }
     }
     private void menu(Integer choose, Bundle estateBundle){
-
+        Utilities a= new Utilities();
         switch (choose){
             case 1:
                 jsonEstate = estateBundle.getString("Estate");
                 newEstate= new Gson().fromJson(jsonEstate,Estate.class);
+                position=estateBundle.getInt("position");
                 nameEstateEditText.setText(newEstate.getName());
                 areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
                 locacionEstateEditText.setText(newEstate.getLocation());
+
+                photoEstateImageView.setImageBitmap(a.Bytetobmap(newEstate.getPhoto()));
                 break;
             case 2:
                 jsonEstate = estateBundle.getString("Estate");
@@ -165,11 +183,11 @@ public class NewEstateActivity extends AppCompatActivity {
                 estateButton= (Button)  findViewById(R.id.Save_Finca);
                 estateImgButton= (Button) findViewById(R.id.imgButton);
                 estateImgButton.setVisibility(View.INVISIBLE);
+                photoEstateImageView.setImageBitmap(a.Bytetobmap(newEstate.getPhoto()));
                 estateButton.setText("Ver ganado");
                 break;
             case 3:
                 newEstate = new Estate();
-              //  jsonAdapter=estateBundle.getString("Adapter");
 
                 userPhone=estateBundle.getLong("userPhone");
         }
@@ -189,7 +207,6 @@ public class NewEstateActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (resultCode == RESULT_OK) {
             if(requestCode == REQUEST_TAKE_PHOTO){
                 //switch (requestCode) {
@@ -215,6 +232,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 //  break;
             }
         }
+
     }
 
     private final int SELECT_PICTURE = 10;
@@ -272,6 +290,7 @@ public class NewEstateActivity extends AppCompatActivity {
             }
         }
     }
+
 
 
 }

@@ -1,6 +1,9 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
@@ -21,6 +25,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,32 +33,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.provider.Settings.System.CONTENT_URI;
+
 //lee grace 63 liam fraser 60 darragh leahy 55
 public class ViewEstateActivity extends AppCompatActivity {
 
-    ArrayList<Estate> estateArrayList;
-    ListView estateListView;
+    ArrayList<Estate> estateArrayList=new ArrayList<>();
+    ListView estateListView ;
     private Long userPhone;
     EstateAdapter estateAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle estateBundle= getIntent().getExtras();
+        if (estateBundle!=null) {
+        userPhone=getUserPhone(estateBundle);}
 
-        Bundle homeBundle= getIntent().getExtras();
-        if (homeBundle!=null) {
-        userPhone=getUserPhone(homeBundle);
-        }
 
         setContentView(R.layout.activity_view_estate);
         estateListView = (ListView) findViewById(R.id.estateListView);
-        estateArrayList= new ArrayList<>();
-        estateArrayList.add(new Estate(1.0,"El sur","La milagrosa",null,userPhone));
-        estateArrayList.add(new Estate(12.0,"El sur","El peñon",null,userPhone));
         estateAdapter=new EstateAdapter(ViewEstateActivity.this,R.layout.estate_adapter,estateArrayList);
-
-
         estateListView.setAdapter(estateAdapter);
-
 
 
     }
@@ -90,7 +90,8 @@ public class ViewEstateActivity extends AppCompatActivity {
         Intent newEstateIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
         newEstateIntent.putExtra("choose", "3");
         newEstateIntent.putExtra("userPhone", userPhone);
-        startActivity(newEstateIntent);
+
+        startActivityForResult(newEstateIntent,1);
     }
 
 
@@ -116,4 +117,27 @@ public class ViewEstateActivity extends AppCompatActivity {
         */
  return null;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==1){
+            if(resultCode==RESULT_OK){
+                Bundle estateBundle= data.getExtras();
+               estateAdapter.add((Estate)estateBundle.getSerializable("estate"));
+            }
+        }else{
+            if(resultCode==RESULT_OK){
+
+                Bundle estateBundle= data.getExtras();
+            //    Toast.makeText(this, ((Estate)estateBundle.getSerializable("oldEstate")).getName(), Toast.LENGTH_LONG).show();
+               estateAdapter.remove(estateBundle.getInt("position"));
+               estateAdapter.add(((Estate)estateBundle.getSerializable("estate")));
+
+            }
+        }
+
+    }
+
+
 }
