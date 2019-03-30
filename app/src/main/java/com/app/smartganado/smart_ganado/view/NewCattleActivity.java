@@ -94,7 +94,6 @@ public class NewCattleActivity extends AppCompatActivity {
         registrar = findViewById(R.id.Registrar);
         Eliminar = findViewById(R.id.Eliminar);
         imageCattle = findViewById(R.id.imageView);
-        button = findViewById(R.id.imageButton);
 
         initUI();
 
