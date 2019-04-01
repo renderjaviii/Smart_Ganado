@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.view.fragment.CalendarFragment;
 import com.app.smartganado.smart_ganado.view.fragment.EventsFragment;
 import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
@@ -25,6 +26,7 @@ import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private UserApp user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,13 @@ public class HomeActivity extends AppCompatActivity {
 
         loadFragment(new TasksFragment());
 
-        //Obtener el telefono del usuario
-        //getIntent().getIntExtra("phone", 0);//0 en caso de que no le llegue nada
+        if (user == null)
+            user = (UserApp) getIntent().getSerializableExtra("user");//Getting user
+
+        Toast.makeText(getApplicationContext(), "Bienvenido Sr: " + user.getName(), Toast.LENGTH_LONG).show();
     }
 
     public void openEventsModule(View view) {
-
         Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
         startActivity(intent);
     }
@@ -64,11 +67,13 @@ public class HomeActivity extends AppCompatActivity {
 
     public void openCattleModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
     public void openEstatesModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewEstateActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

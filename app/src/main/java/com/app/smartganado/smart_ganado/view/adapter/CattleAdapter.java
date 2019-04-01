@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
@@ -36,7 +37,7 @@ public class CattleAdapter extends BaseAdapter {
         TextView weight = view.findViewById(R.id.InfoRaza);
         ImageView image = view.findViewById(R.id.ivImagen);
 
-        code.setText((data.get(i)).getCode());
+        code.setText(String.valueOf(data.get(i).getCode()));
         gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
         weight.setText(String.valueOf(data.get(i).getWeight()));
         image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));

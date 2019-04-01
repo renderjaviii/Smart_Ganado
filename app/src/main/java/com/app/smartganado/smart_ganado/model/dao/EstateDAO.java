@@ -39,6 +39,8 @@ public class EstateDAO {
 
     //GET estates from database
     public void getEstates(Long phone, final ArrayAdapter<Estate> arrayAdapter) {
+        estateList.clear();
+
         APIUtils.getAPIService().getEstate("getAll", phone).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
@@ -65,7 +67,7 @@ public class EstateDAO {
         APIUtils.getAPIService().insertEstate("insert", estate).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                Toast.makeText(context, response.body() ? "Finca creada correctamente" : "No se pudo crear finca, cambie el nombre...", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, response.body() ? "Finca creada correctamente" : "Ya tienes una finca con el mismo nombre...", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -74,6 +76,7 @@ public class EstateDAO {
             }
         });
     }
+
 }
 
 

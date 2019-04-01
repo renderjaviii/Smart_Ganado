@@ -40,6 +40,7 @@ import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Gender;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
 
 import java.io.File;
@@ -52,29 +53,26 @@ import java.util.Date;
 @SuppressWarnings("all")
 public class NewCattleActivity extends AppCompatActivity {
 
-    ImageView imageCattle; //imagen vaca
 
-    Cattle cattle;
-    Spinner estateSpinner, lotSpinner, breedSpinner, purposeSpinner, genderSpinner;
+    private Cattle cattle;
+    private UserApp user;
 
-
-    EditText TXTcodigo, TXTedad, TXTPeso;
-    FloatingActionButton editar;
-    Button registrar;
-    Button Eliminar;
-    ImageButton button;
-
-
+    private Spinner estateSpinner, lotSpinner, breedSpinner, purposeSpinner, genderSpinner;
+    private ImageView imageCattle;
+    private EditText editTCode, editTAge, editTWeight;
+    private FloatingActionButton floatButtonEdit;
+    private Button buttonAdd, buttonDelete;
+    private ImageButton button;
     private final int SELECT_PICTURE = 10;
     static final int REQUEST_TAKE_PHOTO = 1;
-    String mCurrentPhotoPath;
+
+    private String mCurrentPhotoPath;
 
     private ArrayAdapter<Purpose> purposeAdapter;
     private ArrayAdapter<Estate> estateAdapter;
     private ArrayAdapter<Gender> genderAdapter;
     private ArrayAdapter<Breed> breedAdapter;
     private ArrayAdapter<Lot> lotAdapter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,12 +85,12 @@ public class NewCattleActivity extends AppCompatActivity {
         estateSpinner = findViewById(R.id.Finca);
         lotSpinner = findViewById(R.id.lotSpinner);
 
-        TXTcodigo = findViewById(R.id.Codigo);
-        TXTedad = findViewById(R.id.EdadGanado);
-        TXTPeso = findViewById(R.id.Peso);
-        editar = findViewById(R.id.FABEditar);
-        registrar = findViewById(R.id.Registrar);
-        Eliminar = findViewById(R.id.Eliminar);
+        editTCode = findViewById(R.id.Codigo);
+        editTAge = findViewById(R.id.EdadGanado);
+        editTWeight = findViewById(R.id.Peso);
+        floatButtonEdit = findViewById(R.id.FABEditar);
+        buttonAdd = findViewById(R.id.Registrar);
+        buttonDelete = findViewById(R.id.Eliminar);
         imageCattle = findViewById(R.id.imageView);
 
         initUI();
@@ -101,47 +99,42 @@ public class NewCattleActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(NewCattleActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
 
-        Log.i("server", "llego: " + getIntent().getSerializableExtra("Info"));
+        if (user == null)
+            user = (UserApp) getIntent().getSerializableExtra("user");
 
+
+        Log.i("server", "llegó usuario new cattle: " + user.toString());
 
         if (getIntent().getSerializableExtra("Info") == null) {
             Log.i("server", "Crear");
-            editar.setVisibility(View.GONE);
-            Eliminar.setVisibility(View.GONE);
+            floatButtonEdit.setVisibility(View.GONE);
+            buttonDelete.setVisibility(View.GONE);
         } else {
 
             Log.i("server", "Editando");
             cattle = (Cattle) getIntent().getSerializableExtra("Info");
-            try {
 
-                Thread.sleep(5000);
-                TXTcodigo.setText(String.valueOf(cattle.getId()));
-                TXTedad.setText(String.valueOf(cattle.getAge()));
-                TXTPeso.setText(String.valueOf(cattle.getWeight()));
+            editTCode.setText(String.valueOf(cattle.getId()));
+            editTAge.setText(String.valueOf(cattle.getAge()));
+            editTWeight.setText(String.valueOf(cattle.getWeight()));
 
+            breedSpinner.setSelection(2);
+            genderSpinner.setSelection(cattle.getIdGender());
+            lotSpinner.setSelection(3, false);
+            purposeSpinner.setSelection(cattle.getIdPurpose());
+            estateSpinner.setSelection(EstateDAO.getPositionID(estateSpinner, cattle.getIdEstate()));
 
-                breedSpinner.setSelection(2);
-                genderSpinner.setSelection(cattle.getIdGender());
-                lotSpinner.setSelection(3, false);
-                purposeSpinner.setSelection(cattle.getIdPurpose());
-                estateSpinner.setSelection(EstateDAO.getPositionID(estateSpinner, cattle.getIdEstate()));
-                lotSpinner.refreshDrawableState();
-
-            } catch (InterruptedException e) {
-                Log.i("server", e.getMessage());
-            }
-
-
-            TXTcodigo.setEnabled(false);
-            TXTedad.setEnabled(false);
-            TXTPeso.setEnabled(false);
+        
+            editTCode.setEnabled(false);
+            editTAge.setEnabled(false);
+            editTWeight.setEnabled(false);
             breedSpinner.setEnabled(false);
             purposeSpinner.setEnabled(false);
             genderSpinner.setEnabled(false);
             estateSpinner.setEnabled(false);
             lotSpinner.setEnabled(false);
             button.setEnabled(false);
-            registrar.setVisibility(View.GONE);
+            buttonAdd.setVisibility(View.GONE);
         }
     }
 
@@ -160,7 +153,7 @@ public class NewCattleActivity extends AppCompatActivity {
         EstateDAO estateDAO = new EstateDAO();
         estateAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, estateDAO.getEstateList());
         estateSpinner.setAdapter(estateAdapter);
-        estateDAO.getEstates(1234l, estateAdapter);
+        estateDAO.getEstates(user.getPhone(), estateAdapter);
 
         GenderDAO genderDAO = new GenderDAO();
         genderAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, genderDAO.getGenderList());
@@ -174,14 +167,14 @@ public class NewCattleActivity extends AppCompatActivity {
     }
 
     public void createCattleAction(View view) {
-        if (TXTcodigo.getText().toString().isEmpty() || TXTedad.getText().toString().isEmpty() || TXTPeso.getText().toString().isEmpty()) {
+        if (editTCode.getText().toString().isEmpty() || editTAge.getText().toString().isEmpty() || editTWeight.getText().toString().isEmpty()) {
             Toast.makeText(this, "Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
         } else {
 
             Cattle newCattle = new Cattle();
-            newCattle.setCode(Integer.parseInt(TXTcodigo.getText().toString()));
-            newCattle.setAge(Integer.parseInt(TXTedad.getText().toString()));
-            newCattle.setWeight(Double.parseDouble(TXTPeso.getText().toString()));
+            newCattle.setCode(Integer.parseInt(editTCode.getText().toString()));
+            newCattle.setAge(Integer.parseInt(editTAge.getText().toString()));
+            newCattle.setWeight(Double.parseDouble(editTWeight.getText().toString()));
 
 
             newCattle.setIdPurpose(((Purpose) purposeSpinner.getSelectedItem()).getId());
@@ -193,13 +186,17 @@ public class NewCattleActivity extends AppCompatActivity {
 
             newCattle.setPhoto(Utilities.imageViewToByte(imageCattle));
 
-            Log.i("server: ", "new cattle -> " + newCattle.toString());
+            Log.i("server: ", "NEW cattle -> " + newCattle.toString());
 
             CattleDAO.insertCattle(getApplicationContext(), newCattle);//Insert a new cattle
 
             //Go to View Cattle
-            Intent i = new Intent(getApplicationContext(), ViewCattleActivity.class);
-            startActivity(i);
+            Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+
+            this.finish();//Delete activity form queue
+
         }
     }
 
@@ -288,19 +285,19 @@ public class NewCattleActivity extends AppCompatActivity {
     }
 
     public void Editar(View view) {
-        registrar = findViewById(R.id.Registrar);
+        buttonAdd = findViewById(R.id.Registrar);
         FloatingActionButton floatBtEdit = findViewById(R.id.FABEditar);
         floatBtEdit.setVisibility(View.GONE);
-        registrar.setVisibility(View.VISIBLE);
-        TXTcodigo.setEnabled(true);
-        TXTedad.setEnabled(true);
-        TXTPeso.setEnabled(true);
+        buttonAdd.setVisibility(View.VISIBLE);
+        editTCode.setEnabled(true);
+        editTAge.setEnabled(true);
+        editTWeight.setEnabled(true);
         breedSpinner.setEnabled(true);
         purposeSpinner.setEnabled(true);
         genderSpinner.setEnabled(true);
         estateSpinner.setEnabled(true);
         button.setEnabled(true);
-        Eliminar.setVisibility(View.INVISIBLE);
+        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
     public void Eliminar(View view) {

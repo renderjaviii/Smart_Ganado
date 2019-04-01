@@ -23,7 +23,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
 import com.google.gson.Gson;
 
@@ -44,7 +46,7 @@ public class NewEstateActivity extends AppCompatActivity {
     ImageView photoEstateImageView;
     Utilities utilities;
     Estate newEstate;
-    Long userPhone;
+    UserApp user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,6 @@ public class NewEstateActivity extends AppCompatActivity {
             choose = Integer.valueOf(estateBundle.getString("choose"));
             menu(choose, estateBundle);
         }
-
 
     }
 
@@ -86,11 +87,13 @@ public class NewEstateActivity extends AppCompatActivity {
                     newEstate.setPhoto(imageInByte);
                     newEstate.setId(getEstateId(newEstate));
                     Intent newEstateIntent = new Intent();
+
                     Bundle estateAdd = new Bundle();
                     estateAdd.putSerializable("estate", newEstate);
-
+                    estateAdd.putSerializable("user", user);
                     estateAdd.putInt("position", position);
                     newEstateIntent.putExtras(estateAdd);
+
                     setResult(RESULT_OK, newEstateIntent);
                     this.finish();
                     //Mandar la solicitud al servidor de actualizar
@@ -125,12 +128,10 @@ public class NewEstateActivity extends AppCompatActivity {
                     byte[] imageInByte = stream.toByteArray();
 
                     newEstate.setPhoto(imageInByte);
-                    newEstate.setPhoneUser(userPhone);
-                    //Manda la solicitud al servidor de agregar
-                    //If es favorable
-                    Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
-                    //Si no
-                    // Toast.makeText(this, "Hubo un problema insertando, intentelo más tarde", Toast.LENGTH_LONG).show();
+                    newEstate.setPhoneUser(user.getPhone());
+
+                    EstateDAO estateDAO = new EstateDAO();
+                    estateDAO.insertEstate(getApplicationContext(), newEstate);//Inserting new state
 
                     Intent newEstateIntent = new Intent();
                     Bundle estateAdd = new Bundle();
@@ -148,6 +149,10 @@ public class NewEstateActivity extends AppCompatActivity {
     }
 
     private void menu(Integer choose, Bundle estateBundle) {
+
+        if (user == null)
+            user = (UserApp) estateBundle.getSerializable("user");
+
         switch (choose) {
             case 1:
                 jsonEstate = estateBundle.getString("Estate");
@@ -157,7 +162,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
                 locacionEstateEditText.setText(newEstate.getLocation());
 
-                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(newEstate.getPhoto()));
+                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(Utilities.getBytes(newEstate.getPhoto())));
                 break;
             case 2:
                 jsonEstate = estateBundle.getString("Estate");
@@ -171,13 +176,12 @@ public class NewEstateActivity extends AppCompatActivity {
                 estateButton = (Button) findViewById(R.id.Save_Finca);
                 estateImgButton = (Button) findViewById(R.id.imgButton);
                 estateImgButton.setVisibility(View.INVISIBLE);
-                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(newEstate.getPhoto()));
+                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(Utilities.getBytes(newEstate.getPhoto())));
                 estateButton.setText("Ver ganado");
                 break;
             case 3:
                 newEstate = new Estate();
-
-                userPhone = estateBundle.getLong("userPhone");
+                newEstate.setPhoneUser(user.getPhone());
         }
 
     }

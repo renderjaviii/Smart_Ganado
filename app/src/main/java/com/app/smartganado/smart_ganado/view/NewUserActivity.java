@@ -2,6 +2,8 @@ package com.app.smartganado.smart_ganado.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,24 +11,31 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
+import com.app.smartganado.smart_ganado.utilities.SHA512;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NewUserActivity extends AppCompatActivity {
-    private EditText editTEmail;
-    private EditText editTPassword;
-    private EditText editTPhone;
-    private EditText editTName;
+    private EditText editTEmail, editTPassword, editTPhone, editTName;
+    private CheckBox checkBoxAdm, checkBoxEmp;
+    private ImageButton buttonCamera;
+    private ImageView imageUser;
+
     private final int SELECT_PICTURE = 10;
     static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
@@ -40,18 +49,34 @@ public class NewUserActivity extends AppCompatActivity {
         editTPassword = findViewById(R.id.editTPassword);
         editTPhone = findViewById(R.id.editTPhone);
         editTName = findViewById(R.id.editTName);
+        buttonCamera = findViewById(R.id.buttonCamera);
+        imageUser = findViewById(R.id.imageUser);
+        checkBoxAdm = findViewById(R.id.checkBoxAdm);
+        checkBoxEmp = findViewById(R.id.checkBoxEmp);
+
+        checkBoxEmp.setEnabled(false);//Only administrators
+
     }
 
     public void onNewUser(View view) {
-        Log.i("server", "peticion insert user");
 
-        UserApp user = new UserApp();
-        user.setName(editTName.getText().toString());
-        user.setPhone(Long.parseLong(editTPhone.getText().toString()));
-        user.setEmail(editTEmail.getText().toString());
-        user.setPassword(editTPassword.getText().toString());
+        String name = editTName.getText().toString();
+        String phone = editTPhone.getText().toString();
+        String email = editTEmail.getText().toString();
+        String password = editTPassword.getText().toString();
 
-        UserAppDAO.insertUser(getApplicationContext(), user);
+        if (!name.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !password.isEmpty() && (checkBoxAdm.isChecked() || checkBoxEmp.isChecked())) {
+            UserApp user = new UserApp();
+
+            user.setName(name);
+            user.setEmail(email);
+            user.setPhone(Long.parseLong(phone));
+            user.setPassword(SHA512.encrypt(password));//Encoding password using SHA512
+            user.setIdRol(checkBoxAdm.isChecked() ? 1 : 2);
+
+            UserAppDAO.insertUser(getApplication(), user);//Insertion in db
+        } else
+            Toast.makeText(getApplicationContext(), "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
     }
 
     public void menu(View view) {
@@ -64,7 +89,7 @@ public class NewUserActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int seleccion) {
 
                 if (options[seleccion] == "Tomar foto") {
-                    tomarFoto();
+                    takePhoto();
                 } else if (options[seleccion] == "Elegir de galeria") {
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/");
@@ -78,7 +103,7 @@ public class NewUserActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void tomarFoto() {
+    public void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -108,6 +133,34 @@ public class NewUserActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_TAKE_PHOTO) {
+                //Switch (requestCode)
+                //Case REQUEST_TAKE_PHOTO:
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageUser.setImageBitmap(imageBitmap);
+
+            } else {
+                //Case SELECT_PICTURE:
+                Uri path = data.getData();
+                InputStream inputStream;
+                try {
+                    inputStream = getContentResolver().openInputStream(path);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageUser.setImageBitmap(bitmap);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "No se pudo abrir la imagen", Toast.LENGTH_LONG).show();
+                }
+                imageUser.setImageURI(path);
+            }
+        }
     }
 
 }

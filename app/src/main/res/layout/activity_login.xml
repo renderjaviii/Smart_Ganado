@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline31" />
 
     <Button
-        android:id="@+id/Ingresar_Login"
+        android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -105,26 +105,12 @@
         app:layout_constraintTop_toTopOf="@+id/guideline32"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/Registro_Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="onRegistration"
-        android:text="REGISTRATE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.434" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginTop="28dp"
+        android:onClick="onRegistration"
         android:text="¿No tienes Cuenta?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,107 +23,110 @@ import com.app.smartganado.smart_ganado.view.ViewEstateActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EstateAdapter extends ArrayAdapter{
+public class EstateAdapter extends ArrayAdapter {
 
 
+    public List<Estate> items;
 
-    public  ArrayList<Estate> items;
-
-    public ArrayList<Estate> getItems() {
+    public List<Estate> getItems() {
         return items;
     }
 
-    public EstateAdapter(Context context, int layaout, ArrayList<Estate> items) {
-        super(context,layaout);
-        this.items=items;
+    public EstateAdapter(Context context, int layaout, List<Estate> items) {
+        super(context, layaout);
+        this.items = items;
     }
 
 
-
-    public static class viewHolder{
+    public static class viewHolder {
         TextView textViewName;
         TextView textViewLocation;
         ImageView imageView;
     }
-    public  int getCount(){
+
+    public int getCount() {
         return items.size();
     }
 
-    public  void add (Estate estate){
+    public void add(Estate estate) {
         items.add(estate);
         notifyDataSetChanged();
     }
-    public void remove (int index){
+
+    public void remove(int index) {
         items.remove(index);
         notifyDataSetChanged();
     }
 
 
-    public void update(ArrayList<Estate> result){
-        items= new ArrayList<>();
+    public void update(ArrayList<Estate> result) {
+        items = new ArrayList<>();
         items.addAll(result);
         notifyDataSetChanged();
     }
 
-    public View getView(final int position, @Nullable View  convertView, @NonNull ViewGroup parent){
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View row;
-        row=convertView;
+        row = convertView;
         viewHolder viewHolder;
-        if (row==null){
-            row=LayoutInflater.from(getContext()).inflate(R.layout.estate_adapter,parent,false);
-            viewHolder= new viewHolder();
-            viewHolder.imageView=row.findViewById(R.id.imageViewEstate);
-            viewHolder.textViewName=row.findViewById(R.id.textViewNameEstate);
-            viewHolder.textViewLocation=row.findViewById(R.id.textViewLocation);
+        if (row == null) {
+            row = LayoutInflater.from(getContext()).inflate(R.layout.estate_adapter, parent, false);
+            viewHolder = new viewHolder();
+            viewHolder.imageView = row.findViewById(R.id.imageViewEstate);
+            viewHolder.textViewName = row.findViewById(R.id.textViewNameEstate);
+            viewHolder.textViewLocation = row.findViewById(R.id.textViewLocation);
             row.setTag(viewHolder);
 
-        }else{
-            viewHolder=(viewHolder) row.getTag();
+        } else {
+            viewHolder = (viewHolder) row.getTag();
         }
-        if (items.get(position).getPhoto()==null) {
+        if (items.get(position).getPhoto() == null) {
             viewHolder.imageView.setImageResource(R.drawable.farmdef);
-        }else{
-            viewHolder.imageView.setImageBitmap(Utilities.byteToBitmap(items.get(position).getPhoto()));}
+        } else {
+            viewHolder.imageView.setImageBitmap(Utilities.byteToBitmap(Utilities.getBytes(items.get(position).getPhoto())));
+        }
         viewHolder.textViewName.setText(items.get(position).getName());
         viewHolder.textViewLocation.setText(items.get(position).getLocation());
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                PopupMenu popupMenu= new PopupMenu(getContext(), v);
+                PopupMenu popupMenu = new PopupMenu(getContext(), v);
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
-                        Intent newEstateIntent =new Intent(getContext(), NewEstateActivity.class);
-                        switch (item.getItemId()){
+                        Intent newEstateIntent = new Intent(getContext(), NewEstateActivity.class);
+                        switch (item.getItemId()) {
                             case R.id.item1:
-                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("Estate", new Gson().toJson(items.get(position)));
                                 newEstateIntent.putExtra("choose", "1");
-                                newEstateIntent.putExtra("position",position);
-                                ( (ViewEstateActivity)getContext()).startActivityForResult(newEstateIntent,2);
-                                return  true;
+                                newEstateIntent.putExtra("position", position);
+
+                                ((ViewEstateActivity) getContext()).startActivityForResult(newEstateIntent, 2);
+                                return true;
                             case R.id.item2:
-                                newEstateIntent.putExtra("Estate",new Gson().toJson(items.get(position)));
+                                newEstateIntent.putExtra("Estate", new Gson().toJson(items.get(position)));
                                 newEstateIntent.putExtra("choose", "2");
                                 getContext().startActivity(newEstateIntent);
-                                return  true;
+                                return true;
                             case R.id.item3:
                                 // Petición al server de eliminar
                                 //If es favorable
                                 if (items.remove(items.get(position))) {
                                     notifyDataSetChanged();
                                     Toast.makeText(getContext(), "Se elimino correctamente", Toast.LENGTH_LONG).show();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(getContext(), "Hubo un problema eliminando, intentelo más tarde", Toast.LENGTH_LONG).show();
                                 }
-                                return  true;
-                            default: return false;
+                                return true;
+                            default:
+                                return false;
 
 
                         }

@@ -20,13 +20,13 @@ public class Cattle implements Serializable {
     private Integer idLot;
     private Integer idPurpose;
     private String name;
-    private byte[] photo;
+    private Byte[] photo;
     private Double weight;
 
     public Cattle() {
     }
 
-    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, byte[] photo, Double weight) {
+    public Cattle(Integer id, Integer age, Integer code, String details, Integer idBreed, Integer idEstate, Integer idGender, Integer idLot, Integer idPurpose, String name, Byte[] photo, Double weight) {
         this.id = id;
         this.age = age;
         this.code = code;
@@ -121,11 +121,11 @@ public class Cattle implements Serializable {
         this.name = name;
     }
 
-    public byte[] getPhoto() {
+    public Byte[] getPhoto() {
         return this.photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(Byte[] photo) {
         this.photo = photo;
     }
 
