@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
 import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.SHA512;
 
@@ -31,10 +36,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NewUserActivity extends AppCompatActivity {
+    private UserApp userApp;
     private EditText editTEmail, editTPassword, editTPhone, editTName;
     private CheckBox checkBoxAdm, checkBoxEmp;
     private ImageButton buttonCamera;
+    private Button buttonDelete, buttomCamera, registrar;
     private ImageView imageUser;
+    private FloatingActionButton FABeditar;
 
     private final int SELECT_PICTURE = 10;
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -50,11 +58,42 @@ public class NewUserActivity extends AppCompatActivity {
         editTPhone = findViewById(R.id.editTPhone);
         editTName = findViewById(R.id.editTName);
         buttonCamera = findViewById(R.id.buttonCamera);
+        buttonDelete = findViewById(R.id.Eliminar);
         imageUser = findViewById(R.id.imageUser);
         checkBoxAdm = findViewById(R.id.checkBoxAdm);
         checkBoxEmp = findViewById(R.id.checkBoxEmp);
+        FABeditar = findViewById(R.id.FABEditar);
+        registrar = findViewById(R.id.Registrar);
 
         checkBoxEmp.setEnabled(false);//Only administrators
+
+        // Edit and view User
+        userApp = (UserApp) getIntent().getSerializableExtra("Info");
+        if (getIntent().getSerializableExtra("Info") == null) {
+            Log.i("server", "Crear");
+            FABeditar.setVisibility(View.GONE);
+            buttonDelete.setVisibility(View.GONE);
+        } else {
+
+            Log.i("server", "Editando");
+            userApp = (UserApp) getIntent().getSerializableExtra("Info");
+
+            editTEmail.setText(String.valueOf(userApp.getEmail()));
+            editTPassword.setText(String.valueOf(userApp.getPassword()));
+            editTPhone.setText(String.valueOf(userApp.getPhone()));
+            editTName.setText(String.valueOf(userApp.getName()));
+
+
+
+            editTEmail.setEnabled(false);
+            editTName.setEnabled(false);
+            editTPassword.setEnabled(false);
+            editTPhone.setEnabled(false);
+            checkBoxAdm.setEnabled(false);
+            checkBoxEmp.setEnabled(false);
+            buttomCamera.setEnabled(false);
+            registrar.setVisibility(View.GONE);
+        }
 
     }
 
@@ -161,6 +200,20 @@ public class NewUserActivity extends AppCompatActivity {
                 imageUser.setImageURI(path);
             }
         }
+    }
+    public void Editar(View view) {
+        registrar = findViewById(R.id.Registrar);
+        FloatingActionButton floatBtEdit = findViewById(R.id.FABEditar);
+        floatBtEdit.setVisibility(View.GONE);
+        registrar.setVisibility(View.VISIBLE);
+        editTPhone.setEnabled(true);
+        editTPassword.setEnabled(true);
+        editTName.setEnabled(true);
+        editTEmail.setEnabled(true);
+        checkBoxEmp.setEnabled(true);
+        checkBoxAdm.setEnabled(true);
+        registrar.setEnabled(true);
+        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
 }
