@@ -28,9 +28,9 @@ public class NewUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
-        editTextCorreo = findViewById(R.id.Correo_Registro);
+        editTextCorreo = findViewById(R.id.managerEventEditText);
         editTextPassword = findViewById(R.id.Contraseña_Registro);
-        editTextPhone = findViewById(R.id.Telefono_Registro);
+        editTextPhone = findViewById(R.id.detailsEventEditText);
     //    editTNombre = findViewById(R.id.editTName);
 
 
