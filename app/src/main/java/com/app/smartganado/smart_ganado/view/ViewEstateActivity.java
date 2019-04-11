@@ -3,6 +3,7 @@ package com.app.smartganado.smart_ganado.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -31,10 +32,9 @@ public class ViewEstateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_estate);
         estateListView = findViewById(R.id.estateListView);
 
-        EstateDAO estateDAO = new EstateDAO();
-        estateAdapter = new EstateAdapter(getApplicationContext(), R.layout.estate_adapter, estateDAO.getEstateList());
+        estateAdapter = new EstateAdapter(ViewEstateActivity.this, R.layout.estate_adapter, EstateDAO.getEstateList());
         estateListView.setAdapter(estateAdapter);
-        estateDAO.getEstates(user.getPhone(), estateAdapter);
+        EstateDAO.getEstates(user.getPhone(), estateAdapter);
     }
 
    /* //Buscador de finca
@@ -75,8 +75,8 @@ public class ViewEstateActivity extends AppCompatActivity {
                 onCreateOptionsMenu(menu);
     }*/
 
-    public void onNewCattleAction(View view) {
-        Intent newEstateIntent = new Intent(getApplicationContext(), NewEstateActivity.class);
+    public void onClick(View view) {
+        Intent newEstateIntent = new Intent(ViewEstateActivity.this, NewEstateActivity.class);
         newEstateIntent.putExtra("choose", "3");
         newEstateIntent.putExtra("user", user);
 
@@ -116,11 +116,9 @@ public class ViewEstateActivity extends AppCompatActivity {
             }
         } else {
             if (resultCode == RESULT_OK) {
-
                 Bundle estateBundle = data.getExtras();
-                estateAdapter.remove(estateBundle.getInt("position"));
-                estateAdapter.add(((Estate) estateBundle.getSerializable("estate")));
-                user = (UserApp) estateBundle.getSerializable("user");
+                //estateAdapter.add(((Estate) estateBundle.getSerializable("estate")));
+                EstateDAO.getEstates(user.getPhone(), estateAdapter);
             }
         }
 

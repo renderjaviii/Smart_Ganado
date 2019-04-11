@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Smart Ganado</string>
-    <string name="title_view_estates">Fincas</string>
-    <string name="title_view_cattles">Ganado</string>
+    <string name="title_view_estates">Mis Fincas</string>
+    <string name="title_view_cattles">Mi Ganado</string>
     <string name="title_new_cattle">Nueva cabeza de ganado</string>
     <string name="title_new_estate">Nueva finca</string>
 

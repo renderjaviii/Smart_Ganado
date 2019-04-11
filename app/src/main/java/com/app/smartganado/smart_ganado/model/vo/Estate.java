@@ -20,7 +20,7 @@ public class Estate implements Serializable {
 
     private Long phoneUser;
 
-    private byte[] photo;
+    private Byte[] photo;
 
     public Estate() {
     }
@@ -33,13 +33,10 @@ public class Estate implements Serializable {
         this.id = id;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return this.area;
     }
 
-    public void setArea(double area) {
-        this.area = area;
-    }
 
     public String getLocation() {
         return this.location;
@@ -69,11 +66,11 @@ public class Estate implements Serializable {
         this.area = area;
     }
 
-    public byte[] getPhoto() {
+    public Byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(Byte[] photo) {
         this.photo = photo;
     }
 

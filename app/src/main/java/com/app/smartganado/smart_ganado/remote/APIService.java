@@ -14,7 +14,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import rx.Observable;
 
 public interface APIService {
 
@@ -34,6 +33,8 @@ public interface APIService {
     @GET("estate")
     Call<List<Estate>> getEstate(@Header("action") String actionName, @Header("phone") Long phone);
 
+    @GET("estate")
+    Call<Boolean> deleteEstate(@Header("action") String actionName, @Header("id") String idEstate);//action = delete
 
     //Cattle
     @POST("cattle")
@@ -42,6 +43,8 @@ public interface APIService {
     @GET("cattle")
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
+    @GET("cattle")
+    Call<Boolean> deleteCattle(@Header("action") String actionName, @Header("id") String idCattle);//action = delete
 
     //Lot
     @GET("lot")

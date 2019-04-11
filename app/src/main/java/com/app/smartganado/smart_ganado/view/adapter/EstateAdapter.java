@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
 import com.app.smartganado.smart_ganado.view.NewEstateActivity;
@@ -86,7 +85,7 @@ public class EstateAdapter extends ArrayAdapter {
         if (items.get(position).getPhoto() == null) {
             viewHolder.imageView.setImageResource(R.drawable.farmdef);
         } else {
-            viewHolder.imageView.setImageBitmap(Utilities.byteToBitmap(Utilities.getBytes(items.get(position).getPhoto())));
+            viewHolder.imageView.setImageBitmap(Utilities.byteToBitmap((items.get(position).getPhoto())));
         }
         viewHolder.textViewName.setText(items.get(position).getName());
         viewHolder.textViewLocation.setText(items.get(position).getLocation());
@@ -115,15 +114,13 @@ public class EstateAdapter extends ArrayAdapter {
                                 newEstateIntent.putExtra("choose", "2");
                                 getContext().startActivity(newEstateIntent);
                                 return true;
+
                             case R.id.item3:
-                                // Petición al server de eliminar
-                                //If es favorable
-                                if (items.remove(items.get(position))) {
-                                    notifyDataSetChanged();
-                                    Toast.makeText(getContext(), "Se elimino correctamente", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getContext(), "Hubo un problema eliminando, intentelo más tarde", Toast.LENGTH_LONG).show();
-                                }
+                                EstateDAO.deleteEstate(getContext(), items.get(position).getId());
+
+                                items.remove(position);
+                                notifyDataSetChanged();
+
                                 return true;
                             default:
                                 return false;

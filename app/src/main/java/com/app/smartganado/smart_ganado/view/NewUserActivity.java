@@ -27,6 +27,7 @@ import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.SHA512;
+import com.app.smartganado.smart_ganado.utilities.Utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +36,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@SuppressWarnings("all")
 public class NewUserActivity extends AppCompatActivity {
     private UserApp userApp;
     private EditText editTEmail, editTPassword, editTPhone, editTName;
@@ -111,6 +113,7 @@ public class NewUserActivity extends AppCompatActivity {
             user.setEmail(email);
             user.setPhone(Long.parseLong(phone));
             user.setPassword(SHA512.encrypt(password));//Encoding password using SHA512
+            user.setPhoto(Utilities.imageViewToByte(imageUser));
             user.setIdRol(checkBoxAdm.isChecked() ? 1 : 2);
 
             UserAppDAO.insertUser(getApplication(), user);//Insertion in db

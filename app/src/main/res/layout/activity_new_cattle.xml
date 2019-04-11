@@ -92,12 +92,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="192dp"
-        android:onClick="createCattleAction"
+        android:onClick="createCattle"
         android:text="@string/Buttom_Registro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
+
+
+    <ImageButton
+        android:id="@+id/buttonCamera"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:onClick="menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_camera" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -168,7 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="94dp" />
+        app:layout_constraintGuide_begin="106dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline13"
@@ -223,7 +236,7 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="36dp"
         android:clickable="true"
-        android:onClick="Editar"
+        android:onClick="editCattle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"
@@ -237,6 +250,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="488dp"
+        android:onClick="deleteCattle"
         android:text="Eliminar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

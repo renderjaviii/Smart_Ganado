@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
+import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
@@ -26,34 +27,51 @@ public class ViewCattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_cattle);
         cattleListView = findViewById(R.id.listaGanado);
 
+        user = UserAppDAO.getUser();
 
-        adapter = new CattleAdapter(getApplicationContext(), CattleDAO.getCattleList());
+        Log.i("server", "user in view cattle: " + user.getName());
+
+        adapter = new CattleAdapter(getApplicationContext(), CattleDAO.getCattleList());//Initializing cattleAdapter
         cattleListView.setAdapter(adapter);
 
-        if (user == null)
-            user = (UserApp) getIntent().getSerializableExtra("user");
-
-        Log.i("server", "llego USER: " + user.toString());
-        CattleDAO.getCattles(user.getPhone(), adapter);//Getting cattles's by user_phone
-
         cattleListView.setOnItemClickListener(cattleListListener);
+        Log.i("server", "\nOnCreate in: " + this.getLocalClassName());
+
+        String idCattleToDelete = getIntent().getExtras().getString("id_cattle");
+        if (idCattleToDelete != null) {
+            Log.i("server", "deleting cattle with ID = " + idCattleToDelete);
+            CattleDAO.deleteCattle(getApplicationContext(), adapter, Integer.parseInt(idCattleToDelete));
+        }
     }
 
     private AdapterView.OnItemClickListener cattleListListener = new AdapterView.OnItemClickListener() {
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Cattle cattle = (Cattle) cattleListView.getItemAtPosition(position);
             Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
-            intent.putExtra("Info", cattle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.putExtra("cattle", cattle);
             startActivity(intent);
         }
     };
 
 
     public void onClickNewCattle(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), NewCattleActivity.class));
     }
 
+    @Override
+    protected void onResume() {
+        CattleDAO.getCattles(user.getPhone(), adapter);//Getting and showing cattles's
+
+        Log.i("server", "---> OnResume: " + this.getLocalClassName());
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("server", "---> OnPause: " + this.getLocalClassName());
+        super.onPause();
+    }
 }

@@ -15,28 +15,29 @@ import retrofit2.Response;
 
 public class LotDAO {
 
-    private List<Lot> lotList;
+    private static List<Lot> lotList;
 
-    public LotDAO() {
+    static {
         lotList = new ArrayList<>();
     }
 
-    public List<Lot> getLotList() {
+    public static List<Lot> getLotList() {
         return lotList;
     }
 
     //GET Lots from database
-    public void getLotList(final ArrayAdapter<Lot> arrayAdapter) {
+    public static void getLotList(final ArrayAdapter<Lot> arrayAdapter) {
         APIUtils.getAPIService().getLot().enqueue(new Callback<List<Lot>>() {
             @Override
             public void onResponse(Call<List<Lot>> call, Response<List<Lot>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        for (Lot lot : response.body()) {
-                            Log.i("server", lot.print());
-                            lotList.add(lot);
+                        Log.i("server", "lotList isEmpty? " + lotList.isEmpty());
+                        if (response.body().size() != lotList.size()) {
+                            lotList.clear();
+                            lotList.addAll(response.body());
+                            arrayAdapter.notifyDataSetChanged();
                         }
-                        arrayAdapter.notifyDataSetChanged();
 
                     } else call.clone().enqueue(this);
                 } else Log.i("server", "response no successful");

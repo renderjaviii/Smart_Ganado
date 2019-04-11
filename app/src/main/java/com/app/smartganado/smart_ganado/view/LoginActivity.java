@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
 import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.SHA512;
 

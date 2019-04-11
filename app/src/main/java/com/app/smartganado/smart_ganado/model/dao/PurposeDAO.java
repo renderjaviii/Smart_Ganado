@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.model.dao;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
@@ -9,21 +10,25 @@ import java.util.List;
 
 public class PurposeDAO {
 
-    private List<Purpose> purposeList;
+    private static List<Purpose> purposeList;
 
-    public PurposeDAO() {
+    static {
         purposeList = new ArrayList<>();
     }
 
-    public List<Purpose> getPurposeList() {
+    public static List<Purpose> getPurposeList() {
         return purposeList;
     }
 
-    public List<Purpose> getPurposeList(ArrayAdapter<Purpose> arrayAdapter) {
-        purposeList.add(new Purpose(1, "Leche"));
-        purposeList.add(new Purpose(2, "Carne"));
-        purposeList.add(new Purpose(3, "Doble proposito"));
-        arrayAdapter.notifyDataSetChanged();
+    public static List<Purpose> getPurposeList(ArrayAdapter<Purpose> arrayAdapter) {
+        Log.i("server", "purposeList isEmpty? " + purposeList.isEmpty());
+
+        if (purposeList.isEmpty()) {
+            purposeList.add(new Purpose(1, "Leche"));
+            purposeList.add(new Purpose(2, "Carne"));
+            purposeList.add(new Purpose(3, "Doble proposito"));
+            arrayAdapter.notifyDataSetChanged();
+        }
         return purposeList;
     }
 }

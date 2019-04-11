@@ -78,7 +78,6 @@ public class UserApp implements Serializable {
                 ", idRol=" + idRol +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", photo=" + Arrays.toString(photo) +
                 '}';
     }
 }

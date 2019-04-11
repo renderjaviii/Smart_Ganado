@@ -3,11 +3,11 @@ package com.app.smartganado.smart_ganado.model.dao;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
+import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,42 +18,32 @@ import retrofit2.Response;
 
 public class EstateDAO {
 
-    private List<Estate> estateList;
+    private static List<Estate> estateList;
 
-    public EstateDAO() {
+    static {
         estateList = new ArrayList<>();
     }
 
-    public List<Estate> getEstateList() {
+    public static List<Estate> getEstateList() {
         return estateList;
     }
 
-    public static int getPositionID(Spinner spinner, int id) {
-        for (int i = 0; i < spinner.getCount(); i++) {
-            Log.i("server", ((Estate) spinner.getItemAtPosition(i)).getId() + " == " + id);
-            if (((Estate) spinner.getItemAtPosition(i)).getId() == id)
-                return i;
-        }
-        return -1;
-    }
 
     //GET estates from database
-    public void getEstates(Long phone, final ArrayAdapter<Estate> arrayAdapter) {
-        estateList.clear();
-
+    public static void getEstates(Long phone, final ArrayAdapter<Estate> arrayAdapter) {
         APIUtils.getAPIService().getEstate("getAll", phone).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful())
                     if (response.body() != null) {
-                        for (Estate estate : response.body()) {
-                            Log.i("server", estate.print());
-                            estateList.add(estate);
-                        }
+                        Log.i("server", "estateList isEmpty? " + estateList.isEmpty());
+
+                        estateList.clear();
+                        estateList.addAll(response.body());
                         arrayAdapter.notifyDataSetChanged();
 
                     } else
-                        call.clone().enqueue(this);
+                        call.clone().enqueue(this);//Recalling
             }
 
             @Override
@@ -63,7 +53,7 @@ public class EstateDAO {
         });
     }
 
-    public void insertEstate(final Context context, Estate estate) {
+    public static void insertEstate(final Context context, Estate estate) {
         APIUtils.getAPIService().insertEstate("insert", estate).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -72,12 +62,32 @@ public class EstateDAO {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(context, "Se produjo un error creando finca...", Toast.LENGTH_LONG).show();
+                Log.i("server", "error failure: " + t.getMessage());
             }
         });
     }
 
+
+    public static void deleteEstate(final Context context, int id) {
+        APIUtils.getAPIService().deleteEstate("delete", String.valueOf(id)).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful()) {
+                    if (response.body()) {
+                        Toast.makeText(context, "Se eliminó la finca correctamente", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(context, "Ocurrió un problema eliminando finca, intentalo nuevamente", Toast.LENGTH_LONG).show();
+                } else Log.i("server", "no successful");
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
+    }
 }
+
 
 
 

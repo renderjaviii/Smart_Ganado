@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
+import com.app.smartganado.smart_ganado.view.NewCattleActivity;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
 
 import java.util.ArrayList;
@@ -28,24 +29,21 @@ public class CattleDAO {
         return cattleList;
     }
 
-
     public static void getCattles(Long phone, final CattleAdapter arrayAdapter) {
-        Log.i("server", "peticion get cattles");
-
-        cattleList.clear();//Clear list
-
         APIUtils.getAPIService().getCattle("getAll", phone).enqueue(new Callback<List<Cattle>>() {
             @Override
             public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        for (Cattle cattle : response.body()) {
-                            cattleList.add(cattle);
-                            Log.i("server", cattle.toString());
-                        }
+
+                        Log.i("server", "cattleList isEmpty? " + cattleList.isEmpty());
+
+                        cattleList.clear();
+                        cattleList.addAll(response.body());
                         arrayAdapter.notifyDataSetChanged();
+
                     } else
-                        call.clone().enqueue(this);
+                        call.clone().enqueue(this);//Recalling
 
                 } else Log.i("server", "response no successful");
             }
@@ -59,20 +57,45 @@ public class CattleDAO {
 
     }
 
-    public static void insertCattle(final Context appContext, Cattle cattle) {
+    public static void insertCattle(final NewCattleActivity app, Cattle cattle) {
 
         APIUtils.getAPIService().insertCattle("insert", cattle).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.isSuccessful())
-                    Toast.makeText(appContext, response.body() ? "Se ha creado el nuevo registro" : "Error creando...", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(app, response.body() ? "Cabeza de ganado creada correctamente" :
+                            "ERROR: Código ya asociado en la finca seleccionada...", Toast.LENGTH_SHORT).show();
+
+                    if (response.body())
+                        app.onBackPressed();
+                }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(appContext, "error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("server", "error: " + t.getMessage());
             }
         });
     }
 
+    public static void deleteCattle(final Context context, final CattleAdapter adapter, int id) {
+        APIUtils.getAPIService().deleteCattle("delete", String.valueOf(id)).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful()) {
+                    if (response.body()) {
+                        Toast.makeText(context, "Se eliminó el ganado correctamente", Toast.LENGTH_LONG).show();
+                        adapter.notifyDataSetChanged();
+                    } else
+                        Toast.makeText(context, "Ocurrió un problema eliminando, intentalo nuevamente", Toast.LENGTH_LONG).show();
+
+                } else Log.i("server", "no successful");
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.i("server", "error: " + t.getMessage());
+            }
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package com.app.smartganado.smart_ganado.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +38,14 @@ public class CattleAdapter extends BaseAdapter {
         TextView weight = view.findViewById(R.id.InfoRaza);
         ImageView image = view.findViewById(R.id.ivImagen);
 
-        code.setText(String.valueOf(data.get(i).getCode()));
-        gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
-        weight.setText(String.valueOf(data.get(i).getWeight()));
-        image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));
-
+        try {
+            code.setText(String.valueOf(data.get(i).getCode()));
+            gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
+            weight.setText(String.valueOf(data.get(i).getWeight()));
+            image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));
+        } catch (Exception e) {
+            Log.i("server", "exception in CattleAdaper" + e.getMessage());
+        }
         return view;
     }
 

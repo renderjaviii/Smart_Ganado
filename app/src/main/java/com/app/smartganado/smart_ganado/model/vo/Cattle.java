@@ -150,7 +150,6 @@ public class Cattle implements Serializable {
                 ", idLot=" + idLot +
                 ", idPurpose=" + idPurpose +
                 ", name='" + name + '\'' +
-                ", photo=" + Arrays.toString(photo) +
                 ", weight=" + weight +
                 '}';
     }
