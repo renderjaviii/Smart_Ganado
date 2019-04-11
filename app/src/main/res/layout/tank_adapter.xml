@@ -70,8 +70,8 @@
 
     <TextView
         android:id="@+id/CodigoTexto"
-        android:layout_width="66dp"
-        android:layout_height="18dp"
+        android:layout_width="71dp"
+        android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -81,12 +81,13 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:text="Nombre:" />
 
     <TextView
         android:id="@+id/FincaTexto"
-        android:layout_width="64dp"
-        android:layout_height="17dp"
+        android:layout_width="70dp"
+        android:layout_height="21dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -97,23 +98,8 @@
         app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.428" />
-
-    <TextView
-        android:id="@+id/RazaTexto"
-        android:layout_width="57dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/PESO"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.836"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/FincaTexto"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.428"
+        tools:text="Capacidad:" />
 
     <TextView
         android:id="@+id/TVNombre"
@@ -145,32 +131,17 @@
         app:layout_constraintTop_toBottomOf="@+id/TVNombre"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/InfoRaza"
-        android:layout_width="85dp"
-        android:layout_height="19dp"
+    <ImageView
+        android:id="@+id/IVTanque"
+        android:layout_width="91dp"
+        android:layout_height="68dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/TVCapacidad"
-        app:layout_constraintVertical_bias="0.333" />
-
-    <ImageView
-        android:id="@+id/ivImagen"
-        android:layout_width="71dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/vaca3" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/tanque" />
 
 </android.support.constraint.ConstraintLayout>
