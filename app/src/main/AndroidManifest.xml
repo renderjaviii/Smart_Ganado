@@ -24,8 +24,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.HistoryBookActivity"></activity>
-        <activity android:name=".view.ViewEventActivity" />
+        <activity android:name=".view.ViewEventActivity"
+            android:label="@string/title_view_events"
+            android:parentActivityName=".view.HomeActivity"
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity android:name=".view.ViewIndicatorsActivity" />
+        <activity android:name=".view.NewEventActivity"
+            android:label="@string/title_view_events"
+            android:parentActivityName=".view.HomeActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
@@ -69,6 +77,8 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:value="com.app.smartganado.smart_ganado.view.HomeActivity" />
         </activity>
+
+
         <provider android:name="android.support.v4.content.FileProvider" android:grantUriPermissions="true" android:exported="false" android:authorities="com.example.android.fileprovider">
 
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"> </meta-data>

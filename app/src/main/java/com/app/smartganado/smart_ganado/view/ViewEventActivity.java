@@ -10,16 +10,22 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class ViewEventActivity extends AppCompatActivity {
 
@@ -28,6 +34,9 @@ public class ViewEventActivity extends AppCompatActivity {
     private UserApp user;
     private Event calendarEvent;
     private com.app.smartganado.smart_ganado.model.vo.Event event;
+    private Integer reference;
+    private ListView listView;
+    private TextView tittle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +44,11 @@ public class ViewEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_event);
 
         calendarView= (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        tittle= (TextView) findViewById(R.id.eventTittle);
+        tittle.setVisibility(View.INVISIBLE);
         context=this;
-
-
+      reference=(android.R.layout.simple_list_item_1);
+        listView=(ListView) findViewById(R.id.eventListView);
         Bundle eventBundle = getIntent().getExtras();
 
         if (eventBundle != null && user == null)
@@ -63,16 +74,35 @@ public class ViewEventActivity extends AppCompatActivity {
                             startActivityForResult(newEventIntent,1);
                         }
                         else {
-                            Toast.makeText(context, "Ver eventos", Toast.LENGTH_LONG).show();
+                          List<Event> estateList= calendarView.getEvents(dateClicked);
+                          if (!estateList.isEmpty()) {
+                              listView.setVisibility(View.VISIBLE);
+                              tittle.setVisibility(View.VISIBLE);
+                              String[] values = new String[estateList.size()];
+
+                              for (int i = 0; i < estateList.size(); i++) {
+                                  event = (com.app.smartganado.smart_ganado.model.vo.Event) estateList.get(i).getData();
+                                  values[i] = event.getName();
+                              }
+
+                              ArrayAdapter<String> adapter = new ArrayAdapter<>(context, reference, values);
+                              listView.setAdapter(adapter);
+
+                          }
+                            else{
+                                tittle.setVisibility(View.INVISIBLE);
+                                listView.setVisibility(View.INVISIBLE);
+                              Toast.makeText(context, "No existen eventos para este día", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
                 AlertDialog dialog= builder.create();
                 dialog.show();
 
-                Event event= new Event(Color.RED, dateClicked.getTime(), "alv");
+                //Event event= new Event(Color.RED, dateClicked.getTime(), "alv");
 
-                calendarView.addEvent(event);
+                //calendarView.addEvent(event);
 
             }
 
@@ -109,9 +139,9 @@ public class ViewEventActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bundle estateBundle = data.getExtras();
                event = (com.app.smartganado.smart_ganado.model.vo.Event) estateBundle.getSerializable("event");
-               calendarEvent= new Event(Color.RED, estateBundle.getLong("time"), event.getDetails());
+               calendarEvent= new Event(Color.RED, estateBundle.getLong("time"), event);
                 calendarView.addEvent(calendarEvent);
-                calendarView.notify();
+
 
         }
         }
