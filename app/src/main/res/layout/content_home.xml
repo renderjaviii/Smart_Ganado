@@ -131,7 +131,7 @@
                         style="@android:style/Widget.DeviceDefault.Light.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Indicadores"
+                        android:text="Tanques"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:textSize="14sp" />
 

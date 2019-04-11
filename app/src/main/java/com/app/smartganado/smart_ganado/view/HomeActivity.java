@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void openIndicatorsModule(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ViewTankActivity.class);
         startActivity(intent);
     }
 
@@ -120,7 +120,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = null;
 
             if (id == R.id.nav_profile) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                intent = new Intent(getApplicationContext(), NewUserActivity.class);
             } else if (id == R.id.nav_backups) {
                 intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_appFuntions) {
@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_manual) {
                 intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_logout) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
             }
 
             Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();

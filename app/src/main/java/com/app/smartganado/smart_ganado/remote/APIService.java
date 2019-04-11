@@ -5,6 +5,7 @@ import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
+import com.app.smartganado.smart_ganado.model.vo.Tank;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 
 import java.util.List;
@@ -41,6 +42,13 @@ public interface APIService {
 
     @GET("cattle")
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
+
+    //Tank
+    @POST("tank")
+    Call<Boolean> insertTank(@Header("action") String actionName, @Body Tank tank); //action = insert
+
+    @GET("tank")
+    Call<List<Tank>> getTank(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
 
     //Lot
