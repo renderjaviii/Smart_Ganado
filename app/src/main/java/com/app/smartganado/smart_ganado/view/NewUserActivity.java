@@ -78,13 +78,11 @@ public class NewUserActivity extends AppCompatActivity {
         } else {
 
             Log.i("server", "Editando");
-            userApp = (UserApp) getIntent().getSerializableExtra("Info");
-
             editTEmail.setText(String.valueOf(userApp.getEmail()));
             editTPassword.setText(String.valueOf(userApp.getPassword()));
             editTPhone.setText(String.valueOf(userApp.getPhone()));
             editTName.setText(String.valueOf(userApp.getName()));
-
+            imageUser.setImageBitmap(Utilities.byteToBitmap(userApp.getPhoto()));
 
 
             editTEmail.setEnabled(false);
@@ -92,8 +90,8 @@ public class NewUserActivity extends AppCompatActivity {
             editTPassword.setEnabled(false);
             editTPhone.setEnabled(false);
             checkBoxAdm.setEnabled(false);
-            checkBoxEmp.setEnabled(false);
-            buttomCamera.setEnabled(false);
+            checkBoxEmp.setEnabled(false);try{
+            buttomCamera.setEnabled(false);}catch (Exception e){}
             registrar.setVisibility(View.GONE);
         }
 

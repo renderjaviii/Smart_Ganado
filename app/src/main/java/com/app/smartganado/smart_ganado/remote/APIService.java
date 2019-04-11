@@ -59,7 +59,7 @@ public interface APIService {
     @GET("purpose")
     Call<List<Purpose>> getPurpose();//Return purpose list
 
-    //Tank
+
     //Tank
     @POST("tank")
     Call<Boolean> insertTank(@Header("action") String actionName, @Body Tank tank); //action = insert
@@ -67,24 +67,7 @@ public interface APIService {
     @GET("tank")
     Call<List<Tank>> getTank(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
+    @GET("cattle")
+    Call<Boolean> deleteTank(@Header("action") String actionName, @Header("id") String idTank);//action = delete
 
-    /** @FormUrlEncoded
-     @POST("upload/photo") Call<SimpleResponse> postPhoto(
-     @Field("image") String base64,
-     @Field("extension") String extension,
-     @Field("user_id") String user_id
-     );
-
-
-     @GET("login") Call<LoginResponse> getLogin(
-     @Query("username") String username,
-     @Query("password") String password
-     );
-
-     @FormUrlEncoded
-     @POST("product") Call<SimpleResponse> postNewProduct(
-     @Field("code") String code,
-     @Field("name") String name,
-     @Field("description") String description
-     );*/
 }

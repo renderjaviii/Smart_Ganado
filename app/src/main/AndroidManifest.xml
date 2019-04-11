@@ -35,6 +35,16 @@
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
 
+
+        <activity
+            android:name=".view.ViewTankActivity"
+            android:label="@string/title_view_tanks"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.NewTankActivity"
+            android:label="@string/title_new_tank"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".view.ViewEstateActivity"
             android:label="@string/title_view_estates"

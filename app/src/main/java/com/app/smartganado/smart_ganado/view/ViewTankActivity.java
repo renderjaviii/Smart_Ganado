@@ -27,17 +27,14 @@ public class ViewTankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_tank);
-        tankListView = findViewById(R.id.listaTanques);
 
+        tankListView = findViewById(R.id.listaTanques);
 
         adapter = new TankAdapter(getApplicationContext(), TanksDAO.getTankList());
         tankListView.setAdapter(adapter);
 
         if (user == null)
             user = (UserApp) getIntent().getSerializableExtra("user");
-
-        Log.i("server", "llego USER: " + user.toString());
-        TanksDAO.getTanks(user.getPhone(), adapter);//Getting cattles's by user_phone
 
         tankListView.setOnItemClickListener(tankListListener);
     }
@@ -47,11 +44,17 @@ public class ViewTankActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Tank tank = (Tank) tankListView.getItemAtPosition(position);
             Intent intent = new Intent(getApplicationContext(), NewTankActivity.class);
+            intent.putExtra("user", user);
             intent.putExtra("Info", tank);
             startActivity(intent);
         }
     };
 
+    @Override
+    protected void onResume() {
+        TanksDAO.getTanks(user.getPhone(), adapter);
+        super.onResume();
+    }
 
     public void onClickNewTank(View view) {
         Intent intent = new Intent(getApplicationContext(), NewTankActivity.class);

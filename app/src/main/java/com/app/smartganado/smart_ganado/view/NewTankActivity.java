@@ -1,9 +1,8 @@
 package com.app.smartganado.smart_ganado.view;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,23 +12,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.dao.BreedDAO;
-import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
 import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
-import com.app.smartganado.smart_ganado.model.dao.GenderDAO;
-import com.app.smartganado.smart_ganado.model.dao.LotDAO;
-import com.app.smartganado.smart_ganado.model.dao.PurposeDAO;
 import com.app.smartganado.smart_ganado.model.dao.TanksDAO;
-import com.app.smartganado.smart_ganado.model.vo.Breed;
-import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
-import com.app.smartganado.smart_ganado.model.vo.Gender;
-import com.app.smartganado.smart_ganado.model.vo.Lot;
-import com.app.smartganado.smart_ganado.model.vo.Purpose;
 import com.app.smartganado.smart_ganado.model.vo.Tank;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
-import com.app.smartganado.smart_ganado.utilities.Utilities;
 
+@SuppressWarnings("all")
 public class NewTankActivity extends AppCompatActivity {
 
 
@@ -46,9 +35,9 @@ public class NewTankActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_cattle);
+        setContentView(R.layout.activity_new_tank);
 
-        fincaSpinner = findViewById(R.id.SFincasTank);
+        fincaSpinner = findViewById(R.id.estateSpinner);
 
         editTNombre = findViewById(R.id.ETNameTank);
         editTCapacidad = findViewById(R.id.ETCapacityTank);
@@ -56,7 +45,9 @@ public class NewTankActivity extends AppCompatActivity {
         buttonAdd = findViewById(R.id.BRegistrarTank);
         buttonDelete = findViewById(R.id.BEliminarTank);
 
-        initUI();
+        estateAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, EstateDAO.getEstateList());
+
+        fincaSpinner.setAdapter(estateAdapter);
 
         if (user == null)
             user = (UserApp) getIntent().getSerializableExtra("user");
@@ -75,8 +66,7 @@ public class NewTankActivity extends AppCompatActivity {
 
             editTNombre.setText(String.valueOf(tank.getName()));
             editTCapacidad.setText(String.valueOf(tank.getCapacity()));
-            fincaSpinner.setSelection(tank.getIdEstate());
-
+            getEstatePosition(estateAdapter, tank.getIdEstate());
 
             editTNombre.setEnabled(false);
             editTCapacidad.setEnabled(false);
@@ -86,17 +76,21 @@ public class NewTankActivity extends AppCompatActivity {
         }
     }
 
-    private void initUI() {
-
-        PurposeDAO purposeDAO = new PurposeDAO();
-
-        EstateDAO estateDAO = new EstateDAO();
-        estateAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, estateDAO.getEstateList());
-        fincaSpinner.setAdapter(estateAdapter);
-        estateDAO.getEstates(user.getPhone(), estateAdapter);
+    private int getEstatePosition(ArrayAdapter<Estate> adapter, int id) {
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).getId() == id)
+                fincaSpinner.setSelection(i);
+        }
+        return -1;
     }
 
-    public void createCattleAction(View view) {
+    @Override
+    protected void onResume() {
+        EstateDAO.getEstates(user.getPhone(), estateAdapter);
+        super.onResume();
+    }
+
+    public void createTank(View view) {
         if (editTNombre.getText().toString().isEmpty() || editTCapacidad.getText().toString().isEmpty()) {
             Toast.makeText(this, "Debes ingresar todos los datos", Toast.LENGTH_SHORT).show();
         } else {
@@ -104,25 +98,13 @@ public class NewTankActivity extends AppCompatActivity {
             Tank newTank = new Tank();
             newTank.setName(editTNombre.getText().toString());
             newTank.setCapacity(Double.parseDouble(editTCapacidad.getText().toString()));
-
             newTank.setIdEstate(((Estate) fincaSpinner.getSelectedItem()).getId());
-
-
 
             Log.i("server: ", "NEW cattle -> " + newTank.toString());
 
-            TanksDAO.insertTank(getApplicationContext(), newTank);//Insert a new cattle
-
-            //Go to View Cattle
-            Intent intent = new Intent(getApplicationContext(), ViewTankActivity.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-
-            this.finish();//Delete activity form queue
-
+            TanksDAO.insertTank(this, newTank);//Insert a new cattle
         }
     }
-
 
     public void Editar(View view) {
         buttonAdd = findViewById(R.id.Registrar);
@@ -136,6 +118,6 @@ public class NewTankActivity extends AppCompatActivity {
     }
 
     public void Eliminar(View view) {
-        Toast.makeText(this, "Eliminar", Toast.LENGTH_LONG).show();
+        TanksDAO.deleteTank(getApplicationContext(), tank.getId());
     }
 }

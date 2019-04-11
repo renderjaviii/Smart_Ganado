@@ -4,6 +4,8 @@
     <string name="title_view_cattles">Mi Ganado</string>
     <string name="title_new_cattle">Nueva cabeza de ganado</string>
     <string name="title_new_estate">Nueva finca</string>
+    <string name="title_new_tank">Nueva tanque</string>
+    <string name="title_view_tanks">Mis tanques</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
