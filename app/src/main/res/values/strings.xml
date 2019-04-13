@@ -2,10 +2,12 @@
     <string name="app_name">Smart Ganado</string>
     <string name="title_view_estates">Mis Fincas</string>
     <string name="title_view_cattles">Mi Ganado</string>
-    <string name="title_new_cattle">Nueva cabeza de ganado</string>
-    <string name="title_new_estate">Nueva finca</string>
-    <string name="title_new_tank">Nueva tanque</string>
-    <string name="title_view_tanks">Mis tanques</string>
+    <string name="title_view_tanks">Mis Tanques</string>
+    <string name="title_view_events">Mis Eventos</string>
+    <string name="title_new_cattle">Crear Cabeza de ganado</string>
+    <string name="title_new_estate">Crear Finca</string>
+    <string name="title_new_tank">Crear Tanque</string>
+    <string name="title_new_event">Crear Evento</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

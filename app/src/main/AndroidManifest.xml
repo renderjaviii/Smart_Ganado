@@ -19,8 +19,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,13 +30,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".view.HistoryBookActivity"></activity>
-        <activity android:name=".view.ViewEventActivity" />
         <activity android:name=".view.ViewIndicatorsActivity" />
         <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.HomeActivity" />
-        <activity android:name=".view.NewUserActivity" />
 
+
+        <activity
+            android:name=".view.NewUserActivity"
+            android:noHistory="true" />/> <!--Used for delete activity from stack activities-->
+
+
+        <activity
+            android:name=".view.ViewEventActivity"
+            android:label="@string/title_view_events"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".view.ViewTankActivity"
@@ -65,6 +76,10 @@
             android:label="@string/title_new_cattle"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".view.NewEventActivity"
+            android:label="@string/title_new_event"
+            android:theme="@style/AppTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
