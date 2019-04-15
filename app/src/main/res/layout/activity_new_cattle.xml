@@ -14,24 +14,25 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="28dp"
+        android:background="@drawable/input"
         android:dropDownWidth="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Finca"
-        app:layout_constraintVertical_bias="0.014" />
+
+        app:layout_constraintTop_toBottomOf="@+id/Finca" />
 
     <Spinner
         android:id="@+id/Proposito"
         android:layout_width="151dp"
         android:layout_height="36dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input"
         android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/Genero" />
 
@@ -48,15 +49,18 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+
+        android:background="@drawable/input"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/Genero"
         android:layout_width="152dp"
         android:layout_height="38dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
+
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
+        android:background="@drawable/input"
         android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -67,11 +71,13 @@
         android:id="@+id/lotSpinner"
         android:layout_width="152dp"
         android:layout_height="40dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="240dp"
+        android:background="@drawable/input"
         android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,10 +117,10 @@
         android:id="@+id/EdadGanado"
         android:layout_width="151dp"
         android:layout_height="38dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="28dp"
         android:autofillHints=""
+        android:background="@drawable/input"
         android:ems="10"
         android:hint="@string/Edad"
         android:inputType="number"
@@ -122,6 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
+
         app:layout_constraintTop_toBottomOf="@+id/Proposito"
         tools:targetApi="o" />
 
@@ -141,6 +148,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RazaTexto"
+
+        android:background="@drawable/input"
         tools:targetApi="o" />
 
     <Spinner
@@ -154,6 +163,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+
+        android:background="@drawable/input"
         app:layout_constraintTop_toBottomOf="@+id/Codigo" />
 
     <android.support.design.widget.FloatingActionButton
@@ -169,6 +180,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"
         app:layout_constraintStart_toStartOf="parent"
+
+
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <Button
@@ -176,16 +189,19 @@
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_fondo_color"
         android:onClick="deleteCattle"
         android:text="Eliminar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
 
-        android:background="@drawable/btn_fondo_color"
         android:textColor="#ffff"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/Registrar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763" />
 
     <Button
         android:id="@+id/buttonCamera"
