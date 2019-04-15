@@ -14,13 +14,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="2dp">
 
         <ImageView
             android:id="@+id/estateImageView"
-            android:layout_width="334dp"
+            android:layout_width="306dp"
             android:layout_height="71dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
@@ -30,10 +33,13 @@
 
         <Button
             android:id="@+id/imgButton"
-            android:layout_width="362dp"
+            android:layout_width="309dp"
             android:layout_height="37dp"
+            android:background="@drawable/btn_fondo_color"
             android:onClick="menu"
-            android:text="Seleccionar imagen" />
+            android:text="Seleccionar imagen"
+            android:textColor="#ffff"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,21 +83,21 @@
 
                 <EditText
                     android:id="@+id/nameEstateEditText"
-                    android:layout_width="match_parent"
+                    android:layout_width="134dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
                 <EditText
                     android:id="@+id/areaEstateEditText"
-                    android:layout_width="match_parent"
+                    android:layout_width="134dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/locationEstateEditText"
-                    android:layout_width="match_parent"
+                    android:layout_width="134dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName" />
@@ -102,10 +108,13 @@
 
         <Button
             android:id="@+id/Save_Finca"
-            android:layout_width="363dp"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_fondo_color"
             android:onClick="onInsertEstate"
             android:text="GUARDAR"
+            android:textColor="#ffff"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="8dp" />
 
