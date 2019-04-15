@@ -40,9 +40,10 @@
 
     <Button
         android:id="@+id/Eliminar"
-        android:layout_width="96dp"
+        android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="644dp"
+        android:background="@drawable/btn_fondo_color"
         android:text="Eliminar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.475"
@@ -63,9 +64,10 @@
 
     <EditText
         android:id="@+id/editTName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="199dp"
+        android:layout_height="36dp"
         android:layout_marginTop="88dp"
+        android:background="@drawable/input"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textEmailAddress"
@@ -137,15 +139,17 @@
         android:layout_height="119dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:srcCompat="@drawable/user_photo" />
 
     <ImageButton
         android:id="@+id/buttonCamera"
-        android:layout_width="wrap_content"
+        android:layout_width="46dp"
         android:layout_height="45dp"
         android:layout_marginEnd="4dp"
+        android:background="@drawable/btn_fondo_color"
         android:onClick="menu"
         app:layout_constraintBottom_toBottomOf="@+id/imageUser"
         app:layout_constraintEnd_toEndOf="@+id/imageUser"
@@ -153,10 +157,11 @@
 
     <EditText
         android:id="@+id/editTPhone"
-        android:layout_width="wrap_content"
+        android:layout_width="195dp"
         android:layout_height="38dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="216dp"
+        android:background="@drawable/input"
         android:ems="10"
         android:hint="Telefono"
         android:inputType="phone"
@@ -170,9 +175,10 @@
 
     <EditText
         android:id="@+id/editTPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="191dp"
+        android:layout_height="41dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/input"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textWebPassword"
@@ -184,9 +190,10 @@
 
     <EditText
         android:id="@+id/editTEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="193dp"
         android:layout_height="43dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/input"
         android:ems="10"
         android:hint="Correo"
         android:inputType="textEmailAddress"
@@ -218,7 +225,7 @@
         android:layout_marginEnd="8dp"
         android:text="Empleado"
         app:layout_constraintEnd_toStartOf="@+id/guideline27"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="@+id/guideline25"
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
 
@@ -245,17 +252,16 @@
 
     <Button
         android:id="@+id/Registrar"
-        android:layout_width="wrap_content"
+        android:layout_width="113dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="100dp"
+        android:background="@drawable/btn_fondo_color"
         android:onClick="onNewUser"
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -268,6 +274,7 @@
         app:layout_constraintEnd_toStartOf="@+id/editTName"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/imageUser" />
 
     <TextView
