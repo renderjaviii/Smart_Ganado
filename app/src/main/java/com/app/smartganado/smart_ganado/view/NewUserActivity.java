@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +17,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
-import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
 import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
-import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.SHA512;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
@@ -39,10 +37,10 @@ import java.util.Date;
 @SuppressWarnings("all")
 public class NewUserActivity extends AppCompatActivity {
     private UserApp userApp;
-    private EditText editTEmail, editTPassword, editTPhone, editTName;
+    private TextInputEditText editTEmail, editTPassword, editTPhone, editTName;
     private CheckBox checkBoxAdm, checkBoxEmp;
     private ImageButton buttonCamera;
-    private Button buttonDelete, buttomCamera, registrar;
+    private Button  buttomCamera, registrar;
     private ImageView imageUser;
     private FloatingActionButton FABeditar;
 
@@ -60,7 +58,6 @@ public class NewUserActivity extends AppCompatActivity {
         editTPhone = findViewById(R.id.editTPhone);
         editTName = findViewById(R.id.editTName);
         buttonCamera = findViewById(R.id.buttonCamera);
-        buttonDelete = findViewById(R.id.Eliminar);
         imageUser = findViewById(R.id.imageUser);
         checkBoxAdm = findViewById(R.id.checkBoxAdm);
         checkBoxEmp = findViewById(R.id.checkBoxEmp);
@@ -74,7 +71,6 @@ public class NewUserActivity extends AppCompatActivity {
         if (getIntent().getSerializableExtra("Info") == null) {
             Log.i("server", "Crear");
             FABeditar.setVisibility(View.GONE);
-            buttonDelete.setVisibility(View.GONE);
         } else {
 
             Log.i("server", "Editando");
@@ -214,7 +210,6 @@ public class NewUserActivity extends AppCompatActivity {
         checkBoxEmp.setEnabled(true);
         checkBoxAdm.setEnabled(true);
         registrar.setEnabled(true);
-        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
 }

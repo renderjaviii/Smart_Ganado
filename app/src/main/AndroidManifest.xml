@@ -39,7 +39,7 @@
 
         <activity
             android:name=".view.NewUserActivity"
-            android:noHistory="true" />/> <!--Used for delete activity from stack activities-->
+            android:noHistory="false" /> <!--Used for delete activity from stack activities-->
 
 
         <activity
