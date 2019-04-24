@@ -2,86 +2,76 @@ package com.app.smartganado.smart_ganado.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
+import com.app.smartganado.smart_ganado.model.dao.UserAppDAO;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
-import com.app.smartganado.smart_ganado.remote.APIService;
-import com.app.smartganado.smart_ganado.remote.APIUtils;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ViewCattleActivity extends AppCompatActivity {
-    FloatingActionButton FABAgregar_Ganado;
-    ListView ListaGanados;
-    String[][] datos = {
-            {"1234", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"4321", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"2468", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-            {"4567a", "edad", "Proposito", "Genero", "Tipo", "Raza", "Descripcion"},
-    };
 
-    private List<Cattle> cattleList;
-    int[] datosImg = {R.drawable.vaca1, R.drawable.vaca2, R.drawable.vaca3, R.drawable.vaca4};
-    private APIService myApiService;
+    private CattleAdapter adapter;
+    private ListView cattleListView;
+    private UserApp user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_view_cattle);
+        cattleListView = findViewById(R.id.listaGanado);
 
-        ListaGanados = (ListView) findViewById(R.id.listaGanado);
+        user = UserAppDAO.getUser();
 
-        ListaGanados.setAdapter(new CattleAdapter(this, datos, datosImg));
+        Log.i("server", "user in view cattle: " + user.getName());
 
-        FABAgregar_Ganado = findViewById(R.id.Agregar_Ganado);
-        FABAgregar_Ganado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent miIntent = new Intent(ViewCattleActivity.this, NewCattleActivity.class);
-                startActivity(miIntent);
-            }
-        });
-      //  init();
+        adapter = new CattleAdapter(getApplicationContext(), CattleDAO.getCattleList());//Initializing cattleAdapter
+        cattleListView.setAdapter(adapter);
+
+        cattleListView.setOnItemClickListener(cattleListListener);
+        Log.i("server", "\nOnCreate in: " + this.getLocalClassName());
+
+        String idCattleToDelete = getIntent().getExtras().getString("id_cattle");
+        if (idCattleToDelete != null) {
+            Log.i("server", "deleting cattle with ID = " + idCattleToDelete);
+            CattleDAO.deleteCattle(getApplicationContext(), adapter, Integer.parseInt(idCattleToDelete));
+        }
     }
 
-    private void init() {
-        //Cattle list obtain of the server (quita esto del metodo onCreate)
-        if (myApiService == null)
-            myApiService = APIUtils.getAPIService();
+    private AdapterView.OnItemClickListener cattleListListener = new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Cattle cattle = (Cattle) cattleListView.getItemAtPosition(position);
+            Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.putExtra("cattle", cattle);
+            startActivity(intent);
+        }
+    };
 
 
-        myApiService.getCattle("getAll", "cattle", 1).enqueue(new Callback<List<Cattle>>() {
-            @Override
-            public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
-                if (response.isSuccessful()) //Se valida que la respuesta sea correcta
-                    for (Cattle cattle : response.body())
-                        cattleList.add(cattle);
-                else Log.i("server", "Error on response");
-            }
-
-            @Override
-            public void onFailure(Call<List<Cattle>> call, Throwable t) {
-                Log.i("server", t.getMessage());
-            }
-        });
-
-
+    public void onClickNewCattle(View view) {
+        startActivity(new Intent(getApplicationContext(), NewCattleActivity.class));
     }
 
-    //Open insertar finca
-    public void onNewCattle(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCattleActivity.class);
-        startActivity(intent);
+    @Override
+    protected void onResume() {
+        CattleDAO.getCattles(user.getPhone(), adapter);//Getting and showing cattles's
+
+        Log.i("server", "---> OnResume: " + this.getLocalClassName());
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("server", "---> OnPause: " + this.getLocalClassName());
+        super.onPause();
     }
 }

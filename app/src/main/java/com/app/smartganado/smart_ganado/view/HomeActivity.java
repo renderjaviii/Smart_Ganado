@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,9 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.vo.UserApp;
+import com.app.smartganado.smart_ganado.utilities.Utilities;
 import com.app.smartganado.smart_ganado.view.fragment.CalendarFragment;
 import com.app.smartganado.smart_ganado.view.fragment.EventsFragment;
 import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
@@ -25,12 +31,17 @@ import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private ImageView userImage;
+    private TextView editTextName, editTextEmail;
+
+    private UserApp user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,33 +53,51 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(navigationViewListener);
 
+
         BottomNavigationView navigationViewHome = findViewById(R.id.navigationHome);
         navigationViewHome.setOnNavigationItemSelectedListener(navigationBottonListener);
 
         loadFragment(new TasksFragment());
 
-        //Obtener el telefono del usuario
-        //getIntent().getIntExtra("phone", 0);//0 en caso de que no le llegue nada
+        if (user == null)
+            user = (UserApp) getIntent().getSerializableExtra("user");//Getting user
+
+        userImage = findViewById(R.id.userImage);
+        editTextName = findViewById(R.id.textViewName);
+        editTextEmail = findViewById(R.id.textViewEmail);
+
+        try {
+            userImage.setImageBitmap(Utilities.byteToBitmap(user.getPhoto()));
+            editTextName.setText(user.getName());
+            editTextEmail.setText(user.getEmail());
+        } catch (Exception e) {
+        }
+
+
+        Toast.makeText(getApplicationContext(), "Bienvenido Sr: " + user.getName(), Toast.LENGTH_LONG).show();
     }
 
     public void openEventsModule(View view) {
-
         Intent intent = new Intent(getApplicationContext(), ViewEventActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
-    public void openIndicatorsModule(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
+    public void openTankModule(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewTankActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
     public void openCattleModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewCattleActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
     public void openEstatesModule(View view) {
         Intent intent = new Intent(getApplicationContext(), ViewEstateActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
@@ -115,7 +144,8 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = null;
 
             if (id == R.id.nav_profile) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                intent = new Intent(getApplicationContext(), NewUserActivity.class);
+                intent.putExtra("Info", user);
             } else if (id == R.id.nav_backups) {
                 intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_appFuntions) {
@@ -125,7 +155,7 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_manual) {
                 intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_logout) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
             }
 
             Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();

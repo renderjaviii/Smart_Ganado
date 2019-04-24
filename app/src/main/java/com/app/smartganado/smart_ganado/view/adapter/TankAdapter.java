@@ -1,7 +1,6 @@
 package com.app.smartganado.smart_ganado.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,41 +10,36 @@ import android.widget.TextView;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
+import com.app.smartganado.smart_ganado.model.vo.Tank;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
 
 import java.util.List;
 
-public class CattleAdapter extends BaseAdapter {
+public class TankAdapter extends BaseAdapter {
     private static LayoutInflater inflater;
-    private List<Cattle> data;
+    private List<Tank> data;
     private Context context;
 
 
-    public CattleAdapter(Context context, List<Cattle> data) {
+    public TankAdapter(Context context, List<Tank> data) {
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public CattleAdapter() {
+    public TankAdapter() {
     }
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        final View view = inflater.inflate(R.layout.cattle_adapter, null);
-        TextView code = view.findViewById(R.id.InfoCodigo);
-        TextView gender = view.findViewById(R.id.InfoFinca);
-        TextView weight = view.findViewById(R.id.InfoRaza);
-        ImageView image = view.findViewById(R.id.ivImagen);
+        final View view = inflater.inflate(R.layout.tank_adapter, null);
+        TextView name = view.findViewById(R.id.TVNombre);
+        TextView capacity = view.findViewById(R.id.TVCapacidad);
 
-        try {
-            code.setText(String.valueOf(data.get(i).getCode()));
-            gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
-            weight.setText(String.valueOf(data.get(i).getWeight()));
-            image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));
-        } catch (Exception e) {
-            Log.i("server", "exception in CattleAdaper" + e.getMessage());
-        }
+
+        name.setText(String.valueOf(data.get(i).getName()));
+        capacity.setText(String.valueOf(data.get(i).getCapacity()));
+
         return view;
     }
 

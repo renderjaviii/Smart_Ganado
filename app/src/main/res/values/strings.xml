@@ -1,85 +1,32 @@
 <resources>
     <string name="app_name">Smart Ganado</string>
-    <string name="title_new_user">Nuevo Usuario</string>
-    <string name="title_view_estates">Fincas</string>
-    <string name="title_view_cattles">Ganado</string>
-    <string name="title_view_events">Eventos</string>
-    <string name="title_view_indicators">Indicadores</string>
-    <string name="title_new_cattle">Nueva cabeza de ganado</string>
-    <string name="title_new_estate">Nueva finca</string>
+    <string name="title_view_estates">Mis Fincas</string>
+    <string name="title_view_cattles">Mi Ganado</string>
+    <string name="title_view_tanks">Mis Tanques</string>
+    <string name="title_view_events">Mis Eventos</string>
+    <string name="title_new_cattle">Crear Cabeza de ganado</string>
+    <string name="title_new_estate">Crear Finca</string>
+    <string name="title_new_tank">Crear Tanque</string>
+    <string name="title_new_event">Crear Evento</string>
 
 
-    <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_main">Smart Ganado</string>
 
-    <string-array name="my_finca">
-        <item>La Milagrosa</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-        <item>La Maria</item>
-        <item>La Mariana</item>
-        <item>La Salome</item>
-
-
-    </string-array>
-    <string name="title_activity_login">Sign in</string>
-
-    <string name="nombre">NOMBRE</string>
-
-    <string name="name">Name</string>
     <!-- Strings related to create Cattle-->
-    <string name="IB">ImageBottom</string>
-    <string name="txt_CodigoGanado">Codigo</string>
     <string name="Buttom_Registro">Registro</string>
     <string name="Edad">Edad</string>
     <string name="Peso">Peso</string>
-    <string name="Detalles">Detalles</string>
     <string name="todo">TODO</string>
 
-    <string name="CODIGO">CODIGO:</string>
-    <string name="FINCA">FINCA:</string>
-    <string name="TGANADO">RAZA:</string>
-
-    <string name="title_activity_view_history_book">ViewHistoryBookActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_history__book_">History_Book_Activity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="cuaderno">Cuaderno</string>
-    <string name="nueva">Nueva</string>
+    <string name="Code">Código</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="GENERO">Genero</string>
+    <string name="PESO">Peso</string>
 
 </resources>
 

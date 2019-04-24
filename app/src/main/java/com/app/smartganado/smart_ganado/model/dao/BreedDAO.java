@@ -15,13 +15,13 @@ import retrofit2.Response;
 
 public class BreedDAO {
 
-    private List<Breed> breedList;
+    private static List<Breed> breedList;
 
-    public BreedDAO() {
+    static {
         breedList = new ArrayList<>();
     }
 
-    public List<Breed> getBreedList() {
+    public static List<Breed> getBreedList() {
         return breedList;
     }
 
@@ -38,20 +38,22 @@ public class BreedDAO {
     }
 
     //GET Breeds from database
-    public void getBreeds(final ArrayAdapter<Breed> arrayAdapter) {
+    public static void getBreeds(final ArrayAdapter<Breed> arrayAdapter) {
         APIUtils.getAPIService().getBreed().enqueue(new Callback<List<Breed>>() {
             @Override
             public void onResponse(Call<List<Breed>> call, Response<List<Breed>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        for (Breed breed : response.body()) {
-                            Log.i("server", breed.print());
-                            breedList.add(breed);//Add breed to list
+                        Log.i("server", "breedList isEmpty? " + breedList.isEmpty());
+
+                        if (response.body().size() != breedList.size()) {
+                            breedList.clear();
+                            breedList.addAll(response.body());
+                            arrayAdapter.notifyDataSetChanged();
                         }
                     } else call.clone().enqueue(this);
 
-                    arrayAdapter.notifyDataSetChanged();//Updated activity
-                } else Log.i("server", "reponse no sucessful");
+                } else Log.i("server", "reponse no successful");
             }
 
             @Override
