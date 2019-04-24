@@ -33,16 +33,16 @@ public class CattleAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         final View view = inflater.inflate(R.layout.cattle_adapter, null);
-        TextView code = view.findViewById(R.id.InfoCodigo);
-        TextView gender = view.findViewById(R.id.InfoFinca);
-        TextView weight = view.findViewById(R.id.InfoRaza);
-        ImageView image = view.findViewById(R.id.ivImagen);
+        TextView code = view.findViewById(R.id.codeInfo);
+        TextView gender = view.findViewById(R.id.genderInfo);
+        TextView weight = view.findViewById(R.id.weightInfo);
+        ImageView image = view.findViewById(R.id.imageInfo);
 
         try {
-            code.setText(String.valueOf(data.get(i).getCode()));
+            code.setText("#" + String.valueOf(data.get(i).getCode()));
             gender.setText(((data.get(i)).getIdGender() == 1 ? "Hembra" : "Macho"));
-            weight.setText(String.valueOf(data.get(i).getWeight()));
-            image.setImageBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()));
+            weight.setText(String.valueOf(data.get(i).getWeight()) + " Kg");
+            image.setImageBitmap(Utilities.getRoundedCornerBitmap(Utilities.byteToBitmap(data.get(i).getPhoto()), 100));
         } catch (Exception e) {
             Log.i("server", "exception in CattleAdaper" + e.getMessage());
         }

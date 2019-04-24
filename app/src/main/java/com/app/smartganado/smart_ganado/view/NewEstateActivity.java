@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ import java.util.Date;
 public class NewEstateActivity extends AppCompatActivity {
 
     private EditText nameEstateEditText, areaEstateEditText, locacionEstateEditText;
-    private Button estateButton, estateImgButton;
+    private Button estateButton;
+    private ImageButton estateImgButton;
     private String jsonEstate;
     private Integer choose, position;
     private ImageView photoEstateImageView;
@@ -132,22 +134,22 @@ public class NewEstateActivity extends AppCompatActivity {
                 nameEstateEditText.setText(newEstate.getName());
                 areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
                 locacionEstateEditText.setText(newEstate.getLocation());
-                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(newEstate.getPhoto()));
+                photoEstateImageView.setImageBitmap(Utilities.getRoundedCornerBitmap(Utilities.byteToBitmap(newEstate.getPhoto()), 100));
                 break;
 
             case 2:
                 jsonEstate = estateBundle.getString("Estate");
                 newEstate = new Gson().fromJson(jsonEstate, Estate.class);
                 nameEstateEditText.setText(newEstate.getName());
-                //nameEstateEditText.setEnabled(false);
+                nameEstateEditText.setEnabled(false);
                 areaEstateEditText.setText(String.valueOf(newEstate.getArea()));
                 areaEstateEditText.setEnabled(false);
                 locacionEstateEditText.setText(newEstate.getLocation());
                 locacionEstateEditText.setEnabled(false);
-                estateButton = (Button) findViewById(R.id.Save_Finca);
-                estateImgButton = (Button) findViewById(R.id.imgButton);
+                estateButton = findViewById(R.id.Save_Finca);
+                estateImgButton = findViewById(R.id.imgButton);
                 estateImgButton.setVisibility(View.INVISIBLE);
-                photoEstateImageView.setImageBitmap(Utilities.byteToBitmap(newEstate.getPhoto()));
+                photoEstateImageView.setImageBitmap(Utilities.getRoundedCornerBitmap(Utilities.byteToBitmap(newEstate.getPhoto()), 100));
                 estateButton.setText("Ver ganado");
                 break;
 
@@ -168,7 +170,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 //    case REQUEST_TAKE_PHOTO:
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                photoEstateImageView.setImageBitmap(imageBitmap);
+                photoEstateImageView.setImageBitmap(Utilities.getRoundedCornerBitmap(imageBitmap, 100));
                 //       break;
             } else {
                 //    case SELECT_PICTURE:
@@ -177,7 +179,7 @@ public class NewEstateActivity extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(path);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    photoEstateImageView.setImageBitmap(bitmap);
+                    photoEstateImageView.setImageBitmap(Utilities.getRoundedCornerBitmap(bitmap, 100));
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

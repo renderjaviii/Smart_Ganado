@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Snackbar.make(getCurrentFocus(), "Vuelve pronto", Snackbar.LENGTH_LONG).show();
 
-            finish();
+            super.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -180,9 +180,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.fragment_task:
                     fragment = new TasksFragment();
                     break;
-                case R.id.fragment_calendar:
-                    fragment = new CalendarFragment();
-                    break;
+
                 case R.id.fragment_events:
                     fragment = new EventsFragment();
                     break;

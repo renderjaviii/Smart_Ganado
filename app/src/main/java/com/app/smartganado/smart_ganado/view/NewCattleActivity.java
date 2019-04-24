@@ -58,7 +58,6 @@ public class NewCattleActivity extends AppCompatActivity {
     private Button buttonAdd, buttonDelete;
     private ImageButton buttonCamera;
 
-
     private final int SELECT_PICTURE = 10;
     static final int REQUEST_TAKE_PHOTO = 1;
     private Cattle cattle;
