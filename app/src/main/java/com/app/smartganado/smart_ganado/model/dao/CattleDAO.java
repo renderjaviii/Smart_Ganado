@@ -29,6 +29,7 @@ public class CattleDAO {
         return cattleList;
     }
 
+
     public static void getCattles(Long phone, final CattleAdapter arrayAdapter) {
         APIUtils.getAPIService().getCattle("getAll", phone).enqueue(new Callback<List<Cattle>>() {
             @Override
@@ -56,6 +57,9 @@ public class CattleDAO {
 
 
     }
+
+
+
 
     public static void insertCattle(final NewCattleActivity app, Cattle cattle) {
 
