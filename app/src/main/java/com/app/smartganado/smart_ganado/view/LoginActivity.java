@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         editTPhone.addTextChangedListener(onTextChangedListener);
         editTPassword.addTextChangedListener(onTextChangedListener);
 
+        CattleDAO.getCattlesByEstate(13);
+
     }
 
     public void onLoginUser(View view) {

@@ -158,11 +158,8 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), LoginActivity.class);
             }
 
-            Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-
             if (intent != null)
                 startActivity(intent);
-
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);

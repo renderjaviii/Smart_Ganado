@@ -40,7 +40,7 @@ public class NewUserActivity extends AppCompatActivity {
     private TextInputEditText editTEmail, editTPassword, editTPhone, editTName;
     private CheckBox checkBoxAdm, checkBoxEmp;
     private ImageButton buttonCamera;
-    private Button  buttomCamera, registrar;
+    private Button buttomCamera, registrar;
     private ImageView imageUser;
     private FloatingActionButton FABeditar;
 
@@ -61,8 +61,8 @@ public class NewUserActivity extends AppCompatActivity {
         imageUser = findViewById(R.id.imageUser);
         checkBoxAdm = findViewById(R.id.checkBoxAdm);
         checkBoxEmp = findViewById(R.id.checkBoxEmp);
-        FABeditar = findViewById(R.id.FABEditar);
-        registrar = findViewById(R.id.Registrar);
+        FABeditar = findViewById(R.id.FABEdit);
+        registrar = findViewById(R.id.buttonAdd);
 
         checkBoxEmp.setEnabled(false);//Only administrators
 
@@ -75,10 +75,11 @@ public class NewUserActivity extends AppCompatActivity {
 
             Log.i("server", "Editando");
             editTEmail.setText(String.valueOf(userApp.getEmail()));
-            editTPassword.setText(String.valueOf(userApp.getPassword()));
+            editTPassword.setText("*******");
             editTPhone.setText(String.valueOf(userApp.getPhone()));
             editTName.setText(String.valueOf(userApp.getName()));
             imageUser.setImageBitmap(Utilities.byteToBitmap(userApp.getPhoto()));
+            checkBoxAdm.setChecked(true);
 
 
             editTEmail.setEnabled(false);
@@ -86,8 +87,11 @@ public class NewUserActivity extends AppCompatActivity {
             editTPassword.setEnabled(false);
             editTPhone.setEnabled(false);
             checkBoxAdm.setEnabled(false);
-            checkBoxEmp.setEnabled(false);try{
-            buttomCamera.setEnabled(false);}catch (Exception e){}
+            checkBoxEmp.setEnabled(false);
+            try {
+                buttomCamera.setEnabled(false);
+            } catch (Exception e) {
+            }
             registrar.setVisibility(View.GONE);
         }
 
@@ -111,6 +115,7 @@ public class NewUserActivity extends AppCompatActivity {
             user.setIdRol(checkBoxAdm.isChecked() ? 1 : 2);
 
             UserAppDAO.insertUser(getApplication(), user);//Insertion in db
+            this.finish();
         } else
             Toast.makeText(getApplicationContext(), "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
     }
@@ -198,9 +203,10 @@ public class NewUserActivity extends AppCompatActivity {
             }
         }
     }
+
     public void Editar(View view) {
-        registrar = findViewById(R.id.Registrar);
-        FloatingActionButton floatBtEdit = findViewById(R.id.FABEditar);
+        registrar = findViewById(R.id.buttonAdd);
+        FloatingActionButton floatBtEdit = findViewById(R.id.FABEdit);
         floatBtEdit.setVisibility(View.GONE);
         registrar.setVisibility(View.VISIBLE);
         editTPhone.setEnabled(true);

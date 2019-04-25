@@ -18,15 +18,14 @@
             android:id="@+id/compactcalendar_view"
             android:layout_width="fill_parent"
             android:layout_height="250dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:compactCalendarBackgroundColor="#050505"
-            app:compactCalendarCurrentDayBackgroundColor="#3EB71C"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="#6E975A"
+            android:padding="10dp"
+            app:compactCalendarBackgroundColor="@color/colorPrimary"
+            app:compactCalendarCurrentDayBackgroundColor="@color/colorPrimaryDark"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/design_default_color_primary_dark"
             app:compactCalendarMultiEventIndicatorColor="#fff"
             app:compactCalendarTargetHeight="250dp"
             app:compactCalendarTextColor="#fff"
-            app:compactCalendarTextSize="12sp" />
+            app:compactCalendarTextSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="31dp"
                 android:gravity="center"
-                android:text="Lista de eventos" />
+                android:text="Lista de eventos"
+                android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/eventListView"

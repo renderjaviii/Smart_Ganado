@@ -35,11 +35,8 @@
         <activity android:name=".view.ViewIndicatorsActivity" />
         <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.NewUserActivity" />
 
-
-        <activity
-            android:name=".view.NewUserActivity"
-            android:noHistory="false" /> <!--Used for delete activity from stack activities-->
 
 
         <activity

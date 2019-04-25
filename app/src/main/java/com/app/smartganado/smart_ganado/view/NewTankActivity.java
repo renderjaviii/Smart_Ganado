@@ -107,8 +107,8 @@ public class NewTankActivity extends AppCompatActivity {
     }
 
     public void Editar(View view) {
-        buttonAdd = findViewById(R.id.Registrar);
-        FloatingActionButton floatBtEdit = findViewById(R.id.FABEditar);
+        buttonAdd = findViewById(R.id.buttonAdd);
+        FloatingActionButton floatBtEdit = findViewById(R.id.FABEdit);
         floatBtEdit.setVisibility(View.GONE);
         buttonAdd.setVisibility(View.VISIBLE);
         editTNombre.setEnabled(true);

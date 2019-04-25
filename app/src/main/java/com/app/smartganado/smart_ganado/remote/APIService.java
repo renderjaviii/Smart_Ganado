@@ -44,6 +44,11 @@ public interface APIService {
     @GET("cattle")
     Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
+
+    @GET("cattle")
+    Call<List<Cattle>> getCattlesByEstate(@Header("action") String actionName, @Header("id_estate") String idCattle);
+
+
     @GET("cattle")
     Call<Boolean> deleteCattle(@Header("action") String actionName, @Header("id") String idCattle);//action = delete
 

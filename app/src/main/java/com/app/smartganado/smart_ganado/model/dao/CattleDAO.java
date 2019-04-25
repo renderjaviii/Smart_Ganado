@@ -98,4 +98,35 @@ public class CattleDAO {
             }
         });
     }
+
+    public static void getCattlesByEstate(int idEstate) {
+        APIUtils.getAPIService().getCattlesByEstate("getAllByEstate", String.valueOf(idEstate)).enqueue(new Callback<List<Cattle>>() {
+            @Override
+            public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+
+                        Log.i("server", "cattleList isEmpty? " + cattleList.isEmpty());
+
+                        cattleList.clear();
+                        cattleList.addAll(response.body());
+                        //    pieChart.notifyDataSetChanged();
+
+                        Log.i("server", "cattleList isEmpty already? " + cattleList.isEmpty());
+
+                    } else
+                        call.clone().enqueue(this);//Recalling
+
+                } else Log.i("server", "response no successful");
+            }
+
+            @Override
+            public void onFailure(Call<List<Cattle>> call, Throwable t) {
+                Log.i("server", t.getMessage());
+            }
+        });
+
+
+    }
+
 }

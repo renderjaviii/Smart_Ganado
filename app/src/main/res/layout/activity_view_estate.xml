@@ -6,37 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".view.ViewEstateActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <ListView
+        android:id="@+id/estateListView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="23dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/Boton_Finca"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <ListView
-            android:id="@+id/estateListView"
-            android:layout_width="wrap_content"
-            android:layout_height="929dp"
-            android:layout_weight="1"
-            android:padding="20dp" />
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/Boton_Finca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="44dp"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

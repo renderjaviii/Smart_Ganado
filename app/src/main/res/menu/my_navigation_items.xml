@@ -8,8 +8,5 @@
         android:id="@+id/fragment_events"
         android:icon="@drawable/ic_launcher_background"
         android:title="Eventos" />
-    <item
-        android:id="@+id/fragment_calendar"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="Calendario" />
+
 </menu>
