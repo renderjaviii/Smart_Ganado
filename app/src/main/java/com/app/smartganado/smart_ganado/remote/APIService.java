@@ -50,6 +50,9 @@ public interface APIService {
 
 
     @GET("cattle")
+    Call<List<Cattle>> getCattle(@Header("action") String actionName, @Header("id_cattle") String idCattle);
+
+    @GET("cattle")
     Call<Boolean> deleteCattle(@Header("action") String actionName, @Header("id") String idCattle);//action = delete
 
     //Lot
