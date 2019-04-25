@@ -5,21 +5,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
-import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.NewCattleActivity;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +28,8 @@ public class CattleDAO {
 
     static {
         cattleList = new ArrayList<>();
-        pieEntries= new ArrayList<>();
-        barEntries= new ArrayList<>();
+        pieEntries = new ArrayList<>();
+        barEntries = new ArrayList<>();
     }
 
     public static List<Cattle> getCattleList() {
@@ -57,7 +48,8 @@ public class CattleDAO {
 
                         cattleList.clear();
                         cattleList.addAll(response.body());
-                        arrayAdapter.notifyDataSetChanged();
+                        if (arrayAdapter != null)
+                            arrayAdapter.notifyDataSetChanged();
 
                     } else
                         call.clone().enqueue(this);//Recalling
@@ -114,7 +106,7 @@ public class CattleDAO {
 
                         cattleList.clear();
                         cattleList.addAll(response.body());
-                    //    pieChart.notifyDataSetChanged();
+                        //    pieChart.notifyDataSetChanged();
 
                     } else
                         call.clone().enqueue(this);//Recalling
@@ -127,8 +119,6 @@ public class CattleDAO {
                 Log.i("server", t.getMessage());
             }
         });
-
-
 
 
     }
@@ -185,8 +175,6 @@ public class CattleDAO {
             }
         });
     }*/
-
-
 
 
     public static void insertCattle(final NewCattleActivity app, Cattle cattle) {

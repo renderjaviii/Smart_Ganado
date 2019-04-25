@@ -143,7 +143,6 @@ public class HomeActivity extends AppCompatActivity {
 
             if (intent != null)
                 startActivity(intent);
-            finish();
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
