@@ -39,7 +39,6 @@ public class ViewEventActivity extends AppCompatActivity {
 
         calendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         tittle = (TextView) findViewById(R.id.eventTittle);
-        tittle.setVisibility(View.INVISIBLE);
         context = this;
         reference = (android.R.layout.simple_list_item_1);
         listView = (ListView) findViewById(R.id.eventListView);
@@ -81,7 +80,6 @@ public class ViewEventActivity extends AppCompatActivity {
                                 listView.setAdapter(adapter);
 
                             } else {
-                                tittle.setVisibility(View.INVISIBLE);
                                 listView.setVisibility(View.INVISIBLE);
                                 Toast.makeText(context, "No existen eventos para este día", Toast.LENGTH_LONG).show();
                             }
@@ -134,8 +132,6 @@ public class ViewEventActivity extends AppCompatActivity {
                 event = (com.app.smartganado.smart_ganado.model.vo.Event) estateBundle.getSerializable("event");
                 calendarEvent = new Event(Color.RED, estateBundle.getLong("time"), event);
                 calendarView.addEvent(calendarEvent);
-
-
             }
         }
 

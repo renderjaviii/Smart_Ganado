@@ -1,6 +1,5 @@
 package com.app.smartganado.smart_ganado.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,18 +22,12 @@ import android.widget.Toast;
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.utilities.Utilities;
-import com.app.smartganado.smart_ganado.view.fragment.CalendarFragment;
 import com.app.smartganado.smart_ganado.view.fragment.EventsFragment;
 import com.app.smartganado.smart_ganado.view.fragment.TasksFragment;
 
 
 public class HomeActivity extends AppCompatActivity {
-
-    private ImageView userImage;
-    private TextView editTextName, editTextEmail;
-
     private UserApp user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,28 +45,23 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(navigationViewListener);
 
+        loadFragment(new TasksFragment());
 
         BottomNavigationView navigationViewHome = findViewById(R.id.navigationHome);
         navigationViewHome.setOnNavigationItemSelectedListener(navigationBottonListener);
 
-        loadFragment(new TasksFragment());
-
         if (user == null)
             user = (UserApp) getIntent().getSerializableExtra("user");//Getting user
 
-        userImage = findViewById(R.id.userImage);
-        editTextName = findViewById(R.id.textViewName);
-        editTextEmail = findViewById(R.id.textViewEmail);
+        TextView textViewName = navigationView.getHeaderView(0).findViewById(R.id.textViewName);
+        textViewName.setText(user.getName());
+        TextView textViewEmail = navigationView.getHeaderView(0).findViewById(R.id.textViewEmail);
+        textViewEmail.setText(user.getEmail());
 
-        try {
-            userImage.setImageBitmap(Utilities.byteToBitmap(user.getPhoto()));
-            editTextName.setText(user.getName());
-            editTextEmail.setText(user.getEmail());
-        } catch (Exception e) {
-        }
+        ImageView userImage = navigationView.getHeaderView(0).findViewById(R.id.userImage);
+        userImage.setImageBitmap(Utilities.getRoundedCornerBitmap(Utilities.byteToBitmap(user.getPhoto()), 100));
 
-
-        Toast.makeText(getApplicationContext(), "Bienvenido Sr: " + user.getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Bienvenido Sr. " + user.getName().split(" ")[0], Toast.LENGTH_LONG).show();
     }
 
     public void openEventsModule(View view) {
@@ -130,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Snackbar.make(getCurrentFocus(), "Vuelve pronto", Snackbar.LENGTH_LONG).show();
 
-            super.finish();
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -147,19 +134,16 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), NewUserActivity.class);
                 intent.putExtra("Info", user);
             } else if (id == R.id.nav_backups) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_appFuntions) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_config) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_manual) {
-                intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             } else if (id == R.id.nav_logout) {
                 intent = new Intent(getApplicationContext(), LoginActivity.class);
             }
 
             if (intent != null)
                 startActivity(intent);
+            finish();
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);

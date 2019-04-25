@@ -33,7 +33,6 @@
 
         <activity android:name=".view.HistoryBookActivity"></activity>
         <activity android:name=".view.ViewIndicatorsActivity" />
-        <activity android:name=".view.ViewProfileActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
 

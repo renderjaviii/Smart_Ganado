@@ -30,11 +30,12 @@ public class ViewTankActivity extends AppCompatActivity {
 
         tankListView = findViewById(R.id.listaTanques);
 
-        adapter = new TankAdapter(getApplicationContext(), TanksDAO.getTankList());
-        tankListView.setAdapter(adapter);
 
         if (user == null)
             user = (UserApp) getIntent().getSerializableExtra("user");
+
+        adapter = new TankAdapter(getApplicationContext(), TanksDAO.getTankList(), user);
+        tankListView.setAdapter(adapter);
 
         tankListView.setOnItemClickListener(tankListListener);
     }

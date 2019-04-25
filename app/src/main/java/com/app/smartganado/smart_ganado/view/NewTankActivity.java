@@ -27,7 +27,6 @@ public class NewTankActivity extends AppCompatActivity {
 
     private Spinner fincaSpinner;
     private EditText editTNombre, editTCapacidad;
-    private FloatingActionButton floatButtonEdit;
     private Button buttonAdd, buttonDelete;
 
     private ArrayAdapter<Estate> estateAdapter;
@@ -41,7 +40,6 @@ public class NewTankActivity extends AppCompatActivity {
 
         editTNombre = findViewById(R.id.ETNameTank);
         editTCapacidad = findViewById(R.id.ETCapacityTank);
-        floatButtonEdit = findViewById(R.id.FABEditarTank);
         buttonAdd = findViewById(R.id.BRegistrarTank);
         buttonDelete = findViewById(R.id.BEliminarTank);
 
@@ -57,7 +55,6 @@ public class NewTankActivity extends AppCompatActivity {
 
         if (getIntent().getSerializableExtra("Info") == null) {
             Log.i("server", "Crear");
-            floatButtonEdit.setVisibility(View.GONE);
             buttonDelete.setVisibility(View.GONE);
         } else {
 

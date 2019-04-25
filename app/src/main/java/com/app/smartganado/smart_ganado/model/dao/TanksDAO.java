@@ -85,7 +85,7 @@ public class TanksDAO {
                     if (response.body()) {
                         Toast.makeText(context, "Se eliminó el tanque correctamente", Toast.LENGTH_LONG).show();
                     } else
-                        Toast.makeText(context, "Ocurrió un problema eliminando tanque, intentalo nuevamente", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Ocurrió un problema, intenta mas tarde", Toast.LENGTH_LONG).show();
                 } else Log.i("server", "no successful");
             }
 

@@ -45,9 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         //Enabling and disabling button
         editTPhone.addTextChangedListener(onTextChangedListener);
         editTPassword.addTextChangedListener(onTextChangedListener);
-
-        CattleDAO.getCattlesByEstate(13);
-
     }
 
     public void onLoginUser(View view) {

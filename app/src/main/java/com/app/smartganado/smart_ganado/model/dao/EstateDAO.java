@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
-import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,9 @@ public class EstateDAO {
 
                         estateList.clear();
                         estateList.addAll(response.body());
-                        arrayAdapter.notifyDataSetChanged();
+
+                        if (arrayAdapter != null)
+                            arrayAdapter.notifyDataSetChanged();
 
                     } else
                         call.clone().enqueue(this);//Recalling
