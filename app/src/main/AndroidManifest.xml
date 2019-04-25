@@ -61,6 +61,10 @@
             android:name=".view.ViewEstateActivity"
             android:label="@string/title_view_estates"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.ViewPiechartActivity"
+            android:label="@string/title_view_cattles"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".view.NewEstateActivity"

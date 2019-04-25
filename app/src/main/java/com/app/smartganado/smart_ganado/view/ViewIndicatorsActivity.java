@@ -1,10 +1,12 @@
 package com.app.smartganado.smart_ganado.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewIndicatorsActivity extends AppCompatActivity {
-   private PieChart pieChart;
+ //  private PieChart pieChart;
    private BarChart barChart;
    private Context context;
    private UserApp user;
@@ -49,15 +51,12 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
 
 
 
-
-
-
         context=this;
-        pieChart= findViewById(R.id.pieChart);
+      //  pieChart= findViewById(R.id.pieChart);
         barChart= findViewById(R.id.barChart);
         createPieChart();
         createBarChart();
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        /*pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 
@@ -68,7 +67,7 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
             public void onNothingSelected() {
 
             }
-        });
+        });*/
     }
 
     public UserApp getUser(Bundle homeBundle) {
@@ -76,7 +75,7 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
     }
 
     private void createPieChart(){
-        estateList= EstateDAO.getEstateList();
+        /*estateList= EstateDAO.getEstateList();
         Description description= new Description();
         description.setText("");
         pieChart.setDescription(description);
@@ -84,26 +83,29 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData= new PieData(pieDataSet);
         pieChart.setData(pieData);
-        EstateDAO.getEstatesWA(Long.valueOf(1234),pieChart,context);
+        EstateDAO.getEstatesWA(Long.valueOf(1234),pieChart,context);*/
 
     }
     private  void createBarChart(){
-        ArrayList<BarEntry> barEntries= new ArrayList<>();
 
-
-        barEntries.add(new BarEntry(1,12,"label"));
-        barEntries.add(new BarEntry(2,12,"label"));
-
-        BarDataSet barDataSet= new BarDataSet(barEntries,"alv");
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarData barData= new BarData(barDataSet);
-        barChart.setData(barData);
-        barChart.getBarData().setValueFormatter(new IValueFormatter() {
+        EstateDAO.getEstatesWA(Long.valueOf(1234),barChart,context);
+        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return entry.getData().toString();
+            public void onValueSelected(Entry e, Highlight h) {
+
+                Intent inicatorsIntent = new Intent(context, ViewPiechartActivity.class);
+                Estate estate= (Estate) e.getData();
+                inicatorsIntent.putExtra("estate", estate);
+                startActivity(inicatorsIntent);
+
+
+            }
+
+            @Override
+            public void onNothingSelected() {
 
             }
         });
+
     }
 }

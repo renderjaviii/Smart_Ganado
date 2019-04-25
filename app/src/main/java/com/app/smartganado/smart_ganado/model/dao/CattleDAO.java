@@ -8,6 +8,8 @@ import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.NewCattleActivity;
 import com.app.smartganado.smart_ganado.view.adapter.CattleAdapter;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,11 @@ public class CattleDAO {
 
 
     private static List<Cattle> cattleList;
+    private static List<PieEntry> pieEntries;
 
     static {
         cattleList = new ArrayList<>();
+        pieEntries= new ArrayList<>();
     }
 
     public static List<Cattle> getCattleList() {
@@ -42,6 +46,63 @@ public class CattleDAO {
                         cattleList.clear();
                         cattleList.addAll(response.body());
                         arrayAdapter.notifyDataSetChanged();
+
+                    } else
+                        call.clone().enqueue(this);//Recalling
+
+                } else Log.i("server", "response no successful");
+            }
+
+            @Override
+            public void onFailure(Call<List<Cattle>> call, Throwable t) {
+                Log.i("server", t.getMessage());
+            }
+        });
+
+
+    }
+
+    public static void getCattles(Long phone, final PieChart arrayAdapter) {
+        APIUtils.getAPIService().getCattle("getAll", phone).enqueue(new Callback<List<Cattle>>() {
+            @Override
+            public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+
+                        Log.i("server", "cattleList isEmpty? " + cattleList.isEmpty());
+
+                        cattleList.clear();
+                        cattleList.addAll(response.body());
+                        arrayAdapter.notifyDataSetChanged();
+
+                    } else
+                        call.clone().enqueue(this);//Recalling
+
+                } else Log.i("server", "response no successful");
+            }
+
+            @Override
+            public void onFailure(Call<List<Cattle>> call, Throwable t) {
+                Log.i("server", t.getMessage());
+            }
+        });
+
+
+    }
+
+
+    public static void getCattlesByEstate(int idEstate, final PieChart pieChart) {
+        APIUtils.getAPIService().getCattle("getAllByEstate", idEstate).enqueue(new Callback<List<Cattle>>() {
+            @Override
+            public void onResponse(Call<List<Cattle>> call, Response<List<Cattle>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+
+                        Log.i("server", "cattleList isEmpty? " + cattleList.isEmpty());
+
+                        cattleList.clear();
+                        cattleList.addAll(response.body());
+                    //    pieChart.notifyDataSetChanged();
 
                     } else
                         call.clone().enqueue(this);//Recalling
