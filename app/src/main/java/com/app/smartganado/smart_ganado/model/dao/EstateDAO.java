@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
 import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
@@ -76,11 +77,20 @@ public class EstateDAO {
                 if (response.isSuccessful())
                     if (response.body() != null) {
                         Log.i("server", "estateList isEmpty? " + estateList.isEmpty());
-                        estateList.clear();
-                        estateList.addAll(response.body());
 
+                estateList.clear();
+                        estateList.addAll(response.body());
+                        int[] a= new int[3];
+                        a[0]=1;
+                        a[1]=2;
+                        a[2]=0;
                        for (int i=0;i<estateList.size();i++) {
-                            barEntries.add(new BarEntry(i, ((int)(Math.random() * 20 + 1)), estateList.get(i)));
+                            if (estateList.size()<=3) {
+                                barEntries.add(new BarEntry(i, a[i], estateList.get(i)));
+                            }
+                            else{
+                                barEntries.add(new BarEntry(i, ((int)(Math.random() * 20 + 1)), estateList.get(i)));
+                            }
                         }
                         Description description= new Description();
                         description.setText("");

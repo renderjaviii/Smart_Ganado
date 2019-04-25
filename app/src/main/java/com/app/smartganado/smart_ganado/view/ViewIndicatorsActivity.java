@@ -10,7 +10,9 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
 import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
+import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.github.mikephil.charting.charts.BarChart;
@@ -87,16 +89,18 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
 
     }
     private  void createBarChart(){
-
         EstateDAO.getEstatesWA(Long.valueOf(1234),barChart,context);
+
+        Toast.makeText(context, String.valueOf(EstateDAO.getEstateList().size()), Toast.LENGTH_LONG).show();
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 
-                Intent inicatorsIntent = new Intent(context, ViewPiechartActivity.class);
+             Intent inicatorsIntent = new Intent(context, ViewPiechartActivity.class);
                 Estate estate= (Estate) e.getData();
                 inicatorsIntent.putExtra("estate", estate);
                 startActivity(inicatorsIntent);
+                Toast.makeText(context, String.valueOf(EstateDAO.getEstateList().size()), Toast.LENGTH_LONG).show();
 
 
             }

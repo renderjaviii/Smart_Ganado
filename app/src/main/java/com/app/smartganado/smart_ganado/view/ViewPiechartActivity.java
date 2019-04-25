@@ -1,10 +1,13 @@
 package com.app.smartganado.smart_ganado.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
@@ -30,6 +35,8 @@ public class ViewPiechartActivity extends AppCompatActivity {
     private Estate estate;
     private PieChart pieChart;
     private Context context;
+    private TextView textView;
+    private Button bt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +49,19 @@ public class ViewPiechartActivity extends AppCompatActivity {
             estate= getEstate(estateBundle);
 
 
-
+        textView=findViewById(R.id.cattleindtextView);
+        bt=findViewById(R.id.buttonMilk);
+        String a ="Finca: "+estate.getName();
+        textView.setText(a);
         pieChart= findViewById(R.id.pieChart);
         createPieChart();
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newEstateIntent = new Intent(getApplicationContext(),ViewMilkProduction.class);
+                getApplicationContext().startActivity(newEstateIntent);
+            }
+        });
 
     }
 
@@ -55,15 +72,15 @@ public class ViewPiechartActivity extends AppCompatActivity {
         Description description= new Description();
         description.setText("");
         pieChart.setDescription(description);
-        pieEntries.add(new PieEntry(11,"asfsd"));
-        pieEntries.add(new PieEntry(6,"asfsd"));
-        pieEntries.add(new PieEntry(10,"asfsd"));
-        PieDataSet pieDataSet = new PieDataSet(pieEntries,"FINCAS");
+        pieEntries.add(new PieEntry(11,"Droughtmaster"));
+        pieEntries.add(new PieEntry(6,"Nelore"));
+        pieEntries.add(new PieEntry(10,"Gyr"));
+        PieDataSet pieDataSet = new PieDataSet(pieEntries,"Razas de ganado");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
        PieData pieData= new PieData(pieDataSet);
        pieChart.setData(pieData);
 
-       CattleDAO.getCattlesByEstate(estate.getId(),pieChart);
+       CattleDAO.getCattlesByEstate(String.valueOf(estate.getId()),pieChart);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -83,6 +100,8 @@ public class ViewPiechartActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public Estate getEstate(Bundle homeBundle) {
         return (Estate) homeBundle.getSerializable("estate");

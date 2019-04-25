@@ -85,6 +85,10 @@
             android:name=".view.NewEventActivity"
             android:label="@string/title_new_event"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.ViewMilkProduction"
+            android:label="@string/title_new_event"
+            android:theme="@style/AppTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
