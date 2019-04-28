@@ -72,9 +72,10 @@ public class ViewPiechartActivity extends AppCompatActivity {
         Description description= new Description();
         description.setText("");
         pieChart.setDescription(description);
-        pieEntries.add(new PieEntry(11,"Droughtmaster"));
-        pieEntries.add(new PieEntry(6,"Nelore"));
-        pieEntries.add(new PieEntry(10,"Gyr"));
+
+        pieEntries.add(new PieEntry(((int) (Math.random() * 20 + 1)),"Cebú"));
+        pieEntries.add(new PieEntry(((int) (Math.random() * 20 + 1)),"Hoinstein"));
+        pieEntries.add(new PieEntry(((int) (Math.random() * 20 + 1)),"Normando"));
         PieDataSet pieDataSet = new PieDataSet(pieEntries,"Razas de ganado");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
        PieData pieData= new PieData(pieDataSet);

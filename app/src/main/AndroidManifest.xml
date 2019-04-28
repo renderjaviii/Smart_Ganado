@@ -32,10 +32,26 @@
         </activity>
 
         <activity android:name=".view.HistoryBookActivity"></activity>
-        <activity android:name=".view.ViewIndicatorsActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
 
+
+        <activity android:name=".view.ViewPiechartActivity"
+            android:label="Distribucción de razas"
+            android:theme="@style/AppTheme"
+            />
+
+
+        <activity
+            android:name=".view.ViewMilkProduction"
+            android:label="Producción de leche"
+            android:theme="@style/AppTheme" />
+
+
+        <activity
+            android:name=".view.ViewIndicatorsActivity"
+            android:label="Indicadores"
+            android:theme="@style/AppTheme" />
 
 
         <activity

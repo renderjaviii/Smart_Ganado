@@ -20,26 +20,26 @@
 
 
         <LinearLayout
-            android:layout_width="307dp"
-            android:layout_height="399dp"
+            android:layout_width="374dp"
+            android:layout_height="384dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="51dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="19dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="0dp">
 
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="144dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp"
@@ -49,23 +49,25 @@
 
                     <TextView
                         style="@android:style/Widget.DeviceDefault.Light.TextView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="123dp"
                         android:layout_height="wrap_content"
-                        android:text="Mis Fincas"
+                        android:text="Fincas"
+                        android:textAlignment="center"
                         android:textSize="14sp" />
 
                     <ImageButton
                         android:id="@+id/imgButtonFincas"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="144dp"
                         android:layout_weight="0"
+                        android:background="@android:color/transparent"
                         android:onClick="openEstatesModule"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        app:srcCompat="@drawable/estate" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="133dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp"
@@ -74,29 +76,31 @@
 
                     <TextView
                         style="@android:style/Widget.DeviceDefault.Light.TextView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="116dp"
                         android:layout_height="wrap_content"
-                        android:text="Mi ganado"
+                        android:text="Ganado"
+                        android:textAlignment="center"
                         android:textSize="14sp" />
 
                     <ImageButton
-                        android:layout_width="wrap_content"
+                        android:layout_width="116dp"
                         android:layout_height="144dp"
                         android:layout_weight="0"
+                        android:background="@android:color/transparent"
                         android:onClick="openCattleModule"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        app:srcCompat="@drawable/cattle" />
 
                 </LinearLayout>
 
             </TableRow>
 
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="301dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="145dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp"
@@ -105,22 +109,24 @@
 
                     <TextView
                         style="@android:style/Widget.DeviceDefault.Light.TextView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:text="Eventos"
+                        android:textAlignment="center"
                         android:textSize="14sp" />
 
                     <ImageButton
-                        android:layout_width="wrap_content"
+                        android:layout_width="122dp"
                         android:layout_height="144dp"
                         android:layout_weight="0"
+                        android:background="@android:color/transparent"
                         android:onClick="openEventsModule"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        app:srcCompat="@drawable/calendar" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp"
@@ -129,18 +135,20 @@
 
                     <TextView
                         style="@android:style/Widget.DeviceDefault.Light.TextView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="113dp"
                         android:layout_height="wrap_content"
                         android:text="Tanques"
+                        android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:textSize="14sp" />
 
                     <ImageButton
-                        android:layout_width="wrap_content"
+                        android:layout_width="113dp"
                         android:layout_height="144dp"
                         android:layout_weight="0"
+                        android:background="@android:color/transparent"
                         android:onClick="openTankModule"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        app:srcCompat="@drawable/milk" />
                 </LinearLayout>
             </TableRow>
         </LinearLayout>

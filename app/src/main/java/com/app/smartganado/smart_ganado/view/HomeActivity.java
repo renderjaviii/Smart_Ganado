@@ -135,6 +135,9 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra("Info", user);
             } else if (id == R.id.nav_backups) {
             } else if (id == R.id.nav_appFuntions) {
+                intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
+                intent.putExtra("user", user);
+
             } else if (id == R.id.nav_config) {
             } else if (id == R.id.nav_manual) {
             } else if (id == R.id.nav_logout) {

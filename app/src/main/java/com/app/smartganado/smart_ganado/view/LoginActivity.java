@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
 
-        editTPhone.setText("1234");//Testing
-        editTPassword.setText("root");
+       // editTPhone.setText("1234");//Testing
+        // editTPassword.setText("root");
 
         //Enabling and disabling button
         editTPhone.addTextChangedListener(onTextChangedListener);

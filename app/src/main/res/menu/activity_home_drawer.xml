@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/user_24px"
             android:title="Perfil" />
         <item
             android:id="@+id/nav_backups"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/synchronize_48px"
             android:title="Backups" />
         <item
             android:id="@+id/nav_appFuntions"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Funciones App" />
+            android:icon="@drawable/bar_chart_48px"
+            android:title="Indicadores" />
         <item
             android:id="@+id/nav_config"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/settings_48px"
             android:title="Configuración" />
     </group>
 
@@ -26,11 +26,11 @@
         <menu>
             <item
                 android:id="@+id/nav_manual"
-                android:icon="@drawable/ic_launcher_background"
+                android:icon="@drawable/book_48px"
                 android:title="Manual de usuario" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_launcher_background"
+                android:icon="@drawable/logout_48px"
                 android:title="Cerrar sesión" />
         </menu>
     </item>

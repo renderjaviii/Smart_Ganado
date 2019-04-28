@@ -5,27 +5,20 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.app.smartganado.smart_ganado.model.vo.Cattle;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.remote.APIUtils;
-import com.app.smartganado.smart_ganado.view.adapter.EstateAdapter;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,13 +31,16 @@ public class EstateDAO {
 
     static {
         estateList = new ArrayList<>();
-        barEntries= new ArrayList<>();
+        barEntries = new ArrayList<>();
     }
 
     public static List<Estate> getEstateList() {
         return estateList;
     }
-    public static List<BarEntry> getBarEntries(){return barEntries; }
+
+    public static List<BarEntry> getBarEntries() {
+        return barEntries;
+    }
 
     //GET estates from database
     public static void getEstates(Long phone, final ArrayAdapter<Estate> arrayAdapter) {
@@ -57,7 +53,8 @@ public class EstateDAO {
 
                         estateList.clear();
                         estateList.addAll(response.body());
-                        arrayAdapter.notifyDataSetChanged();
+                        if (arrayAdapter != null)
+                            arrayAdapter.notifyDataSetChanged();
 
                     } else
                         call.clone().enqueue(this);//Recalling
@@ -78,26 +75,25 @@ public class EstateDAO {
                     if (response.body() != null) {
                         Log.i("server", "estateList isEmpty? " + estateList.isEmpty());
 
-                estateList.clear();
+                        estateList.clear();
                         estateList.addAll(response.body());
-                        int[] a= new int[3];
-                        a[0]=1;
-                        a[1]=2;
-                        a[2]=0;
-                       for (int i=0;i<estateList.size();i++) {
-                            if (estateList.size()<=3) {
+                        int[] a = new int[3];
+                        a[0] = 1;
+                        a[1] = 2;
+                        a[2] = 5;
+                        for (int i = 0; i < estateList.size(); i++) {
+                            if (estateList.size() <= 3) {
                                 barEntries.add(new BarEntry(i, a[i], estateList.get(i)));
-                            }
-                            else{
-                                barEntries.add(new BarEntry(i, ((int)(Math.random() * 20 + 1)), estateList.get(i)));
+                            } else {
+                                barEntries.add(new BarEntry(i, ((int) (Math.random() * 20 + 1)), estateList.get(i)));
                             }
                         }
-                        Description description= new Description();
+                        Description description = new Description();
                         description.setText("");
                         barChart.setDescription(description);
-                        BarDataSet barDataSet= new BarDataSet(barEntries,"FINCAS");
+                        BarDataSet barDataSet = new BarDataSet(barEntries, "FINCAS");
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                        BarData barData= new BarData(barDataSet);
+                        BarData barData = new BarData(barDataSet);
                         barChart.animateY(4000);
                         barChart.setData(barData);
 
@@ -105,7 +101,7 @@ public class EstateDAO {
                         barChart.getBarData().setValueFormatter(new IValueFormatter() {
                             @Override
                             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                                return ((Estate)entry.getData()).getName();
+                                return ((Estate) entry.getData()).getName();
 
                             }
                         });
