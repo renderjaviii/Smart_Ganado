@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class NewTankActivity extends AppCompatActivity {
 
     private ArrayAdapter<Estate> estateAdapter;
 
+    private ProgressBar capacidadProgressBar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,8 @@ public class NewTankActivity extends AppCompatActivity {
         editTCapacidad = findViewById(R.id.ETCapacityTank);
         buttonAdd = findViewById(R.id.BRegistrarTank);
         buttonDelete = findViewById(R.id.BEliminarTank);
+
+        capacidadProgressBar = findViewById(R.id.progressBarCapacidad);
 
         estateAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, EstateDAO.getEstateList());
 
@@ -56,6 +62,7 @@ public class NewTankActivity extends AppCompatActivity {
         if (getIntent().getSerializableExtra("Info") == null) {
             Log.i("server", "Crear");
             buttonDelete.setVisibility(View.GONE);
+            capacidadProgressBar.setVisibility(View.INVISIBLE);
         } else {
 
             Log.i("server", "Editando");
@@ -70,6 +77,9 @@ public class NewTankActivity extends AppCompatActivity {
             fincaSpinner.setEnabled(false);
 
             buttonAdd.setVisibility(View.GONE);
+
+            capacidadProgressBar.setVisibility(View.VISIBLE);
+            Capacidad(tank.getCapacity());
         }
     }
 
@@ -112,6 +122,10 @@ public class NewTankActivity extends AppCompatActivity {
         editTCapacidad.setEnabled(true);
         fincaSpinner.setEnabled(true);
         buttonDelete.setVisibility(View.INVISIBLE);
+    }
+    public void Capacidad(Double Capacidad) {
+        int cap = Integer.getInteger(Capacidad+"");
+        capacidadProgressBar.setProgress(cap);
     }
 
     public void Eliminar(View view) {
