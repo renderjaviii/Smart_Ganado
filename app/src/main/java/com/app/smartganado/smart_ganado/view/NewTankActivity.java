@@ -86,6 +86,7 @@ public class NewTankActivity extends AppCompatActivity {
             buttonAdd.setVisibility(View.GONE);
 
             capacidadProgressBar.setVisibility(View.VISIBLE);
+            CapacidadInicial(InfoProduction(),ListaTanques().get(1));
 
         }
     }
