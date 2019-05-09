@@ -20,12 +20,13 @@ import com.app.smartganado.smart_ganado.R;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryBookActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
-    private ArrayList<CattleHistoryBook> cattleHistoryBooks;
+    private List<CattleHistoryBook> cattleHistoryBooks;
     private FloatingActionButton fab;
     private UserApp user;
 
@@ -37,7 +38,7 @@ public class HistoryBookActivity extends AppCompatActivity {
         if (user == null)
             user = (UserApp) getIntent().getSerializableExtra("user");//Getting user
 
-        cattleHistoryBooks = new ArrayList<>();
+        cattleHistoryBooks =  HistoryBookDAO.getHistoryBook();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyle_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -50,7 +51,7 @@ public class HistoryBookActivity extends AppCompatActivity {
         adapter = new RecyclerAdapter(this, cattleHistoryBooks, user);
         recyclerView.setAdapter(adapter);
 
-        fab.setOnClickListener(onAddingListener());
+        //fab.setOnClickListener(onAddingListener());
     }
 
     @Override
@@ -60,7 +61,7 @@ public class HistoryBookActivity extends AppCompatActivity {
     }
 
 
-    private View.OnClickListener onAddingListener() {
+  /*  private View.OnClickListener onAddingListener() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,9 +94,9 @@ public class HistoryBookActivity extends AppCompatActivity {
             }
         };
     }
+*/
 
-
-    private View.OnClickListener onConfirmListener(final EditText name, final EditText job, final Dialog dialog) {
+ /*   private View.OnClickListener onConfirmListener(final EditText name, final EditText job, final Dialog dialog) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,14 +112,14 @@ public class HistoryBookActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         };
-    }
+    }*/
 
-    private View.OnClickListener onCancelListener(final Dialog dialog) {
+   /* private View.OnClickListener onCancelListener(final Dialog dialog) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         };
-    }
+    }*/
 }

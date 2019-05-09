@@ -57,7 +57,6 @@ public class HistoryBookDAO {
                             historyBook.addAll(response.body());
                             adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
 
                     }else call.clone().enqueue(this);
             }

@@ -43,6 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(RecyclerAdapter.ViewHolder viewHolder, int position) {
 
+        try{
         //setting data to view holder elements
         viewHolder.tvName.setText(getHistoryName(historyBook.get(position).getIdHistoryType()));
         viewHolder.tvEstate.setText(getEstateName(historyBook.get(position).getIdCattle()));
@@ -51,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
         //set on click listener for each element
-        viewHolder.container.setOnClickListener(onClickListener(position));
+        viewHolder.container.setOnClickListener(onClickListener(position));}catch (NullPointerException e){}
     }
 
     private void setDataToView(TextView details,  int position) {
