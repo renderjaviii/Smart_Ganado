@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -28,10 +29,14 @@ public class EstateDAO {
 
     private static List<Estate> estateList;
     private static List<BarEntry> barEntries;
+    private static List<String> names;
+
 
     static {
         estateList = new ArrayList<>();
         barEntries = new ArrayList<>();
+        names= new ArrayList<>();
+
     }
 
     public static List<Estate> getEstateList() {
@@ -40,6 +45,11 @@ public class EstateDAO {
 
     public static List<BarEntry> getBarEntries() {
         return barEntries;
+    }
+
+    public static List<String> getNames(){
+        return names
+                ;
     }
 
     //GET estates from database
@@ -68,7 +78,54 @@ public class EstateDAO {
     }
 
     public static void getEstatesWA(Long phone, final BarChart barChart, final Context context) {
-        APIUtils.getAPIService().getEstate("getAll", phone).enqueue(new Callback<List<Estate>>() {
+
+        APIUtils.getAPIService().getIndicatorsSize("getEstatesSize",phone).enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+
+                Log.i("server", "estateList isEmpty? " + estateList.isEmpty());
+
+                names.clear();
+                names.addAll(response.body());
+
+                for (int i = 0; i < names.size(); i++) {
+
+                            String[] data= names.get(i).split(",");
+                        barEntries.add(new BarEntry(i, Integer.valueOf(data[2]), data));
+
+                }
+                Description description = new Description();
+                description.setText("");
+                barChart.setDescription(description);
+                BarDataSet barDataSet = new BarDataSet(barEntries, "FINCAS");
+                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                BarData barData = new BarData(barDataSet);
+                barChart.animateY(4000);
+                barChart.setData(barData);
+
+
+
+                    barChart.getBarData().setValueFormatter(new IValueFormatter() {
+                        @Override
+                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        return ((String[])(entry.getData()))[1];
+
+                    }
+                });
+
+                barChart.invalidate();
+                barChart.setScaleXEnabled(false);
+                barChart.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.i("server", "error failure: " + t.getMessage());
+            }
+        });
+
+        /*APIUtils.getAPIService().getEstate("getAll", phone).enqueue(new Callback<List<Estate>>() {
             @Override
             public void onResponse(Call<List<Estate>> call, Response<List<Estate>> response) {
                 if (response.isSuccessful())
@@ -118,7 +175,7 @@ public class EstateDAO {
             public void onFailure(Call<List<Estate>> call, Throwable t) {
                 Log.i("server", "error failure: " + t.getMessage());
             }
-        });
+        });*/
     }
 
     public static void insertEstate(final Context context, Estate estate) {

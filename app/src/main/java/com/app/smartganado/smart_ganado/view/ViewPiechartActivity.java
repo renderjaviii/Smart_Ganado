@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
+import com.app.smartganado.smart_ganado.model.dao.BreedDAO;
 import com.app.smartganado.smart_ganado.model.dao.CattleDAO;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import androidx.annotation.Nullable;
 
 public class ViewPiechartActivity extends AppCompatActivity {
-    private Estate estate;
+    private String[] estate;
     private PieChart pieChart;
     private Context context;
     private TextView textView;
@@ -51,7 +52,7 @@ public class ViewPiechartActivity extends AppCompatActivity {
 
         textView=findViewById(R.id.cattleindtextView);
         bt=findViewById(R.id.buttonMilk);
-        String a ="Finca: "+estate.getName();
+        String a ="Finca: "+estate[1];
         textView.setText(a);
         pieChart= findViewById(R.id.pieChart);
         createPieChart();
@@ -68,7 +69,7 @@ public class ViewPiechartActivity extends AppCompatActivity {
 
     private void createPieChart(){
 
-        ArrayList<PieEntry> pieEntries= new ArrayList<>();
+        /*ArrayList<PieEntry> pieEntries= new ArrayList<>();
         Description description= new Description();
         description.setText("");
         pieChart.setDescription(description);
@@ -81,7 +82,9 @@ public class ViewPiechartActivity extends AppCompatActivity {
        PieData pieData= new PieData(pieDataSet);
        pieChart.setData(pieData);
 
-       CattleDAO.getCattlesByEstate(String.valueOf(estate.getId()),pieChart);
+       CattleDAO.getCattlesByEstate(String.valueOf(estate.getId()),pieChart);*/
+
+        BreedDAO.getIndicators(Integer.valueOf(estate[0]),pieChart);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -104,7 +107,7 @@ public class ViewPiechartActivity extends AppCompatActivity {
 
 
 
-    public Estate getEstate(Bundle homeBundle) {
-        return (Estate) homeBundle.getSerializable("estate");
+    public String[] getEstate(Bundle homeBundle) {
+        return (String[]) homeBundle.getSerializable("estate");
     }
 }

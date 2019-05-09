@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.app.smartganado.smart_ganado.R;
 import com.app.smartganado.smart_ganado.model.dao.EstateDAO;
+import com.app.smartganado.smart_ganado.model.dao.LotDAO;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Event;
+import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -26,9 +28,11 @@ public class NewEventActivity extends AppCompatActivity {
     private UserApp user;
     private Event event;
     private Long time;
-    private TextInputEditText managerEditText, detailsEditText, nameEditText;
-    private MaterialBetterSpinner estateSpinner;
+    private TextInputEditText  detailsEditText, nameEditText;
+
+    private MaterialBetterSpinner estateSpinner,managerSpinner, lootSpinner;
     private ArrayAdapter<Estate> estateAdapter;
+    private ArrayAdapter<Lot> lootAdapter;
 
 
     @Override
@@ -38,14 +42,20 @@ public class NewEventActivity extends AppCompatActivity {
 
         //Obtiene lo que le manda la anterior actividad
         Bundle eventBundle = getIntent().getExtras();
-
-        managerEditText = findViewById(R.id.managerEventEditText);
+        String[] names_={"Juan Baez (Veterinario)", "Camilo Sanchez (Encargado de hacienda)","Jose Marquez (Empleado)","Jorge Salazar (Empleado)"};
+        ArrayAdapter<String> managerAdapter=new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_item,names_);
+        managerSpinner = findViewById(R.id.managerSpinner);
         nameEditText = findViewById(R.id.nameEventEditText);
         detailsEditText = findViewById(R.id.detailsEventEditText);
         estateSpinner = findViewById(R.id.estateSpinner);
+        lootSpinner= findViewById(R.id.lootSpinner);
 
         estateAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, EstateDAO.getEstateList());
+        lootAdapter= new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, LotDAO.getLotList());
+        lootSpinner.setAdapter(lootAdapter);
+        managerSpinner.setAdapter(managerAdapter);
         estateSpinner.setAdapter(estateAdapter);
+
 
         event = new Event();
         setOnSpinnerClickListener();
@@ -55,16 +65,18 @@ public class NewEventActivity extends AppCompatActivity {
             user = getUser(eventBundle);
             time = eventBundle.getLong("time");
         }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                if (!(managerEditText.getText().toString().isEmpty() && nameEditText.getText().toString().isEmpty() && detailsEditText.getText().toString().isEmpty())) {
+
+                if (!(managerSpinner.getText().toString().isEmpty() && nameEditText.getText().toString().isEmpty() && detailsEditText.getText().toString().isEmpty())) {
                     event.setDate(new Date(time));
                     event.setDetails(detailsEditText.getText().toString());
-                    event.setManager(managerEditText.getText().toString());
+                   event.setManager(managerSpinner.getText().toString());
                     event.setName(nameEditText.getText().toString());
                     Intent newEventIntent = new Intent();
                     Bundle eventAdd = new Bundle();
@@ -89,7 +101,7 @@ public class NewEventActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        EstateDAO.getEstates(user.getPhone(), estateAdapter);
+       EstateDAO.getEstates(user.getPhone(), estateAdapter);
         super.onResume();
     }
 
@@ -100,6 +112,7 @@ public class NewEventActivity extends AppCompatActivity {
                 event.setIdEstate(estateAdapter.getItem(position).getId());
             }
         });
+
     }
 
     @Override

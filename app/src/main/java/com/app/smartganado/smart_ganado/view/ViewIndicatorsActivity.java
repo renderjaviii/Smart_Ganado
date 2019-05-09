@@ -74,18 +74,15 @@ public class ViewIndicatorsActivity extends AppCompatActivity {
     private void createBarChart() {
         EstateDAO.getEstatesWA(user.getPhone(), barChart, context);
 
-        Toast.makeText(context, String.valueOf(EstateDAO.getEstateList().size()), Toast.LENGTH_LONG).show();
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-
-                Intent inicatorsIntent = new Intent(context, ViewPiechartActivity.class);
-                Estate estate = (Estate) e.getData();
-                inicatorsIntent.putExtra("estate", estate);
+                Toast.makeText(context, String.valueOf(((String[])e.getData())[1]), Toast.LENGTH_LONG).show();
+               Intent inicatorsIntent = new Intent(context, ViewPiechartActivity.class);
+               String[] idEstate = ((String[]) e.getData());
+                inicatorsIntent.putExtra("estate",idEstate);
                 startActivity(inicatorsIntent);
                 Toast.makeText(context, String.valueOf(EstateDAO.getEstateList().size()), Toast.LENGTH_LONG).show();
-
-
             }
 
             @Override

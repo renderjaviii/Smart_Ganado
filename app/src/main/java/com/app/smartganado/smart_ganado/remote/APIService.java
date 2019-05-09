@@ -78,4 +78,10 @@ public interface APIService {
     @GET("cattle")
     Call<Boolean> deleteTank(@Header("action") String actionName, @Header("id") String idTank);//action = delete
 
+
+    //indicators
+@GET("indicators")
+    Call<List<String>>  getIndicatorsSize(@Header("action") String actionName,@Header("phone") Long phone);
+@GET("indicators")
+    Call<List<String>> getEstateBreedSize(@Header("action") String actionName, @Header("id_estate") String idEstate);
 }
