@@ -29,7 +29,6 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-import androidx.annotation.Nullable;
 
 public class ViewPiechartActivity extends AppCompatActivity {
     private Estate estate;

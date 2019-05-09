@@ -21,6 +21,11 @@ public class HistoryType implements Serializable {
 	public HistoryType() {
 	}
 
+	public HistoryType(int id,String name){
+		this.id = id;
+		this.name = name;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

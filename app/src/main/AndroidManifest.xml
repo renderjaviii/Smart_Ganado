@@ -36,10 +36,10 @@
         <activity android:name=".view.NewUserActivity" />
 
 
-        <activity android:name=".view.ViewPiechartActivity"
+        <activity
+            android:name=".view.ViewPiechartActivity"
             android:label="Distribucción de razas"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
 
         <activity

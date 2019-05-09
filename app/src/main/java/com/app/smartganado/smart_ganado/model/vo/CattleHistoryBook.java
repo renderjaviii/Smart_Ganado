@@ -27,6 +27,8 @@ public class CattleHistoryBook implements Serializable {
 	public CattleHistoryBook() {
 	}
 
+
+
 	public Integer getId() {
 		return this.id;
 	}

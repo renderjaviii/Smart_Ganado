@@ -2,6 +2,7 @@ package com.app.smartganado.smart_ganado.remote;
 
 import com.app.smartganado.smart_ganado.model.vo.Breed;
 import com.app.smartganado.smart_ganado.model.vo.Cattle;
+import com.app.smartganado.smart_ganado.model.vo.CattleHistoryBook;
 import com.app.smartganado.smart_ganado.model.vo.Estate;
 import com.app.smartganado.smart_ganado.model.vo.Lot;
 import com.app.smartganado.smart_ganado.model.vo.Purpose;
@@ -77,5 +78,9 @@ public interface APIService {
 
     @GET("cattle")
     Call<Boolean> deleteTank(@Header("action") String actionName, @Header("id") String idTank);//action = delete
+
+    //CattleHistoryBook
+    @GET("history_book")
+    Call<List<CattleHistoryBook>> getHistoryBook(@Header("action") String actionName, @Header("phone") Long phone);//action == getAll
 
 }

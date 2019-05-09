@@ -12,7 +12,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 
-import androidx.annotation.Nullable;
 
 public class ViewMilkProduction extends AppCompatActivity {
     private LineChart lineChart;
