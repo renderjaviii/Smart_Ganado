@@ -31,10 +31,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.LoginActivity"></activity>
-        <activity android:name=".view.HistoryBookActivity"></activity>
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.NewUserActivity" />
 
+
+        <activity android:name=".view.HistoryBookActivity"
+            android:label="Cuaderno Cabezas de Ganado"
+            android:theme="@style/AppTheme"/>
 
         <activity android:name=".view.ViewPiechartActivity"
             android:label="Distribucción de razas"
