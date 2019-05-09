@@ -14,8 +14,8 @@
             android:title="Cuaderno" />
         <item
             android:id="@+id/nav_appFuntions"
-            android:icon="@drawable/bar_chart_48px"
-            android:title="Indicadores" />
+            android:icon="@drawable/milk"
+            android:title="Tanques" />
         <item
             android:id="@+id/nav_config"
             android:icon="@drawable/settings_48px"

@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void openTankModule(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewTankActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }
@@ -137,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), HistoryBookActivity.class);
                 intent.putExtra("user", user);
             } else if (id == R.id.nav_appFuntions) {
-                intent = new Intent(getApplicationContext(), ViewIndicatorsActivity.class);
+                intent = new Intent(getApplicationContext(), ViewTankActivity.class);
                 intent.putExtra("user", user);
 
             } else if (id == R.id.nav_config) {
