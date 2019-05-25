@@ -53,7 +53,7 @@ public class NewTankActivity extends AppCompatActivity {
         buttonAdd = findViewById(R.id.BRegistrarTank);
         buttonDelete = findViewById(R.id.BEliminarTank);
 
-        capacidadProgressBar = findViewById(R.id.progressBar);
+        capacidadProgressBar = findViewById(R.id.progressBar2);
         especificacion = findViewById(R.id.Especificacion);
 
         estateAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, EstateDAO.getEstateList());
@@ -69,7 +69,7 @@ public class NewTankActivity extends AppCompatActivity {
         if (getIntent().getSerializableExtra("Info") == null) {
             Log.i("server", "Crear");
             buttonDelete.setVisibility(View.GONE);
-            capacidadProgressBar.setVisibility(View.INVISIBLE);
+            capacidadProgressBar.setVisibility(View.GONE);
         } else {
 
             Log.i("server", "Editando");
@@ -86,7 +86,9 @@ public class NewTankActivity extends AppCompatActivity {
             buttonAdd.setVisibility(View.GONE);
 
             capacidadProgressBar.setVisibility(View.VISIBLE);
-            CapacidadInicial(InfoProduction(),ListaTanques().get(1));
+            capacidadProgressBar.setMax(tank.getCapacity().intValue());
+            capacidadProgressBar.setProgress(500);
+            CapacidadInicial(tank);
 
         }
     }
@@ -131,15 +133,9 @@ public class NewTankActivity extends AppCompatActivity {
         fincaSpinner.setEnabled(true);
         buttonDelete.setVisibility(View.INVISIBLE);
     }
-    public void CapacidadInicial(ArrayList<ProductionBook> Libro, Tank tanque) {
+    public void CapacidadInicial(Tank tanque) {
         Double inicial = 0.0;
         Double max=tanque.getCapacity();
-        for(int i=0;i<=Libro.size();i++){
-            inicial=inicial+Libro.get(i).getProduction();
-        }
-        capacidadProgressBar.setMax(100);
-        Double actual = (inicial*100)/max;
-        capacidadProgressBar.setProgress(actual.intValue());
         Double libre = max-inicial;
         especificacion.setText("capacidad del tanque: "+max+ " cantidad utilizada: "+inicial+" cantidad libre: "+libre);
     }
