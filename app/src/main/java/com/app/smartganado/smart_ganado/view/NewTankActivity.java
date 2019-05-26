@@ -1,5 +1,6 @@
 package com.app.smartganado.smart_ganado.view;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -23,10 +25,11 @@ import com.app.smartganado.smart_ganado.model.vo.UserApp;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 @SuppressWarnings("all")
-public class NewTankActivity extends AppCompatActivity {
+public class NewTankActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private Tank tank;
@@ -40,6 +43,13 @@ public class NewTankActivity extends AppCompatActivity {
 
     private ProgressBar capacidadProgressBar;
     private TextView especificacion;
+
+    private Button buttonProduccion;
+    private Button buttonCalendario,AñadirButtom;
+    private EditText CantidadTXT;
+
+    private int dia,mes,año;
+    Date dato=new Date();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +65,13 @@ public class NewTankActivity extends AppCompatActivity {
 
         capacidadProgressBar = findViewById(R.id.progressBar2);
         especificacion = findViewById(R.id.Especificacion);
+        buttonProduccion = findViewById(R.id.ProduccionButtom);
+        buttonCalendario = findViewById(R.id.FechaButtom);
+        CantidadTXT = findViewById(R.id.CantidadTXT);
+        AñadirButtom = findViewById(R.id.AñadirButtom);
+
+        buttonCalendario.setOnClickListener(this);
+
 
         estateAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, EstateDAO.getEstateList());
 
@@ -70,6 +87,11 @@ public class NewTankActivity extends AppCompatActivity {
             Log.i("server", "Crear");
             buttonDelete.setVisibility(View.GONE);
             capacidadProgressBar.setVisibility(View.GONE);
+            especificacion.setText("");
+            buttonProduccion.setVisibility(View.GONE);
+            buttonCalendario.setVisibility(View.GONE);
+            CantidadTXT.setVisibility(View.GONE);
+            AñadirButtom.setVisibility(View.GONE);
         } else {
 
             Log.i("server", "Editando");
@@ -89,7 +111,9 @@ public class NewTankActivity extends AppCompatActivity {
             capacidadProgressBar.setMax(tank.getCapacity().intValue());
             capacidadProgressBar.setProgress(500);
             CapacidadInicial(tank);
-
+            buttonCalendario.setVisibility(View.GONE);
+            CantidadTXT.setVisibility(View.GONE);
+            AñadirButtom.setVisibility(View.GONE);
         }
     }
 
@@ -174,5 +198,41 @@ public class NewTankActivity extends AppCompatActivity {
         tanque1.setName("tanque 1"); tanque2.setName("tanque 2");
         tanques.add(tanque1); tanques.add(tanque2);
         return tanques;
+    }
+
+    public void Producción(View view){
+        buttonCalendario.setVisibility(View.VISIBLE);
+        CantidadTXT.setVisibility(View.VISIBLE);
+        AñadirButtom.setVisibility(View.VISIBLE);
+        buttonDelete.setVisibility(View.GONE);
+    }
+
+    public void Añadir(View view){
+        buttonCalendario.setVisibility(View.GONE);
+        CantidadTXT.setVisibility(View.GONE);
+        AñadirButtom.setVisibility(View.GONE);
+        buttonDelete.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View v) {
+            final Calendar c = Calendar.getInstance();
+
+            dia=c.get(Calendar.DAY_OF_MONTH);
+            año=c.get(Calendar.YEAR);
+            mes=c.get(Calendar.MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    dato= new Date(dia,mes,año);
+                    dia=dayOfMonth;
+                    mes=month+1;
+                    año=year;
+                }
+            }
+            ,dia,mes,año);
+            Toast.makeText(this, "dia: "+dia+" año: "+año+" mes: "+mes, Toast.LENGTH_SHORT).show();
+            datePickerDialog.show();
     }
 }
