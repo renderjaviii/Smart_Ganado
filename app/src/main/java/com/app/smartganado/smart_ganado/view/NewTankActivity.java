@@ -161,7 +161,7 @@ public class NewTankActivity extends AppCompatActivity implements View.OnClickLi
         Double inicial = 0.0;
         Double max=tanque.getCapacity();
         Double libre = max-inicial;
-        especificacion.setText("capacidad del tanque: "+max+ " cantidad utilizada: "+inicial+" cantidad libre: "+libre);
+        especificacion.setText("Cantidad utilizada: "+inicial+" litros \nCantidad libre: "+libre+" litros");
     }
     public void Eliminar(View view) {
         TanksDAO.deleteTank(getApplicationContext(), tank.getId());
@@ -221,18 +221,21 @@ public class NewTankActivity extends AppCompatActivity implements View.OnClickLi
             dia=c.get(Calendar.DAY_OF_MONTH);
             año=c.get(Calendar.YEAR);
             mes=c.get(Calendar.MONTH);
+        Toast.makeText(this, "dia: "+dia+" año: "+año+" mes: "+mes, Toast.LENGTH_SHORT).show();
+        c.set(año,mes,dia);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     dato= new Date(dia,mes,año);
                     dia=dayOfMonth;
                     mes=month+1;
                     año=year;
+
                 }
             }
             ,dia,mes,año);
-            Toast.makeText(this, "dia: "+dia+" año: "+año+" mes: "+mes, Toast.LENGTH_SHORT).show();
             datePickerDialog.show();
     }
 }
