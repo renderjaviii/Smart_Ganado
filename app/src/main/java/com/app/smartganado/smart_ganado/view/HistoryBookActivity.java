@@ -1,31 +1,23 @@
 package com.app.smartganado.smart_ganado.view;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+
 
 import com.app.smartganado.smart_ganado.model.dao.HistoryBookDAO;
 import com.app.smartganado.smart_ganado.model.vo.CattleHistoryBook;
 import com.app.smartganado.smart_ganado.model.vo.UserApp;
 import com.app.smartganado.smart_ganado.view.adapter.RecyclerAdapter;
 import com.app.smartganado.smart_ganado.R;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryBookActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerAdapter adapter;
+   private RecyclerView recyclerView;
+    //private RecyclerAdapter adapter;
     private List<CattleHistoryBook> cattleHistoryBooks;
     private FloatingActionButton fab;
     private UserApp user;
@@ -48,17 +40,17 @@ public class HistoryBookActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerAdapter(this, cattleHistoryBooks, user);
-        recyclerView.setAdapter(adapter);
+       // adapter = new RecyclerAdapter(this, cattleHistoryBooks, user);
+      //  recyclerView.setAdapter(adapter);
 
         //fab.setOnClickListener(onAddingListener());
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         HistoryBookDAO.getHistoryBook(adapter, user.getPhone());
         super.onResume();
-    }
+    }*/
 
 
   /*  private View.OnClickListener onAddingListener() {

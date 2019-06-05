@@ -5,44 +5,6 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:layout_marginBottom="6dp">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="2dp">
 
-
-        <TableRow
-            android:background="#ECEFF1"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/tvCode"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:text="1" />
-
-            <TextView
-                android:id="@+id/tvEstate"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:text="San José" />
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:text="Vacunación" />
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:text="25/12/2019" />
-        </TableRow>
-    </TableLayout>
 </android.support.v7.widget.CardView>
 
